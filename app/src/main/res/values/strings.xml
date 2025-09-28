@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">mediTrackProject</string>
+    <string name="patientLogin">Patient</string>
+    <string name="doctorLogin">Doctor</string>
+    <string name="contentDescription">Logo for our App</string>
+    <string name="loginTextMiddle">Login</string>
+    <string name="wlcTextUnderLogin">Hi, Welcome back🖐</string>
+    <string name="nationalID">National ID</string>
+    <string name="national_ID_hint"> 1234567890</string>
+    <string name="passwordString">Password</string>"
+    <string name="passwordHint">Enter Your Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="loginButtonText">Login</string>
+    <string name="you_don_t_have_an_account">You don\'t have an Account?</string>
+    <string name="sign_up"><u>Sign up</u></string>
+    <string name="title_activity_doctor_login_page">DoctorLoginPage</string>
+    <string name="professional_registration_number_scfhs">Professional Registration Number (SCFHS)</string>
+    <string name="_00_a_a_000000">00-A-A-000000</string>
+    <string name="arrowback">arrowBack</string>
+    <string name="forget">Forget</string>
+    <string name="password">Password</string>
+    <string name="enter_your_informations_and_we_will_send_you_the_a_link_to_reset_your_password">Enter your Informations and we will send you the a link to reset your password</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="_555555555">555555555</string>
+    <string name="Continue">Continue</string>
+    <string name="register">Register</string>
+    <string name="welcome_nice_to_have_you">Welcome, Nice to have you🖐</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="create_account">Create Account</string>
+
+
+    <string-array name="country_codes">
+        <item>966+</item>
+        <item>971+</item>
+        <item>1+</item>
+    </string-array>
+
+</resources>
