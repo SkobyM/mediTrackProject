@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:padding="30dp"
     android:orientation="vertical"
-
+    android:background="@drawable/bg_soft_gradient"
     tools:context=".MainActivity">
 
     <ImageView
