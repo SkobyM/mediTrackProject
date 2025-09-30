@@ -15,7 +15,7 @@
             android:name=".SignUp_Page"
             android:exported="true" />
         <activity
-            android:name=".ForgetPasswordPage"
+            android:name=".ForgetPasswordPageForPatient"
             android:exported="true" />
         <activity
             android:name=".doctorLogInPage"

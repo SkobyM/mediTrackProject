@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         forgetPasswordTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ForgetPasswordPage.class);
+                Intent intent = new Intent(MainActivity.this, ForgetPasswordPageForPatient.class);
                 startActivity(intent);
             }
         });
