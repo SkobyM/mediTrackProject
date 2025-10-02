@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MediTrackProject">
         <activity
-            android:name=".MainPage"
+            android:name=".PatientHomePage"
             android:exported="false" />
         <activity
             android:name=".SignUp_Page"

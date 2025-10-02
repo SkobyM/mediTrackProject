@@ -38,7 +38,7 @@ public class PatientLogInPage extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            Intent intent = new Intent(getApplicationContext(), MainPage.class);
+            Intent intent = new Intent(getApplicationContext(), PatientHomePage.class);
         }
     }
 
@@ -119,7 +119,7 @@ public class PatientLogInPage extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(PatientLogInPage.this, "Sign up Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(PatientLogInPage.this, MainPage.class);
+                            Intent intent = new Intent(PatientLogInPage.this, PatientHomePage.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.

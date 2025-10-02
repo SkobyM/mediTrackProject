@@ -119,7 +119,7 @@ public class SignUp_Page extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(SignUp_Page.this, "Sign up Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SignUp_Page.this, MainPage.class);
+                            Intent intent = new Intent(SignUp_Page.this, PatientHomePage.class);
                             startActivity(intent);
 
                         } else {
