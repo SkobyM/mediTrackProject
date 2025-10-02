@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MediTrackProject" >
         <activity
+            android:name=".Doctor_SignUp_Page"
+            android:exported="false" />
+        <activity
             android:name=".Doctor_HomePage"
             android:exported="false" />
         <activity

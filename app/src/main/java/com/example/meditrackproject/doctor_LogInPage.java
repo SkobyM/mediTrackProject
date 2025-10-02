@@ -38,6 +38,14 @@ public class doctor_LogInPage extends AppCompatActivity {
             }
         });
 
+        TextView requestSignUpTextView = findViewById(R.id.RequestTextView);
+        requestSignUpTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(doctor_LogInPage.this, Doctor_SignUp_Page.class);
+                startActivity(intent);
+            }
+        });
 
 //        Firebase starting
 

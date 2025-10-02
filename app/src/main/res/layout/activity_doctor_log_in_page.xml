@@ -163,5 +163,35 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/request_for_creating_account"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:layout_weight="1"
+            android:layout_marginStart="30dp"/>
+
+        <TextView
+            android:id="@+id/RequestTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/request"
+            android:layout_weight="1.5"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"
+            />
+
+
+
+    </LinearLayout>
+
 
 </LinearLayout>

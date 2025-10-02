@@ -30,6 +30,8 @@
     <string name="create_account">Create Account</string>
     <string name="enter_first_name">Enter first name</string>
     <string name="enter_last_name">Enter last name</string>
+    <string name="request"><u>Request</u></string>
+    <string name="request_for_creating_account">Request for creating account?</string>
 
 
     <string-array name="country_codes">
