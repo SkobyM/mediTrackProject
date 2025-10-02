@@ -118,7 +118,7 @@ public class PatientLogInPage extends AppCompatActivity {
                         progressBar.setVisibility(View.VISIBLE);
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(PatientLogInPage.this, "Sign up Successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PatientLogInPage.this, "Sign in Successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(PatientLogInPage.this, PatientHomePage.class);
                             startActivity(intent);
                         } else {
