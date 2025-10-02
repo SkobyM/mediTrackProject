@@ -23,12 +23,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Patient_SignUp_Page extends AppCompatActivity {
 
+    // UI components
     EditText firstNameEditText, lastNameEditText, emailEditText, phoneNumberEditText, passwordEditText;
     Button createAccountButton;
-    FirebaseAuth mAuth;
+    FirebaseAuth mAuth; // Firebase Authentication instance
 
 
     @Override
@@ -37,14 +42,14 @@ public class Patient_SignUp_Page extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_patient_sign_up_page);
 
-//        Spinner methods
+// Initialize spinner for country codes
         Spinner countryCodeSpinner = findViewById(R.id.countryCodeSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.country_codes, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         countryCodeSpinner.setAdapter(adapter);
 
 
-//        This is arrow back for going back to log in page
+//          Back arrow → return to Login Page
         ImageView arrowBackForBackPageInSignUp = findViewById(R.id.arrowBackForBackPageInSignUp);
         arrowBackForBackPageInSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,27 +60,29 @@ public class Patient_SignUp_Page extends AppCompatActivity {
         });
 
 
-//        Starting of fireBase
-
+//        Initialize Firebase Auth and Firestore
         mAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        Initialize UI elements
         firstNameEditText = findViewById(R.id.firstNameEditText);
         lastNameEditText = findViewById(R.id.lastNameEditText);
-        emailEditText = findViewById(R.id.nationalIDEditText);
+        emailEditText = findViewById(R.id.emailEditText);
         phoneNumberEditText = findViewById(R.id.phoneNumberEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         createAccountButton = findViewById(R.id.createAccountButton);
 
-
+//Handle Sign Up button click
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Get input values
                 String email = emailEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
                 String firstName = firstNameEditText.getText().toString();
                 String lastName = lastNameEditText.getText().toString();
                 String phoneNumber = phoneNumberEditText.getText().toString();
 
-
+                // Validate inputs
                 if (TextUtils.isEmpty(firstName)) {
                     firstNameEditText.setError("Enter first name");
                     firstNameEditText.requestFocus();
@@ -113,18 +120,37 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                 }
 
 
+                // Create a new user with Firebase Authentication
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(Patient_SignUp_Page.this, "Sign up Successfully", Toast.LENGTH_SHORT).show();
+                            // Get UID of the newly created user
+                            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                            // Create a map of user details
+                            Map<String, String> user = new HashMap<>();
+                            user.put("firstName", firstName);
+                            user.put("lastName", lastName);
+                            user.put("email", email);
+                            user.put("phoneNumber", phoneNumber);
+                            user.put("userType", "patient"); // differentiate between patient/doctor
+
+                            // Save user details to Firestore
+                            db.collection("users").document(uid).set(user).addOnSuccessListener(aVoid -> {
+                                Toast.makeText(Patient_SignUp_Page.this, "Sign up Successfully", Toast.LENGTH_SHORT).show();
+                            }).addOnFailureListener(e -> {
+                                Toast.makeText(Patient_SignUp_Page.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+
+                            // Navigate to patient home page
                             Intent intent = new Intent(Patient_SignUp_Page.this, Patient_HomePage.class);
                             startActivity(intent);
+                            finish();
 
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(Patient_SignUp_Page.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            // Authentication failed
+                            Toast.makeText(Patient_SignUp_Page.this, "Authentication failed.", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
