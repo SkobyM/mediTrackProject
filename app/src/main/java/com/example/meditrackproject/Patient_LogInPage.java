@@ -23,24 +23,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Patient_LogInPage extends AppCompatActivity {
 
     EditText emailEditText, passwordEditText;
     Button loginButton;
     ProgressBar progressBar;
+    FirebaseFirestore db;
     private FirebaseAuth mAuth;
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            Intent intent = new Intent(getApplicationContext(), Patient_HomePage.class);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +75,8 @@ public class Patient_LogInPage extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         progressBar = findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,23 +105,40 @@ public class Patient_LogInPage extends AppCompatActivity {
                     passwordEditText.requestFocus();
                     return;
                 }
-
+                progressBar.setVisibility(View.VISIBLE);
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressBar.setVisibility(View.VISIBLE);
+
                         if (task.isSuccessful()) {
+                            String uid = mAuth.getCurrentUser().getUid();
+                            db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
+                                if (documentSnapshot.exists()) {
+
+                                    String userType = documentSnapshot.getString("userType");
+                                    if ("doctor".equals(userType)) {
+                                        Intent intent = new Intent(Patient_LogInPage.this, Doctor_HomePage.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else if ("patient".equals(userType)) {
+                                        Intent intent = new Intent(Patient_LogInPage.this, Patient_HomePage.class);
+                                        startActivity(intent);
+                                        finish();
+
+                                    }
+                                }
+                                progressBar.setVisibility(View.GONE);
+                            });
                             // Sign in success, update UI with the signed-in user's information
+
                             Toast.makeText(Patient_LogInPage.this, "Sign in Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Patient_LogInPage.this, Patient_HomePage.class);
-                            startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
-
+                            progressBar.setVisibility(View.GONE);
                             Toast.makeText(Patient_LogInPage.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
 
                         }
-                        progressBar.setVisibility(View.GONE);
+
                     }
                 });
 
