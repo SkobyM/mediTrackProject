@@ -7,6 +7,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -34,6 +35,8 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
     // Firebase instances
     FirebaseAuth mAuth;          // Firebase Authentication instance
     FirebaseFirestore db;        // Firebase Firestore instance
+    ImageView arrowBackForBackPageInSignUp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
         licenseEditText = findViewById(R.id.licenseEditText);
         requestAccountButton = findViewById(R.id.requestAccountButton);
         passwordEditText = findViewById(R.id.passwordEditText);
+        arrowBackForBackPageInSignUp = findViewById(R.id.arrowBackForBackPageInSignUp);
 
         // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
@@ -139,6 +143,16 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+
+        // Handle back arrow click
+        arrowBackForBackPageInSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Doctor_SignUp_Page.this, doctor_LogInPage.class);
+                startActivity(intent);
+                finish();
             }
         });
 
