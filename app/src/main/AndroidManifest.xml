@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MediTrackProject">
         <activity
+            android:name=".MainPage"
+            android:exported="false" />
+        <activity
             android:name=".SignUp_Page"
             android:exported="true" />
         <activity
@@ -23,7 +26,7 @@
             android:label="@string/title_activity_doctor_login_page"
             android:theme="@style/Theme.MediTrackProject" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LogInPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

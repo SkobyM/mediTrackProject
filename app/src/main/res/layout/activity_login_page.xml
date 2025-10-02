@@ -9,7 +9,7 @@
     android:padding="30dp"
     android:orientation="vertical"
     android:background="@drawable/bg_soft_gradient"
-    tools:context=".MainActivity">
+    tools:context=".LogInPage">
 
     <ImageView
         android:id="@+id/ourLogoInLogInPage"
@@ -96,7 +96,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nationalID"
+        android:text="@string/email"
         android:textStyle="bold"
         android:layout_marginBottom="3dp"
         android:layout_marginStart="20dp"
@@ -105,9 +105,9 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints="postalCode"
+        android:autofillHints="emailAddress"
         android:background="@drawable/edit_text_bg"
-        android:hint="@string/national_ID_hint"
+        android:hint="@string/email_hint"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:paddingTop="5dp"
@@ -115,7 +115,7 @@
         android:paddingStart="7dp"
         android:paddingEnd="7dp"
         android:layout_marginBottom="20dp"
-        android:inputType="number" />
+        android:inputType="textEmailAddress" />
 
     <!--Password-->
     <TextView

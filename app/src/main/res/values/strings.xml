@@ -5,8 +5,8 @@
     <string name="contentDescription">Logo for our App</string>
     <string name="loginTextMiddle">Login</string>
     <string name="wlcTextUnderLogin">Hi, Welcome back🖐</string>
-    <string name="nationalID">National ID</string>
-    <string name="national_ID_hint"> 1234567890</string>
+    <string name="email">Email</string>
+    <string name="email_hint"> Enter your email</string>
     <string name="passwordString">Password</string>"
     <string name="passwordHint">Enter Your Password</string>
     <string name="forgot_password">Forgot Password?</string>

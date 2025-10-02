@@ -11,19 +11,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class LogInPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login_page);
 
         TextView patientToDoctorTextView = findViewById(R.id.doctorLoginPatientView);
         patientToDoctorTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, doctorLogInPage.class);
+                Intent intent = new Intent(LogInPage.this, doctorLogInPage.class);
                 startActivity(intent);
             }
         });
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         forgetPasswordTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ForgetPasswordPageForPatient.class);
+                Intent intent = new Intent(LogInPage.this, ForgetPasswordPageForPatient.class);
                 startActivity(intent);
             }
         });
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         signUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SignUp_Page.class);
+                Intent intent = new Intent(LogInPage.this, SignUp_Page.class);
                 startActivity(intent);
             }
         });
