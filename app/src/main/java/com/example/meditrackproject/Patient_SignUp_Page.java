@@ -57,6 +57,7 @@ public class Patient_SignUp_Page extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Patient_SignUp_Page.this, Patient_LogInPage.class);
                 startActivity(intent);
+                finish();
             }
         });
 

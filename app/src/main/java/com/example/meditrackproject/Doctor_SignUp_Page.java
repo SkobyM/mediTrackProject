@@ -132,7 +132,7 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
                                 Toast.makeText(Doctor_SignUp_Page.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             });
 
-                            // Navigate to Doctor home page after successful request
+                            // Navigate to Doctor log in page after successful request
                             Intent intent = new Intent(Doctor_SignUp_Page.this, doctor_LogInPage.class);
                             startActivity(intent);
                             finish();
