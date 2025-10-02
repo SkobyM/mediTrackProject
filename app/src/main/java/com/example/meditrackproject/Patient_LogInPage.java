@@ -22,7 +22,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Patient_LogInPage extends AppCompatActivity {
@@ -117,21 +116,21 @@ public class Patient_LogInPage extends AppCompatActivity {
 
                                     String userType = documentSnapshot.getString("userType");
                                     if ("doctor".equals(userType)) {
-                                        Intent intent = new Intent(Patient_LogInPage.this, Doctor_HomePage.class);
+                                        Intent intent = new Intent(Patient_LogInPage.this, doctor_LogInPage.class);
                                         startActivity(intent);
                                         finish();
                                     } else if ("patient".equals(userType)) {
                                         Intent intent = new Intent(Patient_LogInPage.this, Patient_HomePage.class);
                                         startActivity(intent);
                                         finish();
-
+                                        Toast.makeText(Patient_LogInPage.this, "Sign in Successfully", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 progressBar.setVisibility(View.GONE);
                             });
                             // Sign in success, update UI with the signed-in user's information
 
-                            Toast.makeText(Patient_LogInPage.this, "Sign in Successfully", Toast.LENGTH_SHORT).show();
+
                         } else {
                             // If sign in fails, display a message to the user.
                             progressBar.setVisibility(View.GONE);

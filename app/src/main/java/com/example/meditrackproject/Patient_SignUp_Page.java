@@ -27,7 +27,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class Patient_SignUp_Page extends AppCompatActivity {
 
@@ -83,6 +82,7 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                 String firstName = firstNameEditText.getText().toString();
                 String lastName = lastNameEditText.getText().toString();
                 String phoneNumber = phoneNumberEditText.getText().toString();
+                String cuntryCode = countryCodeSpinner.getSelectedItem().toString();
 
                 // Validate inputs
                 if (TextUtils.isEmpty(firstName)) {
@@ -136,6 +136,7 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                             user.put("lastName", lastName);
                             user.put("email", email);
                             user.put("phoneNumber", phoneNumber);
+                            user.put("cuntryCode", cuntryCode);
                             user.put("userType", "patient"); // differentiate between patient/doctor
 
                             // Save user details to Firestore
