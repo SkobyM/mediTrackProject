@@ -32,6 +32,9 @@
     <string name="enter_last_name">Enter last name</string>
     <string name="request"><u>Request</u></string>
     <string name="request_for_creating_account">Request for creating account?</string>
+    <string name="licenseNumber">license Number</string>
+    <string name="enter_your_license_number">Enter your license number</string>
+    <string name="request_create_account">Request Create Account</string>
 
 
     <string-array name="country_codes">

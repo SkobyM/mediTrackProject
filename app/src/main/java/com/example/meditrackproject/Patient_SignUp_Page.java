@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Patient_SignUp_Page extends AppCompatActivity {
 
@@ -129,7 +130,7 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                             // Create a map of user details
-                            Map<String, String> user = new HashMap<>();
+                            Map<String, Object> user = new HashMap<>();
                             user.put("firstName", firstName);
                             user.put("lastName", lastName);
                             user.put("email", email);
