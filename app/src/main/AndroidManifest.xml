@@ -14,24 +14,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MediTrackProject" >
         <activity
-            android:name=".DoctorHomePage"
+            android:name=".Doctor_HomePage"
             android:exported="false" />
         <activity
-            android:name=".PatientHomePage"
+            android:name=".Patient_HomePage"
             android:exported="false" />
         <activity
-            android:name=".SignUp_Page"
+            android:name=".Patient_SignUp_Page"
             android:exported="true" />
         <activity
-            android:name=".ForgetPasswordPageForPatient"
+            android:name=".Patient_ForgetPasswordPage"
             android:exported="true" />
         <activity
-            android:name=".doctorLogInPage"
+            android:name=".doctor_LogInPage"
             android:exported="true"
             android:label="@string/title_activity_doctor_login_page"
             android:theme="@style/Theme.MediTrackProject" />
         <activity
-            android:name=".PatientLogInPage"
+            android:name=".Patient_LogInPage"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

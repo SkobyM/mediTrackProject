@@ -12,13 +12,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class ForgetPasswordPageForPatient extends AppCompatActivity {
+public class Patient_ForgetPasswordPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_forget_password_page_for_patient);
+        setContentView(R.layout.activity_patient_forget_password_page);
 
         Spinner countryCodeSpinner = findViewById(R.id.countryCodeSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -28,7 +28,7 @@ public class ForgetPasswordPageForPatient extends AppCompatActivity {
 
         ImageView arrowBackImageView = findViewById(R.id.arrowBackForBackPage);
         arrowBackImageView.setOnClickListener(v -> {
-            Intent intent = new Intent(ForgetPasswordPageForPatient.this, PatientLogInPage.class);
+            Intent intent = new Intent(Patient_ForgetPasswordPage.this, Patient_LogInPage.class);
             startActivity(intent);
             finish();
         });

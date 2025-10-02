@@ -2,27 +2,20 @@ package com.example.meditrackproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class doctorLogInPage extends AppCompatActivity {
+public class doctor_LogInPage extends AppCompatActivity {
 
     EditText emailEditText, passwordEditText;
     Button loginButton;
@@ -40,7 +33,7 @@ public class doctorLogInPage extends AppCompatActivity {
         doctorToPatientTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(doctorLogInPage.this, PatientLogInPage.class);
+                Intent intent = new Intent(doctor_LogInPage.this, Patient_LogInPage.class);
                 startActivity(intent);
             }
         });
@@ -87,13 +80,13 @@ public class doctorLogInPage extends AppCompatActivity {
 //                    public void onComplete(@NonNull Task<AuthResult> task) {
 //                        if (task.isSuccessful()) {
 //                            // Sign in success, update UI with the signed-in user's information
-//                            Toast.makeText(doctorLogInPage.this, "Sign in Successfully", Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(doctorLogInPage.this, PatientHomePage.class);
+//                            Toast.makeText(doctor_LogInPage.this, "Sign in Successfully", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(doctor_LogInPage.this, Patient_HomePage.class);
 //                            startActivity(intent);
 //                        } else {
 //                            // If sign in fails, display a message to the user.
 //
-//                            Toast.makeText(doctorLogInPage.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(doctor_LogInPage.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
 //
 //                        }
 //                    }

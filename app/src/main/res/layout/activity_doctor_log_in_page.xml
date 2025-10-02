@@ -8,7 +8,7 @@
     android:background="@drawable/bg_soft_gradient"
     android:orientation="vertical"
     android:padding="30dp"
-    tools:context=".doctorLogInPage">
+    tools:context=".doctor_LogInPage">
 
     <ImageView
         android:id="@+id/ourLogoInLogInPage"

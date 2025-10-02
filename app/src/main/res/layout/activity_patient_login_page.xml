@@ -9,7 +9,7 @@
     android:padding="30dp"
     android:orientation="vertical"
     android:background="@drawable/bg_soft_gradient"
-    tools:context=".PatientLogInPage">
+    tools:context=".Patient_LogInPage">
 
     <ImageView
         android:id="@+id/ourLogoInLogInPage"

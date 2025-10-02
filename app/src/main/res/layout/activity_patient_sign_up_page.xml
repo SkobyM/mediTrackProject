@@ -8,7 +8,7 @@
     android:background="@drawable/bg_soft_gradient"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".SignUp_Page">
+    tools:context=".Patient_SignUp_Page">
 
     <ImageView
         android:id="@+id/arrowBackForBackPageInSignUp"

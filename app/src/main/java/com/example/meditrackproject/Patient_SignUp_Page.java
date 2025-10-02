@@ -24,7 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SignUp_Page extends AppCompatActivity {
+public class Patient_SignUp_Page extends AppCompatActivity {
 
     EditText firstNameEditText, lastNameEditText, emailEditText, phoneNumberEditText, passwordEditText;
     Button createAccountButton;
@@ -35,7 +35,7 @@ public class SignUp_Page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_sign_up_page);
+        setContentView(R.layout.activity_patient_sign_up_page);
 
 //        Spinner methods
         Spinner countryCodeSpinner = findViewById(R.id.countryCodeSpinner);
@@ -49,7 +49,7 @@ public class SignUp_Page extends AppCompatActivity {
         arrowBackForBackPageInSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUp_Page.this, PatientLogInPage.class);
+                Intent intent = new Intent(Patient_SignUp_Page.this, Patient_LogInPage.class);
                 startActivity(intent);
             }
         });
@@ -118,13 +118,13 @@ public class SignUp_Page extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(SignUp_Page.this, "Sign up Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SignUp_Page.this, PatientHomePage.class);
+                            Toast.makeText(Patient_SignUp_Page.this, "Sign up Successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Patient_SignUp_Page.this, Patient_HomePage.class);
                             startActivity(intent);
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(SignUp_Page.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Patient_SignUp_Page.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

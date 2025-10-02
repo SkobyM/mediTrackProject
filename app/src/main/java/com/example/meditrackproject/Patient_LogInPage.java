@@ -24,7 +24,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class PatientLogInPage extends AppCompatActivity {
+public class Patient_LogInPage extends AppCompatActivity {
 
     EditText emailEditText, passwordEditText;
     Button loginButton;
@@ -38,7 +38,7 @@ public class PatientLogInPage extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            Intent intent = new Intent(getApplicationContext(), PatientHomePage.class);
+            Intent intent = new Intent(getApplicationContext(), Patient_HomePage.class);
         }
     }
 
@@ -52,7 +52,7 @@ public class PatientLogInPage extends AppCompatActivity {
         patientToDoctorTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PatientLogInPage.this, doctorLogInPage.class);
+                Intent intent = new Intent(Patient_LogInPage.this, doctor_LogInPage.class);
                 startActivity(intent);
             }
         });
@@ -61,7 +61,7 @@ public class PatientLogInPage extends AppCompatActivity {
         forgetPasswordTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PatientLogInPage.this, ForgetPasswordPageForPatient.class);
+                Intent intent = new Intent(Patient_LogInPage.this, Patient_ForgetPasswordPage.class);
                 startActivity(intent);
             }
         });
@@ -70,7 +70,7 @@ public class PatientLogInPage extends AppCompatActivity {
         signUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PatientLogInPage.this, SignUp_Page.class);
+                Intent intent = new Intent(Patient_LogInPage.this, Patient_SignUp_Page.class);
                 startActivity(intent);
             }
         });
@@ -118,13 +118,13 @@ public class PatientLogInPage extends AppCompatActivity {
                         progressBar.setVisibility(View.VISIBLE);
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(PatientLogInPage.this, "Sign in Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(PatientLogInPage.this, PatientHomePage.class);
+                            Toast.makeText(Patient_LogInPage.this, "Sign in Successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Patient_LogInPage.this, Patient_HomePage.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
 
-                            Toast.makeText(PatientLogInPage.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Patient_LogInPage.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
 
                         }
                         progressBar.setVisibility(View.GONE);
