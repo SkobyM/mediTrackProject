@@ -28,6 +28,8 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="create_account">Create Account</string>
+    <string name="enter_first_name">Enter first name</string>
+    <string name="enter_last_name">Enter last name</string>
 
 
     <string-array name="country_codes">

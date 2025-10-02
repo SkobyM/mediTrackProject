@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:alpha="0.6"
+        android:alpha="0.8"
         android:gravity="center"
         android:text="@string/welcome_nice_to_have_you"
         android:textStyle="bold" />
@@ -90,12 +90,12 @@
             android:layout_weight="1"
             android:autofillHints="name"
             android:background="@drawable/edit_text_bg"
+            android:hint="@string/enter_first_name"
             android:inputType="textPersonName"
             android:paddingStart="7dp"
             android:paddingTop="5dp"
             android:paddingEnd="7dp"
-            android:paddingBottom="5dp"
-            tools:ignore="LabelFor" />
+            android:paddingBottom="5dp" />
 
         <EditText
             android:id="@+id/lastNameEditText"
@@ -107,12 +107,12 @@
             android:layout_weight="1"
             android:autofillHints="name"
             android:background="@drawable/edit_text_bg"
+            android:hint="@string/enter_last_name"
             android:inputType="textPersonName"
             android:paddingStart="7dp"
             android:paddingTop="5dp"
             android:paddingEnd="7dp"
-            android:paddingBottom="5dp"
-            tools:ignore="LabelFor" />
+            android:paddingBottom="5dp" />
 
     </LinearLayout>
 
@@ -203,10 +203,7 @@
         android:paddingStart="7dp"
         android:paddingTop="5dp"
         android:paddingEnd="7dp"
-        android:paddingBottom="5dp"
-        />
-
-
+        android:paddingBottom="5dp" />
 
 
     <!--    create account button -->
