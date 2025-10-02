@@ -28,7 +28,7 @@ public class ForgetPasswordPageForPatient extends AppCompatActivity {
 
         ImageView arrowBackImageView = findViewById(R.id.arrowBackForBackPage);
         arrowBackImageView.setOnClickListener(v -> {
-            Intent intent = new Intent(ForgetPasswordPageForPatient.this, LogInPage.class);
+            Intent intent = new Intent(ForgetPasswordPageForPatient.this, PatientLogInPage.class);
             startActivity(intent);
             finish();
         });

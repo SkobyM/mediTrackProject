@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -50,7 +49,7 @@ public class SignUp_Page extends AppCompatActivity {
         arrowBackForBackPageInSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUp_Page.this, LogInPage.class);
+                Intent intent = new Intent(SignUp_Page.this, PatientLogInPage.class);
                 startActivity(intent);
             }
         });
@@ -92,7 +91,7 @@ public class SignUp_Page extends AppCompatActivity {
                     emailEditText.requestFocus();
                     return;
                 }
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     emailEditText.setError("Please provide valid email");
                     emailEditText.requestFocus();
                     return;

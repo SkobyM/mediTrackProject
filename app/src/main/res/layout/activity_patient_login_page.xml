@@ -9,7 +9,7 @@
     android:padding="30dp"
     android:orientation="vertical"
     android:background="@drawable/bg_soft_gradient"
-    tools:context=".LogInPage">
+    tools:context=".PatientLogInPage">
 
     <ImageView
         android:id="@+id/ourLogoInLogInPage"
@@ -103,6 +103,7 @@
     />
 
     <EditText
+        android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="emailAddress"
@@ -128,6 +129,7 @@
         />
 
     <EditText
+        android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="password"
@@ -158,7 +160,16 @@
         android:layout_marginBottom="20dp"
         />
 
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        />
+
+
     <Button
+        android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/loginButtonText"
