@@ -7,7 +7,7 @@
     <string name="wlcTextUnderLogin">Hi, Welcome back🖐</string>
     <string name="email">Email</string>
     <string name="email_hint"> Enter your email</string>
-    <string name="passwordString">Password</string>"
+    <string name="passwordString">Password</string>
     <string name="passwordHint">Enter Your Password</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="loginButtonText">Login</string>
