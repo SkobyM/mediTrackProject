@@ -35,6 +35,10 @@
     <string name="licenseNumber">license Number</string>
     <string name="enter_your_license_number">Enter your license number</string>
     <string name="request_create_account">Request Create Account</string>
+    <string name="enter_password_again">Enter password again</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="invalid_email_password">Invalid email/password</string>
+    <string name="your_account_is_not_approved">Your account is not approved</string>
 
 
     <string-array name="country_codes">

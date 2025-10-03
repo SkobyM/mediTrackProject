@@ -31,7 +31,7 @@ import java.util.Map;
 public class Patient_SignUp_Page extends AppCompatActivity {
 
     // UI components
-    EditText firstNameEditText, lastNameEditText, emailEditText, phoneNumberEditText, passwordEditText;
+    EditText firstNameEditText, lastNameEditText, emailEditText, phoneNumberEditText, passwordEditText, rePasswordEditText;
     Button createAccountButton;
     FirebaseAuth mAuth; // Firebase Authentication instance
 
@@ -71,6 +71,7 @@ public class Patient_SignUp_Page extends AppCompatActivity {
         phoneNumberEditText = findViewById(R.id.phoneNumberEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         createAccountButton = findViewById(R.id.createAccountButton);
+        rePasswordEditText = findViewById(R.id.rePasswordEditText);
 
 //Handle Sign Up button click
         createAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +80,7 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                 // Get input values
                 String email = emailEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
+                String rePassword = rePasswordEditText.getText().toString().trim();
                 String firstName = firstNameEditText.getText().toString();
                 String lastName = lastNameEditText.getText().toString();
                 String phoneNumber = phoneNumberEditText.getText().toString();
@@ -118,6 +120,23 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                 if (password.length() < 6) {
                     passwordEditText.setError("Minimum length of password should be 6");
                     passwordEditText.requestFocus();
+                    return;
+                }
+                if (TextUtils.isEmpty(rePassword)) {
+                    passwordEditText.setError("Confirm password is required");
+                    passwordEditText.requestFocus();
+                    return;
+                }
+                if (rePassword.length() < 6) {
+                    passwordEditText.setError("Minimum length of password should be 6");
+                    passwordEditText.requestFocus();
+                    return;
+                }
+                if (!password.equals(rePassword)) {
+                    passwordEditText.setError("Passwords do not match");
+                    passwordEditText.requestFocus();
+                    rePasswordEditText.setError("Passwords do not match");
+                    rePasswordEditText.requestFocus();
                     return;
                 }
 

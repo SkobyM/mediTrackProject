@@ -1,185 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/patientLoginPage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp"
-    android:orientation="vertical"
     android:background="@drawable/bg_soft_gradient"
+    android:orientation="vertical"
+    android:padding="30dp"
     tools:context=".Patient_LogInPage">
 
     <ImageView
         android:id="@+id/ourLogoInLogInPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:contentDescription="@string/contentDescription"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/_a3c3d57b44b7902bc7eb7149393130cb5b742ad"
-        android:layout_marginTop="50dp"
-        />
+        app:srcCompat="@drawable/_a3c3d57b44b7902bc7eb7149393130cb5b742ad" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="10dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/patientLoginTextView"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:text="@string/patientLogin"
-                        android:textStyle="bold"
-                        android:layout_marginEnd="50dp"
-                        android:layout_marginBottom="3dp"
-                        />
-
-                    <View
-                        android:layout_width="49dp"
-                        android:layout_height="2.5dp"
-                        android:id="@+id/divider2"
-                        android:background="@drawable/divider_gradient"/>
-
-
-                </LinearLayout>
-
+            android:orientation="vertical">
 
 
             <TextView
+                android:id="@+id/patientLoginTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/doctorLoginPatientView"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="3dp"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
-                android:text="@string/doctorLogin"
-                android:textStyle="bold"
+                android:text="@string/patientLogin"
+                android:textStyle="bold" />
 
-                />
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="49dp"
+                android:layout_height="2.5dp"
+                android:background="@drawable/divider_gradient" />
 
 
         </LinearLayout>
-<!--Login text-->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/loginTextMiddle"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="#333333"
-        android:gravity="center"/>
-    <!--Welcome back text-->
+
+
+        <TextView
+            android:id="@+id/doctorLoginPatientView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/doctorLogin"
+            android:textStyle="bold"
+
+            />
+
+
+    </LinearLayout>
+    <!--Login text-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:alpha="0.6"
-        android:text="@string/wlcTextUnderLogin"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp"
-        />
-
-    <!--National ID text-->
+        android:text="@string/loginTextMiddle"
+        android:textColor="#333333"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+    <!--Welcome back text-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/email"
+        android:layout_marginBottom="10dp"
+        android:alpha="0.6"
+        android:gravity="center"
+        android:text="@string/wlcTextUnderLogin"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/invalidEmailPasswordTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/invalid_email_password"
+        android:textColor="@color/red"
         android:textStyle="bold"
-        android:layout_marginBottom="3dp"
+        android:visibility="gone" />
+
+    <!--Email text view-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-    />
+        android:layout_marginBottom="3dp"
+        android:text="@string/email"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:autofillHints="emailAddress"
         android:background="@drawable/edit_text_bg"
         android:hint="@string/email_hint"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
+        android:inputType="textEmailAddress"
         android:paddingStart="7dp"
+        android:paddingTop="5dp"
         android:paddingEnd="7dp"
-        android:layout_marginBottom="20dp"
-        android:inputType="textEmailAddress" />
+        android:paddingBottom="5dp" />
 
     <!--Password-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/passwordString"
-        android:textStyle="bold"
-        android:layout_marginBottom="3dp"
         android:layout_marginStart="20dp"
-        />
+        android:layout_marginBottom="3dp"
+        android:text="@string/passwordString"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="15dp"
         android:autofillHints="password"
         android:background="@drawable/edit_text_bg"
         android:hint="@string/passwordHint"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingStart="7dp"
-        android:paddingEnd="7dp"
-        android:layout_marginBottom="15dp"
         android:inputType="textPassword"
-        />
+        android:paddingStart="7dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="7dp"
+        android:paddingBottom="5dp" />
     <!--Forgot password text-->
     <TextView
         android:id="@+id/forgotPasswordTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/forgot_password"
-        android:textStyle="bold"
-        android:textColor="@color/red"
+        android:layout_marginBottom="20dp"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="end"
         android:paddingStart="10dp"
         android:paddingEnd="20dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_marginBottom="20dp"
-        />
+        android:text="@string/forgot_password"
+        android:textColor="@color/red"
+        android:textStyle="bold" />
 
     <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/loginButtonText"
-        android:textStyle="bold"
-        android:textSize="20sp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:backgroundTint="@color/darkBlue"
         android:layout_marginBottom="15dp"
-        />
+        android:backgroundTint="@color/darkBlue"
+        android:text="@string/loginButtonText"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 
     <LinearLayout
@@ -191,30 +190,24 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/you_don_t_have_an_account"
-            android:textStyle="bold"
-            android:textSize="12sp"
+            android:layout_marginStart="30dp"
             android:layout_weight="1"
-            android:layout_marginStart="30dp"/>
+            android:text="@string/you_don_t_have_an_account"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/SignUpTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sign_up"
             android:layout_weight="1.1"
-            android:textStyle="bold"
             android:clickable="true"
             android:focusable="true"
-            />
-
+            android:text="@string/sign_up"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
-
-
-
-
 
 
 </LinearLayout>

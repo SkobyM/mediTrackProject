@@ -30,8 +30,8 @@ public class Patient_LogInPage extends AppCompatActivity {
     Button loginButton;
     ProgressBar progressBar;
     FirebaseFirestore db;
+    TextView invalidEmailPasswordTextView;
     private FirebaseAuth mAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,7 @@ public class Patient_LogInPage extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
         progressBar = findViewById(R.id.progressBar);
+        invalidEmailPasswordTextView = findViewById(R.id.invalidEmailPasswordTextView);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
@@ -83,6 +84,7 @@ public class Patient_LogInPage extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
+                invalidEmailPasswordTextView.setVisibility(View.GONE);
 
                 if (TextUtils.isEmpty(email)) {
                     emailEditText.setError("Email is required");
@@ -134,7 +136,7 @@ public class Patient_LogInPage extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(Patient_LogInPage.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            invalidEmailPasswordTextView.setVisibility(View.VISIBLE);
 
                         }
 

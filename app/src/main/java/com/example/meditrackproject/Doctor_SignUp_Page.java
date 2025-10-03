@@ -118,7 +118,6 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
                         user.put("email", email);
                         user.put("licenseNumber", licenseNumber);
                         user.put("userType", "doctor"); // differentiate between patient and doctor
-                        user.put("code", "");           // special code to be set manually by admin
                         user.put("approved", false);    // default: doctor account not approved
 
                         if (task.isSuccessful()) {

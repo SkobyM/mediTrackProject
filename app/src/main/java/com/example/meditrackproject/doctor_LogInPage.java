@@ -29,6 +29,7 @@ public class doctor_LogInPage extends AppCompatActivity {
     Button loginButton;
     FirebaseAuth mAuth;
     FirebaseFirestore db;
+    TextView invalidEmailPasswordTextView, approvedTextView;
 
 
     @Override
@@ -63,6 +64,9 @@ public class doctor_LogInPage extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
+        approvedTextView = findViewById(R.id.approvedTextView);
+        invalidEmailPasswordTextView = findViewById(R.id.invalidEmailPasswordTextView);
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +75,8 @@ public class doctor_LogInPage extends AppCompatActivity {
                 String password = passwordEditText.getText().toString().trim();
                 Boolean validateLogin;
 
+                invalidEmailPasswordTextView.setVisibility(View.GONE);
+                approvedTextView.setVisibility(View.GONE);
 
                 if (TextUtils.isEmpty(email)) {
                     emailEditText.setError("Email is required");
@@ -99,7 +105,6 @@ public class doctor_LogInPage extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
 
-
                         if (task.isSuccessful()) {
                             String uid = mAuth.getCurrentUser().getUid();
                             db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
@@ -110,15 +115,16 @@ public class doctor_LogInPage extends AppCompatActivity {
                                         Intent intent = new Intent(doctor_LogInPage.this, Doctor_HomePage.class);
                                         startActivity(intent);
                                         finish();
-                                    }else {
-                                        Toast.makeText(doctor_LogInPage.this, "Your account is not approved", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        approvedTextView.setVisibility(View.VISIBLE);
                                     }
                                 }
                             });
                         } else {
                             // If sign in fails, display a message to the user.
 
-                            Toast.makeText(doctor_LogInPage.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            invalidEmailPasswordTextView.setVisibility(View.VISIBLE);
+
 
                         }
                     }

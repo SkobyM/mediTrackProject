@@ -87,6 +87,26 @@
         android:text="@string/wlcTextUnderLogin"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/invalidEmailPasswordTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/invalid_email_password"
+        android:textColor="@color/red"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/approvedTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/your_account_is_not_approved"
+        android:textColor="@color/red"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
     <!--Email text view-->
     <TextView
         android:layout_width="match_parent"
