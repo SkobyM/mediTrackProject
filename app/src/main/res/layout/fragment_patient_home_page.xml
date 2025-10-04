@@ -50,7 +50,7 @@
         android:id="@+id/patientNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/patient"
+        android:text="@string/app_name"
         app:layout_constraintStart_toEndOf="@+id/welcomeTextView"
         app:layout_constraintTop_toBottomOf="@+id/notificationImageView"
         android:textSize="24sp"
