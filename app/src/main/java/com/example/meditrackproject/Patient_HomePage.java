@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Patient_HomePage extends AppCompatActivity {
 
@@ -15,10 +18,38 @@ public class Patient_HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_patient_home_page);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        Fragment homePage = new PatientHomePageFragment();
+        Fragment calenderPage = new PatientCalenderFragment();
+        Fragment profilePage = new PatientProfileFragment();
+        setCurrentFragment(homePage);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+
+            int id = item.getItemId();
+
+            if (id == R.id.nav_home) {
+                setCurrentFragment(homePage);
+            } else if (id == R.id.nav_calender) {
+                setCurrentFragment(calenderPage);
+            } else if (id == R.id.nav_profile) {
+                setCurrentFragment(profilePage);
+            }
+            return true;
+        });
+
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.patientHomePage), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+    }
+
+    private void setCurrentFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 }
