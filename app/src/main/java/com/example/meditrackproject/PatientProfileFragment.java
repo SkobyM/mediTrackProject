@@ -1,64 +1,61 @@
 package com.example.meditrackproject;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PatientProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.fragment.app.Fragment;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+
 public class PatientProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public PatientProfileFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PatientProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PatientProfileFragment newInstance(String param1, String param2) {
-        PatientProfileFragment fragment = new PatientProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_patient_profile, container, false);
+        View views = inflater.inflate(R.layout.fragment_patient_profile, container, false);
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        TextView patientNameTextView = views.findViewById(R.id.patientFullName);
+        TextView patientPhoneNumberTextView = views.findViewById(R.id.patientPhoneNumber);
+        TextView logoutTextView = views.findViewById(R.id.logoutTextView);
+
+
+        if (mAuth.getCurrentUser() != null) {
+            String uid = mAuth.getCurrentUser().getUid();
+            db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
+                String fullName = documentSnapshot.getString("firstName") + " " + documentSnapshot.getString("lastName");
+                String phoneNumber = documentSnapshot.getString("cuntryCode") + "-" + documentSnapshot.getString("phoneNumber");
+                patientPhoneNumberTextView.setText(phoneNumber);
+                patientNameTextView.setText(fullName);
+
+            });
+        }
+
+        logoutTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+
+                Intent intent = new Intent(getActivity(), Patient_LogInPage.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
+
+        return views;
     }
 }
