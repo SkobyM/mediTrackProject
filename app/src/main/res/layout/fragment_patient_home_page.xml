@@ -2,10 +2,62 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/patientHomePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="24dp"
+    android:background="@drawable/bg_soft_gradient"
     tools:context=".PatientHomePageFragment">
+
+    <!--    support image view (Headset) -->
+    <ImageView
+        android:id="@+id/supportImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/support_button"
+        android:src="@drawable/outline_headset_mic_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/notificationImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/notfication_button"
+        android:src="@drawable/outline_notifications_24"
+        app:layout_constraintStart_toEndOf="@+id/supportImageView"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/welcomeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome"
+        app:layout_constraintTop_toBottomOf="@+id/supportImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="24sp"
+        android:fontFamily="@font/inter_semibold"
+        android:layout_marginTop="15dp"/>
+    <TextView
+        android:id="@+id/patientNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/patient"
+        app:layout_constraintStart_toEndOf="@+id/welcomeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/notificationImageView"
+        android:textSize="24sp"
+        android:fontFamily="@font/inter_bold"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="5dp"/>
+
 
 
 
