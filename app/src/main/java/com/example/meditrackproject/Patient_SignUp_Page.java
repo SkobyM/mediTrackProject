@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -34,7 +35,7 @@ public class Patient_SignUp_Page extends AppCompatActivity {
     EditText firstNameEditText, lastNameEditText, emailEditText, phoneNumberEditText, passwordEditText, rePasswordEditText;
     Button createAccountButton;
     FirebaseAuth mAuth; // Firebase Authentication instance
-
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +73,14 @@ public class Patient_SignUp_Page extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         createAccountButton = findViewById(R.id.createAccountButton);
         rePasswordEditText = findViewById(R.id.rePasswordEditText);
+        progressBar = findViewById(R.id.progressBar);
 
 //Handle Sign Up button click
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 // Get input values
                 String email = emailEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
@@ -92,8 +96,18 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                     firstNameEditText.requestFocus();
                     return;
                 }
+                if (TextUtils.isDigitsOnly(firstName)) {
+                    firstNameEditText.setError("Please enter valid name");
+                    firstNameEditText.requestFocus();
+                    return;
+                }
                 if (TextUtils.isEmpty(lastName)) {
                     lastNameEditText.setError("Enter last name");
+                    lastNameEditText.requestFocus();
+                    return;
+                }
+                if (TextUtils.isDigitsOnly(lastName)) {
+                    lastNameEditText.setError("Please enter valid name");
                     lastNameEditText.requestFocus();
                     return;
                 }
@@ -109,6 +123,11 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                 }
                 if (TextUtils.isEmpty(phoneNumber)) {
                     phoneNumberEditText.setError("Enter phone number");
+                    phoneNumberEditText.requestFocus();
+                    return;
+                }
+                if (phoneNumber.length() < 6) {
+                    phoneNumberEditText.setError("Please enter valid phone number");
                     phoneNumberEditText.requestFocus();
                     return;
                 }
@@ -140,7 +159,7 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                     return;
                 }
 
-
+                progressBar.setVisibility(View.VISIBLE);
                 // Create a new user with Firebase Authentication
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -161,18 +180,26 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                             // Save user details to Firestore
                             db.collection("users").document(uid).set(user).addOnSuccessListener(aVoid -> {
                                 Toast.makeText(Patient_SignUp_Page.this, "Sign up Successfully", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                                Intent intent = new Intent(Patient_SignUp_Page.this, Patient_HomePage.class);
+                                startActivity(intent);
+                                finish();
                             }).addOnFailureListener(e -> {
                                 Toast.makeText(Patient_SignUp_Page.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
                             });
 
-                            // Navigate to patient home page
-                            Intent intent = new Intent(Patient_SignUp_Page.this, Patient_HomePage.class);
-                            startActivity(intent);
-                            finish();
 
                         } else {
                             // Authentication failed
-                            Toast.makeText(Patient_SignUp_Page.this, "Authentication failed.", Toast.LENGTH_LONG).show();
+                            String errorMessage = task.getException().getMessage();
+                            progressBar.setVisibility(View.GONE);
+                            if (errorMessage.contains("email address is already in use")) {
+                                emailEditText.setError("Email is already in use");
+                                emailEditText.requestFocus();
+                            } else {
+                                Toast.makeText(Patient_SignUp_Page.this, "Error occurred during sign up", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 });

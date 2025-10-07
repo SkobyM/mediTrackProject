@@ -229,6 +229,13 @@
         android:paddingEnd="7dp"
         android:paddingBottom="5dp" />
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"/>
+
 
     <!--    create account button -->
 
@@ -238,7 +245,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="50dp"
         android:backgroundTint="@color/darkBlue"
         android:text="@string/create_account"
         android:textSize="20sp"
