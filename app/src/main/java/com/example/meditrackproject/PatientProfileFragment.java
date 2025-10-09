@@ -47,6 +47,7 @@ public class PatientProfileFragment extends Fragment {
         logoutTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                requireActivity().getSharedPreferences("loginPrefs", android.content.Context.MODE_PRIVATE).edit().clear().apply();
                 mAuth.signOut();
 
                 Intent intent = new Intent(getActivity(), Patient_LogInPage.class);

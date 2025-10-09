@@ -1,11 +1,13 @@
 package com.example.meditrackproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,6 +33,7 @@ public class Patient_LogInPage extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseFirestore db;
     TextView invalidEmailPasswordTextView;
+    CheckBox remeberCheckBox;
     private FirebaseAuth mAuth;
 
     @Override
@@ -38,6 +41,17 @@ public class Patient_LogInPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_patient_login_page);
+
+        mAuth = FirebaseAuth.getInstance();
+        SharedPreferences prefs = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        boolean remember = prefs.getBoolean("remember", false);
+
+        if (remember && mAuth.getCurrentUser() != null) {
+            // إذا كان مفعل "تذكرني" والمستخدم لا زال مسجل دخوله
+            Intent intent = new Intent(Patient_LogInPage.this, Patient_HomePage.class);
+            startActivity(intent);
+            finish();
+        }
 
         TextView patientToDoctorTextView = findViewById(R.id.doctorLoginPatientView);
         patientToDoctorTextView.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +88,7 @@ public class Patient_LogInPage extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         progressBar = findViewById(R.id.progressBar);
         invalidEmailPasswordTextView = findViewById(R.id.invalidEmailPasswordTextView);
+        remeberCheckBox = findViewById(R.id.rememberCheckBox);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
@@ -83,6 +98,7 @@ public class Patient_LogInPage extends AppCompatActivity {
             public void onClick(View v) {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
+                boolean isChecked = remeberCheckBox.isChecked();
 
                 invalidEmailPasswordTextView.setVisibility(View.GONE);
 
@@ -117,6 +133,12 @@ public class Patient_LogInPage extends AppCompatActivity {
                                 if (documentSnapshot.exists()) {
 
                                     String userType = documentSnapshot.getString("userType");
+
+                                    if (isChecked) {
+                                        getSharedPreferences("loginPrefs", MODE_PRIVATE).edit().putBoolean("remember", true).apply();
+                                    }
+
+
                                     if ("doctor".equals(userType)) {
                                         Intent intent = new Intent(Patient_LogInPage.this, doctor_LogInPage.class);
                                         startActivity(intent);

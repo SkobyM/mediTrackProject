@@ -67,5 +67,6 @@
     <string name="settings">Settings</string>
     <string name="help_support"><![CDATA[Help & Support]]></string>
     <string name="logout">Logout</string>
+    <string name="remember_me">Remember Me</string>
 
 </resources>
