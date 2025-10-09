@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- خلفية بيضاء -->
+    <solid android:color="@android:color/white" />
+
+    <!-- زوايا دائرية -->
+    <corners android:radius="24dp" />
+
+    <!-- تظليل ناعم -->
+    <stroke
+        android:width="0dp"
+        android:color="@android:color/transparent" />
+
+    <!-- هام جدًا: padding يخلق مساحة للظل -->
+    <padding
+        android:left="8dp"
+        android:top="8dp"
+        android:right="8dp"
+        android:bottom="8dp" />
+</shape>
