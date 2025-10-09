@@ -58,7 +58,7 @@
         android:layout_marginTop="15dp"
         android:fontFamily="@font/inter_bold"
         android:text="@string/app_name"
-        android:textSize="24sp"
+        android:textSize="26sp"
         app:layout_constraintStart_toEndOf="@+id/welcomeTextView"
         app:layout_constraintTop_toBottomOf="@+id/notificationImageView" />
 
@@ -91,7 +91,7 @@
         android:layout_marginTop="25dp"
         android:fontFamily="@font/inter_bold"
         android:text="@string/upcoming_medicine"
-        android:textSize="32sp"
+        android:textSize="26sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchViewCard" />
 
@@ -181,7 +181,7 @@
         android:layout_marginTop="25dp"
         android:fontFamily="@font/inter_bold"
         android:text="@string/today_s_schedule"
-        android:textSize="32sp"
+        android:textSize="26sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/upcomingMedCard" />
 
