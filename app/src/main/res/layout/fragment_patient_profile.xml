@@ -6,7 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_soft_gradient"
-    android:padding="24dp"
+    android:paddingStart="28dp"
+    android:paddingEnd="28dp"
+    android:paddingTop="40dp"
+    android:paddingBottom="40dp"
     tools:context=".PatientProfileFragment">
 
     <!--    support image view (Headset) -->

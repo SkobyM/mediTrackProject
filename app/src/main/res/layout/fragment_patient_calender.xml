@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="28dp"
+    android:paddingEnd="28dp"
+    android:paddingTop="40dp"
+    android:paddingBottom="40dp"
     tools:context=".PatientCalenderFragment">
 
     <!-- TODO: Update blank fragment layout -->

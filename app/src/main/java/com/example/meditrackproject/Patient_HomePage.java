@@ -41,11 +41,8 @@ public class Patient_HomePage extends AppCompatActivity {
         });
 
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.patientHomePage), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left + 28, systemBars.top + 28, systemBars.right + 28, systemBars.bottom + 28);
-            return insets;
-        });
+
+
 
     }
 
