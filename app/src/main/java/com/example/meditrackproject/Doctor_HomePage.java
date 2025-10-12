@@ -19,7 +19,7 @@ public class Doctor_HomePage extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_doctor_home_page);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.doctor_bottomNavigationView);
 
         Fragment homePage = new DoctorHomePageFragment();
         Fragment patientsPage = new DoctorPatientsPageFragment();
@@ -29,12 +29,11 @@ public class Doctor_HomePage extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
             int id = item.getItemId();
-
-            if (id == R.id.nav_home) {
+            if (id == R.id.doctor_nav_home) {
                 setCurrentFragment(homePage);
-            } else if (id == R.id.nav_patient) {
+            } else if (id == R.id.doctor_nav_patient) {
                 setCurrentFragment(patientsPage);
-            } else if (id == R.id.nav_profile) {
+            } else if (id == R.id.doctor_nav_profile) {
                 setCurrentFragment(profilePage);
             }
             return true;
@@ -42,11 +41,11 @@ public class Doctor_HomePage extends AppCompatActivity {
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.doctorHomePage), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left + 28, systemBars.top + 28, systemBars.right + 28, systemBars.bottom + 28);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
     }
     private void setCurrentFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, fragment).commit();
     }
 }

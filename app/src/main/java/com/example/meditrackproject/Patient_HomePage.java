@@ -19,7 +19,7 @@ public class Patient_HomePage extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_patient_home_page);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.patient_bottomNavigationView);
 
         Fragment homePage = new PatientHomePageFragment();
         Fragment calenderPage = new PatientCalenderFragment();
@@ -30,11 +30,11 @@ public class Patient_HomePage extends AppCompatActivity {
 
             int id = item.getItemId();
 
-            if (id == R.id.nav_home) {
+            if (id == R.id.patient_nav_home) {
                 setCurrentFragment(homePage);
-            } else if (id == R.id.nav_calender) {
+            } else if (id == R.id.patient_nav_calender) {
                 setCurrentFragment(calenderPage);
-            } else if (id == R.id.nav_profile) {
+            } else if (id == R.id.patient_nav_profile) {
                 setCurrentFragment(profilePage);
             }
             return true;
@@ -42,6 +42,6 @@ public class Patient_HomePage extends AppCompatActivity {
     }
 
     private void setCurrentFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.patient_fragment_container, fragment).commit();
     }
 }
