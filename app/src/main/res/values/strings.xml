@@ -71,5 +71,6 @@
     <string name="upcoming_medicine">Upcoming Medicine 💊</string>
     <string name="alarm_clock">alarm clock</string>
     <string name="today_s_schedule">Today\'s Schedule</string>
+    <string name="patients">Patients</string>
 
 </resources>

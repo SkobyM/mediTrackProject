@@ -39,11 +39,6 @@ public class Patient_HomePage extends AppCompatActivity {
             }
             return true;
         });
-
-
-
-
-
     }
 
     private void setCurrentFragment(Fragment fragment) {
