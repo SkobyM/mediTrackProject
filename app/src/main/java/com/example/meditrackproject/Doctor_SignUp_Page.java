@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -29,13 +30,14 @@ import java.util.Map;
 public class Doctor_SignUp_Page extends AppCompatActivity {
 
     // UI components
-    EditText firstNameEditText, lastNameEditText, emailEditText, licenseEditText, passwordEditText, phoneNumberEditText;
+    EditText firstNameEditText, lastNameEditText, emailEditText, licenseEditText, passwordEditText, phoneNumberEditText, rePasswordEditText;
     Button requestAccountButton;
 
     // Firebase instances
     FirebaseAuth mAuth;          // Firebase Authentication instance
     FirebaseFirestore db;        // Firebase Firestore instance
     ImageView arrowBackForBackPageInSignUp;
+    ProgressBar progressBar;
 
 
     @Override
@@ -52,6 +54,8 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
         requestAccountButton = findViewById(R.id.requestAccountButton);
         phoneNumberEditText = findViewById(R.id.phoneNumberEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
+        rePasswordEditText = findViewById(R.id.rePasswordEditText);
+        progressBar = findViewById(R.id.progressBar);
         arrowBackForBackPageInSignUp = findViewById(R.id.arrowBackForBackPageInSignUp);
 
         // Initialize Firebase
@@ -69,7 +73,8 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String licenseNumber = licenseEditText.getText().toString();
                 String phoneNumber = phoneNumberEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
+                String password = passwordEditText.getText().toString().trim();
+                String rePassword = rePasswordEditText.getText().toString().trim();
 
                 // Validate inputs
                 if (TextUtils.isEmpty(firstName)) {
@@ -117,7 +122,25 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
                     passwordEditText.requestFocus();
                     return;
                 }
+                if (TextUtils.isEmpty(rePassword)) {
+                    passwordEditText.setError("Confirm password is required");
+                    passwordEditText.requestFocus();
+                    return;
+                }
+                if (rePassword.length() < 6) {
+                    passwordEditText.setError("Minimum length of password should be 6");
+                    passwordEditText.requestFocus();
+                    return;
+                }
+                if (!password.equals(rePassword)) {
+                    passwordEditText.setError("Passwords do not match");
+                    passwordEditText.requestFocus();
+                    rePasswordEditText.setError("Passwords do not match");
+                    rePasswordEditText.requestFocus();
+                    return;
+                }
 
+                progressBar.setVisibility(View.VISIBLE);
                 // Create doctor account with Firebase Authentication
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -144,6 +167,7 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
                                 Toast.makeText(Doctor_SignUp_Page.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             });
 
+                            progressBar.setVisibility(View.GONE);
                             // Navigate to Doctor log in page after successful request
                             Intent intent = new Intent(Doctor_SignUp_Page.this, doctor_LogInPage.class);
                             startActivity(intent);
@@ -151,6 +175,7 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
 
                         } else {
                             // Authentication failed
+                            progressBar.setVisibility(View.GONE);
                             Toast.makeText(Doctor_SignUp_Page.this, "Authentication failed.", Toast.LENGTH_LONG).show();
                         }
                     }
