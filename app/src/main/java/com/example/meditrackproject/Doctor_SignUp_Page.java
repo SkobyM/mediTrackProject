@@ -29,7 +29,7 @@ import java.util.Map;
 public class Doctor_SignUp_Page extends AppCompatActivity {
 
     // UI components
-    EditText firstNameEditText, lastNameEditText, emailEditText, licenseEditText, passwordEditText;
+    EditText firstNameEditText, lastNameEditText, emailEditText, licenseEditText, passwordEditText, phoneNumberEditText;
     Button requestAccountButton;
 
     // Firebase instances
@@ -50,6 +50,7 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditText);
         licenseEditText = findViewById(R.id.licenseEditText);
         requestAccountButton = findViewById(R.id.requestAccountButton);
+        phoneNumberEditText = findViewById(R.id.phoneNumberEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         arrowBackForBackPageInSignUp = findViewById(R.id.arrowBackForBackPageInSignUp);
 
@@ -67,6 +68,7 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
                 String lastName = lastNameEditText.getText().toString();
                 String email = emailEditText.getText().toString();
                 String licenseNumber = licenseEditText.getText().toString();
+                String phoneNumber = phoneNumberEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
                 // Validate inputs
@@ -95,6 +97,16 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
                     licenseEditText.requestFocus();
                     return;
                 }
+                if (TextUtils.isEmpty(phoneNumber)) {
+                    phoneNumberEditText.setError("Enter phone number");
+                    phoneNumberEditText.requestFocus();
+                    return;
+                }
+                if (phoneNumber.length() < 6) {
+                    phoneNumberEditText.setError("Please enter valid phone number");
+                    phoneNumberEditText.requestFocus();
+                    return;
+                }
                 if (TextUtils.isEmpty(password)) {
                     passwordEditText.setError("Password is required");
                     passwordEditText.requestFocus();
@@ -118,6 +130,7 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
                         user.put("email", email);
                         user.put("licenseNumber", licenseNumber);
                         user.put("userType", "doctor"); // differentiate between patient and doctor
+                        user.put("phoneNumber", phoneNumber);
                         user.put("approved", false);    // default: doctor account not approved
 
                         if (task.isSuccessful()) {
