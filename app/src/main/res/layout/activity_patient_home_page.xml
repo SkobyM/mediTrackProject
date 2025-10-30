@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/patientHomePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/patientHomePage"
     android:background="@drawable/bg_soft_gradient"
     android:orientation="vertical"
     tools:context=".Patient_HomePage">
@@ -14,20 +13,20 @@
         android:id="@+id/patient_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/patient_bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@null"
-        android:background="@drawable/bg_nav_menu_patient"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"
         android:layout_marginBottom="-15dp"
-        app:itemBackground="@drawable/bg_nav_item_selector_patient"
-        app:itemTextAppearanceActive="@style/ActiveTextForMenu"
+        android:background="@drawable/bg_nav_menu_patient"
+        android:backgroundTint="@null"
         app:itemActiveIndicatorStyle="@null"
-        app:menu="@menu/patient_bottom_nav_menu"/>
+        app:itemBackground="@drawable/bg_nav_item_selector_patient"
+        app:itemIconTint="@color/black"
+        app:itemTextAppearanceActive="@style/ActiveTextForMenu"
+        app:itemTextColor="@color/black"
+        app:menu="@menu/patient_bottom_nav_menu" />
 
 </LinearLayout>
