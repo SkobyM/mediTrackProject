@@ -74,5 +74,7 @@
     <string name="patients">Patients</string>
     <string name="patients_medical_histor">Patients Medical Histor</string>
     <string name="report_and_analytics">Reporst and Analytics</string>
+    <string name="welcome_dr">Welcome, Dr.</string>
+    <string name="meditrack">mediTrack</string>
 
 </resources>
