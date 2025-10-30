@@ -174,9 +174,9 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
                             finish();
 
                         } else {
-                            // Authentication failed
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(Doctor_SignUp_Page.this, "Authentication failed.", Toast.LENGTH_LONG).show();
+                            String errorMessage = task.getException() != null ? task.getException().getMessage() : "Unknown error";
+                            Toast.makeText(Doctor_SignUp_Page.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
