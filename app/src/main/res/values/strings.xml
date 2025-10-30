@@ -72,5 +72,7 @@
     <string name="alarm_clock">alarm clock</string>
     <string name="today_s_schedule">Today\'s Schedule</string>
     <string name="patients">Patients</string>
+    <string name="patients_medical_histor">Patients Medical Histor</string>
+    <string name="report_and_analytics">Reporst and Analytics</string>
 
 </resources>
