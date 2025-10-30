@@ -1,13 +1,13 @@
 package com.example.meditrackproject;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -37,8 +37,7 @@ public class DoctorAddPatientFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_doctor_add_patient, container, false);
     }
@@ -53,32 +52,47 @@ public class DoctorAddPatientFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                ProgressBar progressBar = view.findViewById(R.id.progressBar);
                 String patientEmail = patientEmailEditText.getText().toString().trim();
+                progressBar.setVisibility(View.VISIBLE);
 
                 if (patientEmail.isEmpty()) {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(requireContext(), "Please enter patient's email", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (!Patterns.EMAIL_ADDRESS.matcher(patientEmail).matches()) {
-                    Toast.makeText(requireContext(), "Please enter patient's email", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(requireContext(), "Please enter valid patient's email", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                String doctorId = mAuth.getCurrentUser().getUid();
 
-                Map<String, Object> invitation = new HashMap<>();
-                invitation.put("doctorId", doctorId);
-                invitation.put("patientEmail", patientEmail);
-                invitation.put("status", "pending");
-                invitation.put("timestamp", System.currentTimeMillis());
+                db.collection("users").whereEqualTo("email", patientEmail).get().addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        String doctorId = mAuth.getCurrentUser().getUid();
 
-                db.collection("invitations").add(invitation).addOnSuccessListener(documentReference -> {
-                    Toast.makeText(requireContext(), "Invitation sent successfully", Toast.LENGTH_SHORT).show();
-                }).addOnFailureListener( e -> {
-                    Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Map<String, Object> invitation = new HashMap<>();
+                        invitation.put("doctorId", doctorId);
+                        invitation.put("patientEmail", patientEmail);
+                        invitation.put("status", "pending");
+                        invitation.put("timestamp", System.currentTimeMillis());
+
+                        db.collection("invitations").add(invitation).addOnSuccessListener(documentReference -> {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(requireContext(), "Invitation sent successfully", Toast.LENGTH_SHORT).show();
+                        }).addOnFailureListener(e -> {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+                    } else {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(requireContext(), "Patient not found", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(e -> {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(requireContext(), "Error checking patient: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
                 });
-
-
-
             }
         });
     }
