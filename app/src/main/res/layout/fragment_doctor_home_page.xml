@@ -279,6 +279,9 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:id="@+id/addPatientButton"
             android:gravity="center_horizontal"
             android:background="@drawable/card_bg_home_add_patient_doctor"
             android:orientation="vertical">

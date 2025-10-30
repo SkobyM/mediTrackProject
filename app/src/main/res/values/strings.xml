@@ -83,5 +83,7 @@
     <string name="add_prescription">Add Prescription</string>
     <string name="show_report">Show Report</string>
     <string name="view_all_patients">View all patients</string>
+    <string name="enter_patient_email">Enter Patient Email</string>
+    <string name="send_invite">Send Invite</string>
 
 </resources>
