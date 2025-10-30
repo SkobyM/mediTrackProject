@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notificationImageView"
-        app:srcCompat="@drawable/profile_picture" />
+        app:srcCompat="@drawable/outline_profile_picture" />
 
     <TextView
         android:id="@+id/patientFullName"
@@ -78,7 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/profile_card_bg"
+        android:background="@drawable/card_bg_profile"
         android:elevation="4dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -188,7 +188,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/profile_card_bg"
+        android:background="@drawable/card_bg_profile"
         android:elevation="4dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -256,7 +256,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/profile_card_bg"
+        android:background="@drawable/card_bg_profile"
         android:elevation="4dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -305,7 +305,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/round_help_outline_24" />
+                android:src="@drawable/outline_round_help_outline_24" />
 
             <TextView
                 android:layout_width="0dp"

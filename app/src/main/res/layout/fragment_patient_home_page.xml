@@ -100,7 +100,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/upcoming_med_card"
+        android:background="@drawable/card_upcoming_med"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintStart_toStartOf="parent"
