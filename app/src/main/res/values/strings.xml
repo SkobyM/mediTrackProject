@@ -76,5 +76,7 @@
     <string name="report_and_analytics">Reporst and Analytics</string>
     <string name="welcome_dr">Welcome, Dr.</string>
     <string name="meditrack">mediTrack</string>
+    <string name="prescriptions">Prescriptions</string>
+    <string name="upcoming_refills">Upcoming Refills</string>
 
 </resources>
