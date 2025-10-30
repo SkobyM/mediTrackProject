@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/doctorProfilePage"
+    android:background="@color/doctor_bg"
     android:paddingStart="28dp"
     android:paddingEnd="28dp"
     android:paddingTop="40dp"
@@ -17,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/support_button"
-        android:src="@drawable/outline_headset_mic_24"
+        android:src="@drawable/outline_headset_mic_24_doctor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:contentDescription="@string/notfication_button"
-        android:src="@drawable/outline_notifications_24"
+        android:src="@drawable/outline_notifications_24_doctor"
         app:layout_constraintStart_toEndOf="@+id/supportImageView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +37,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo_doctor" />
 
     <ImageView
         android:id="@+id/profilePictureImageView"
@@ -47,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notificationImageView"
-        app:srcCompat="@drawable/outline_profile_picture" />
+        app:srcCompat="@drawable/outline_profile_picture_doctor" />
 
     <TextView
         android:id="@+id/doctorFullName"
@@ -56,6 +57,7 @@
         android:text="@string/app_name"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilePictureImageView" />
@@ -67,6 +69,7 @@
         android:text="@string/app_name"
         android:textSize="15sp"
         android:textStyle="bold"
+        android:textColor="#CECECE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/doctorFullName" />
@@ -76,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/card_bg_profile"
+        android:background="@drawable/card_bg_profile_doctor"
         android:elevation="4dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +99,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/outline_text_ad_24_edit_profile" />
+                android:src="@drawable/outline_text_ad_24_edit_profile_doctor" />
 
             <TextView
                 android:layout_width="0dp"
@@ -104,7 +107,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:text="@string/edit_profile_information"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -112,7 +115,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#E0E0E0" />
+            android:background="#5D5D5D" />
 
         <!-- صف 2 -->
         <LinearLayout
@@ -125,7 +128,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/outline_notifications_24" />
+                android:src="@drawable/outline_notifications_24_doctor" />
 
             <TextView
                 android:layout_width="0dp"
@@ -133,7 +136,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:text="@string/notifications"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
 
             <TextView
@@ -148,7 +151,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#E0E0E0" />
+            android:background="#5D5D5D" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -160,7 +163,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/outline_translate_24_language" />
+                android:src="@drawable/outline_translate_24_language_doctor" />
 
             <TextView
                 android:layout_width="0dp"
@@ -168,7 +171,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:text="@string/language"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
 
             <TextView
@@ -186,7 +189,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/card_bg_profile"
+        android:background="@drawable/card_bg_profile_doctor"
         android:elevation="4dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -206,7 +209,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/outline_medical_services_24_history" />
+                android:src="@drawable/outline_medical_services_24_history_doctor" />
 
             <TextView
                 android:layout_width="0dp"
@@ -214,7 +217,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:text="@string/patients_medical_histor"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -222,7 +225,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#E0E0E0" />
+            android:background="#5D5D5D" />
 
         <!-- صف 2 -->
         <LinearLayout
@@ -235,7 +238,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/outline_shield_with_heart_24_doctors" />
+                android:src="@drawable/outline_shield_with_heart_24_doctors_doctor" />
 
             <TextView
                 android:layout_width="0dp"
@@ -243,7 +246,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:text="@string/report_and_analytics"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -254,7 +257,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/card_bg_profile"
+        android:background="@drawable/card_bg_profile_doctor"
         android:elevation="4dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -274,7 +277,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/baseline_settings_24" />
+                android:src="@drawable/baseline_settings_24_doctor" />
 
             <TextView
                 android:layout_width="0dp"
@@ -282,7 +285,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:text="@string/settings"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -290,7 +293,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#E0E0E0" />
+            android:background="#5D5D5D" />
 
         <!-- صف 2 -->
         <LinearLayout
@@ -303,7 +306,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/outline_round_help_outline_24" />
+                android:src="@drawable/outline_round_help_outline_24_doctor" />
 
             <TextView
                 android:layout_width="0dp"
@@ -311,7 +314,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:text="@string/help_support"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
 
         </LinearLayout>
