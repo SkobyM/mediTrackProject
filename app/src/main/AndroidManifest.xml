@@ -30,9 +30,7 @@
             android:exported="true" />
         <activity
             android:name=".doctor_LogInPage"
-            android:exported="true"
-            android:label="@string/title_activity_doctor_login_page"
-            android:theme="@style/Theme.MediTrackProject" />
+            android:exported="true" />
         <activity
             android:name=".Patient_LogInPage"
             android:exported="true" >
@@ -42,6 +40,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+<!--        <activity android:name="Doctor_HomePage"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
     </application>
 
 </manifest>
