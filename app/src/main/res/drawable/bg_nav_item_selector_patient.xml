@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- لما يكون العنصر محدد -->
+    <item android:state_checked="true">
+        <layer-list>
+            <!-- خلفية شفافة -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@android:color/transparent"/>
+                </shape>
+            </item>
+
+
+            <item
+                android:bottom="20dp"
+                android:start="20dp"
+                android:end="20dp"
+                android:gravity="bottom">
+                <shape android:shape="rectangle">
+                    <size android:height="2dp"/>
+                    <solid android:color="@android:color/holo_blue_dark"/>
+                    <corners android:radius="2dp"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- الحالة العادية -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent"/>
+        </shape>
+    </item>
+</selector>

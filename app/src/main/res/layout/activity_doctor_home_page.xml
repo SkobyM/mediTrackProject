@@ -25,7 +25,7 @@
       app:itemIconTint="@color/white"
       app:itemTextColor="@color/white"
       android:layout_marginBottom="-15dp"
-      app:itemBackground="@drawable/bg_nav_item_selector"
+      app:itemBackground="@drawable/bg_nav_item_selector_doctor"
       app:itemTextAppearanceActive="@style/ActiveTextForMenu"
       app:itemActiveIndicatorStyle="@null"
       app:menu="@menu/doctor_bottom_nav_menu"/>

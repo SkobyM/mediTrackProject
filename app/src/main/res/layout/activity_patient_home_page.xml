@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/patientHomePage"
+    android:background="@drawable/bg_soft_gradient"
     android:orientation="vertical"
     tools:context=".Patient_HomePage">
 
@@ -19,7 +20,14 @@
         android:id="@+id/patient_bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
+        android:backgroundTint="@null"
+        android:background="@drawable/bg_nav_menu_patient"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
+        android:layout_marginBottom="-15dp"
+        app:itemBackground="@drawable/bg_nav_item_selector_patient"
+        app:itemTextAppearanceActive="@style/ActiveTextForMenu"
+        app:itemActiveIndicatorStyle="@null"
         app:menu="@menu/patient_bottom_nav_menu"/>
 
 </LinearLayout>
