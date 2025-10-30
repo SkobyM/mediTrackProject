@@ -79,5 +79,9 @@
     <string name="prescriptions">Prescriptions</string>
     <string name="upcoming_refills">Upcoming Refills</string>
     <string name="shortcuts">ShortCuts</string>
+    <string name="add_patient">Add Patient</string>
+    <string name="add_prescription">Add Prescription</string>
+    <string name="show_report">Show Report</string>
+    <string name="view_all_patients">View all patients</string>
 
 </resources>
