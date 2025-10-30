@@ -5,7 +5,7 @@
     android:id="@+id/patientHomePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_soft_gradient"
+    android:background="@drawable/bg_soft_gradient_patient"
     android:orientation="vertical"
     tools:context=".Patient_HomePage">
 

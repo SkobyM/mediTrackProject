@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/doctor_nav_home"
-        android:icon="@drawable/outline_home_24"
+        android:icon="@drawable/ic_home_24"
         android:title="@string/home" />
     <item
         android:id="@+id/doctor_nav_patient"
@@ -10,7 +10,7 @@
         android:title="@string/patients" />
     <item
         android:id="@+id/doctor_nav_profile"
-        android:icon="@drawable/outline_account_circle_24"
+        android:icon="@drawable/ic_account_circle_24"
         android:title="@string/Account" />
 
 </menu>
