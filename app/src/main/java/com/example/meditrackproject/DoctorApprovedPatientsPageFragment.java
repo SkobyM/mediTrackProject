@@ -102,7 +102,6 @@ public class DoctorApprovedPatientsPageFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);
                     if (counter == 0) {
                         youDontHaveAnyPatientTextView.setVisibility(View.VISIBLE);
-                        progressBar.setVisibility(View.GONE);
                     }
                 })
                 .addOnFailureListener(e -> {
