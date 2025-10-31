@@ -37,6 +37,13 @@ public class Patient_SignUp_Page extends AppCompatActivity {
     FirebaseAuth mAuth; // Firebase Authentication instance
     ProgressBar progressBar;
 
+    private String capitalizeWord(String input) {
+        input = input.trim();
+        if (input.isEmpty()) return input;
+        if (input.length() == 1) return input.toUpperCase();
+        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,28 +92,28 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                 String email = emailEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
                 String rePassword = rePasswordEditText.getText().toString().trim();
-                String firstName = firstNameEditText.getText().toString();
-                String lastName = lastNameEditText.getText().toString();
+                String inputFirstName = firstNameEditText.getText().toString();
+                String inputLastName = lastNameEditText.getText().toString();
                 String phoneNumber = phoneNumberEditText.getText().toString();
                 String cuntryCode = countryCodeSpinner.getSelectedItem().toString();
 
                 // Validate inputs
-                if (TextUtils.isEmpty(firstName)) {
+                if (TextUtils.isEmpty(inputFirstName)) {
                     firstNameEditText.setError("Enter first name");
                     firstNameEditText.requestFocus();
                     return;
                 }
-                if (TextUtils.isDigitsOnly(firstName)) {
+                if (TextUtils.isDigitsOnly(inputFirstName)) {
                     firstNameEditText.setError("Please enter valid name");
                     firstNameEditText.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(lastName)) {
+                if (TextUtils.isEmpty(inputLastName)) {
                     lastNameEditText.setError("Enter last name");
                     lastNameEditText.requestFocus();
                     return;
                 }
-                if (TextUtils.isDigitsOnly(lastName)) {
+                if (TextUtils.isDigitsOnly(inputLastName)) {
                     lastNameEditText.setError("Please enter valid name");
                     lastNameEditText.requestFocus();
                     return;
@@ -158,6 +165,9 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                     rePasswordEditText.requestFocus();
                     return;
                 }
+
+                String firstName = capitalizeWord(inputFirstName);
+                String lastName = capitalizeWord(inputLastName);
 
                 progressBar.setVisibility(View.VISIBLE);
                 // Create a new user with Firebase Authentication
