@@ -1,32 +1,60 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/card_bg_home_patientsbut_doctor"
-    android:orientation="vertical"
-    android:padding="12dp"
-    android:layout_marginBottom="8dp">
+    android:background="@color/doctor_bg"
+    android:orientation="horizontal"
+    android:paddingTop="12dp"
+    android:paddingBottom="6dp"
+    android:paddingStart="18dp"
+    android:paddingEnd="18dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/patientName"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
+    <!-- هذا الخط العمودي -->
+    <View
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_for_line_in_pending_doctor"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_gravity="center_vertical" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- المحتوى الكامل -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/patientEmail"
-        android:textSize="11sp"
-        android:textColor="@color/black"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/patientStatus"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:layout_marginTop="4dp"/>
+        <TextView
+            android:id="@+id/patientName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
+            android:text="Mohammed Saifain"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/patientEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mohammed@Saifain"
+            android:textColor="#CACACA"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/patientStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Pending"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white" />
+    </LinearLayout>
 
 </LinearLayout>
