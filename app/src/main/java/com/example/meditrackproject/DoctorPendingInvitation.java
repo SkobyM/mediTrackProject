@@ -28,7 +28,7 @@ public class DoctorPendingInvitation extends Fragment {
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
-    private z_DoctorPatientsAdapter adapter;
+    private z_DoctorPendingPatientsAdapter adapter;
     private List<Map<String, Object>> patientList;
     ProgressBar progressBar;
 
@@ -55,7 +55,7 @@ public class DoctorPendingInvitation extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         patientList = new ArrayList<>();
-        adapter = new z_DoctorPatientsAdapter(patientList);
+        adapter = new z_DoctorPendingPatientsAdapter(patientList);
         recyclerView.setAdapter(adapter);
 
         loadPatients();
@@ -75,7 +75,7 @@ public class DoctorPendingInvitation extends Fragment {
                         Map<String, Object> data = doc.getData();
                         String status = (String) data.get("status");
 
-                        if ("pending".equals(status) || "approved".equals(status)) {
+                        if ("pending".equals(status)) {
                             String patientEmail = (String) data.get("patientEmail");
 
                             db.collection("users").whereEqualTo("email", patientEmail)

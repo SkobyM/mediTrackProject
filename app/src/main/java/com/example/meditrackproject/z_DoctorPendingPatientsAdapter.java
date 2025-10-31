@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import java.util.Map;
 
-public class z_DoctorPatientsAdapter extends RecyclerView.Adapter<z_DoctorPatientsAdapter.ViewHolder> {
+public class z_DoctorPendingPatientsAdapter extends RecyclerView.Adapter<z_DoctorPendingPatientsAdapter.ViewHolder> {
 
     private List<Map<String, Object>> patientList;
 
-    public z_DoctorPatientsAdapter(List<Map<String, Object>> patientList) {
+    public z_DoctorPendingPatientsAdapter(List<Map<String, Object>> patientList) {
         this.patientList = patientList;
     }
 
