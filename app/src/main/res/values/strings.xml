@@ -86,5 +86,6 @@
     <string name="enter_patient_email">Enter Patient Email</string>
     <string name="send_invite">Send Invite</string>
     <string name="pending_invitation">pending invitation</string>
+    <string name="you_don_t_have_any_patient">You don\'t have any patient!</string>
 
 </resources>

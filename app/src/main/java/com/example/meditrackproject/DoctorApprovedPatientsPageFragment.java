@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import java.util.Map;
 public class DoctorApprovedPatientsPageFragment extends Fragment {
 
     ProgressBar progressBar;
+    TextView youDontHaveAnyPatientTextView;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
@@ -46,6 +48,7 @@ public class DoctorApprovedPatientsPageFragment extends Fragment {
 
         progressBar = view.findViewById(R.id.progressBar);
         recyclerView = view.findViewById(R.id.patientsRecyclerView);
+        youDontHaveAnyPatientTextView = view.findViewById(R.id.youDontHaveAnyPatientTextView);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         patientList = new ArrayList<>();
@@ -66,13 +69,13 @@ public class DoctorApprovedPatientsPageFragment extends Fragment {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     patientList.clear();
 
+                    int counter = 0;
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                         Map<String, Object> data = doc.getData();
                         String status = (String) data.get("status");
-
                         if ("approved".equals(status)) {
                             String patientEmail = (String) data.get("patientEmail");
-
+                            counter++;
                             db.collection("users").whereEqualTo("email", patientEmail)
                                     .get()
                                     .addOnSuccessListener(userSnapshots -> {
@@ -84,18 +87,22 @@ public class DoctorApprovedPatientsPageFragment extends Fragment {
                                             data.put("phoneNumber", phoneNumber);
                                         } else {
                                             data.put("patientFullName", "Unknown Patient");
-                                            progressBar.setVisibility(View.GONE);
                                         }
 
                                         patientList.add(data);
                                         adapter.notifyDataSetChanged();
-                                        progressBar.setVisibility(View.GONE);
+
                                     })
                                     .addOnFailureListener(e -> {
                                         progressBar.setVisibility(View.GONE);
                                         Toast.makeText(requireContext(), "Error loading patient: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     });
                         }
+                    }
+                    progressBar.setVisibility(View.GONE);
+                    if (counter == 0) {
+                        youDontHaveAnyPatientTextView.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
                     }
                 })
                 .addOnFailureListener(e -> {
