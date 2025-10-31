@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,7 @@ public class DoctorPendingInvitation extends Fragment {
     private RecyclerView recyclerView;
     private z_DoctorPatientsAdapter adapter;
     private List<Map<String, Object>> patientList;
+    ProgressBar progressBar;
 
     public DoctorPendingInvitation() {
         // Required empty public constructor
@@ -48,6 +50,7 @@ public class DoctorPendingInvitation extends Fragment {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
+        progressBar = view.findViewById(R.id.progressBar);
         recyclerView = view.findViewById(R.id.patientsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -60,6 +63,7 @@ public class DoctorPendingInvitation extends Fragment {
 
     private void loadPatients() {
         String doctorId = mAuth.getCurrentUser().getUid();
+        progressBar.setVisibility(View.VISIBLE);
 
         db.collection("invitations")
                 .whereEqualTo("doctorId", doctorId)
@@ -83,19 +87,22 @@ public class DoctorPendingInvitation extends Fragment {
                                             data.put("patientFullName", fullName);
                                         } else {
                                             data.put("patientFullName", "Unknown Patient");
+                                            progressBar.setVisibility(View.GONE);
                                         }
 
-                                        // إضافة المريض للقائمة بعد اكتمال البيانات
                                         patientList.add(data);
                                         adapter.notifyDataSetChanged();
+                                        progressBar.setVisibility(View.GONE);
                                     })
                                     .addOnFailureListener(e -> {
+                                        progressBar.setVisibility(View.GONE);
                                         Toast.makeText(requireContext(), "Error loading patient: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     });
                         }
                     }
                 })
                 .addOnFailureListener(e -> {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
