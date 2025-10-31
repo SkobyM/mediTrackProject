@@ -96,13 +96,22 @@
                 android:contentDescription="@string/patients"
                 android:src="@drawable/ic_patient_list_24_doctor" />
 
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="15dp"
+                android:id="@+id/progressBar"
+                android:visibility="gone"/>
+
             <TextView
                 android:id="@+id/numberOfPatientsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="12"
+                android:text="0"
+                android:visibility="gone"
                 android:textColor="@color/black"
                 android:textSize="45sp"
                 android:textStyle="bold"
@@ -115,7 +124,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="you have 12 patient \nunder your care"
+                android:visibility="gone"
+                android:id="@+id/textBesideNumberOfPatient"
+                android:text="you have 0 patient \nunder your care"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />

@@ -1,18 +1,17 @@
 package com.example.meditrackproject;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -25,12 +24,12 @@ import java.util.Map;
 
 public class DoctorPendingInvitation extends Fragment {
 
+    ProgressBar progressBar;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
     private z_DoctorPendingPatientsAdapter adapter;
     private List<Map<String, Object>> patientList;
-    ProgressBar progressBar;
 
     public DoctorPendingInvitation() {
         // Required empty public constructor
@@ -38,10 +37,10 @@ public class DoctorPendingInvitation extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_doctor_pending_invitation, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -65,45 +64,38 @@ public class DoctorPendingInvitation extends Fragment {
         String doctorId = mAuth.getCurrentUser().getUid();
         progressBar.setVisibility(View.VISIBLE);
 
-        db.collection("invitations")
-                .whereEqualTo("doctorId", doctorId)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    patientList.clear();
+        db.collection("invitations").whereEqualTo("doctorId", doctorId).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            patientList.clear();
 
-                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                        Map<String, Object> data = doc.getData();
-                        String status = (String) data.get("status");
+            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                Map<String, Object> data = doc.getData();
+                String status = (String) data.get("status");
 
-                        if ("pending".equals(status)) {
-                            String patientEmail = (String) data.get("patientEmail");
+                if ("pending".equals(status)) {
+                    String patientEmail = (String) data.get("patientEmail");
 
-                            db.collection("users").whereEqualTo("email", patientEmail)
-                                    .get()
-                                    .addOnSuccessListener(userSnapshots -> {
-                                        if (!userSnapshots.isEmpty()) {
-                                            DocumentSnapshot userDoc = userSnapshots.getDocuments().get(0);
-                                            String fullName = userDoc.getString("firstName") + " " + userDoc.getString("lastName");
-                                            data.put("patientFullName", fullName);
-                                        } else {
-                                            data.put("patientFullName", "Unknown Patient");
-                                            progressBar.setVisibility(View.GONE);
-                                        }
-
-                                        patientList.add(data);
-                                        adapter.notifyDataSetChanged();
-                                        progressBar.setVisibility(View.GONE);
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        progressBar.setVisibility(View.GONE);
-                                        Toast.makeText(requireContext(), "Error loading patient: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    });
+                    db.collection("users").whereEqualTo("email", patientEmail).get().addOnSuccessListener(userSnapshots -> {
+                        if (!userSnapshots.isEmpty()) {
+                            DocumentSnapshot userDoc = userSnapshots.getDocuments().get(0);
+                            String fullName = userDoc.getString("firstName") + " " + userDoc.getString("lastName");
+                            data.put("patientFullName", fullName);
+                        } else {
+                            data.put("patientFullName", "Unknown Patient");
+                            progressBar.setVisibility(View.GONE);
                         }
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+
+                        patientList.add(data);
+                        adapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                    }).addOnFailureListener(e -> {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(requireContext(), "Error loading patient: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+                }
+            }
+        }).addOnFailureListener(e -> {
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
     }
 }
