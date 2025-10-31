@@ -39,6 +39,12 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
     ImageView arrowBackForBackPageInSignUp;
     ProgressBar progressBar;
 
+    private String capitalizeWord(String input) {
+        input = input.trim();
+        if (input.isEmpty()) return input;
+        if (input.length() == 1) return input.toUpperCase();
+        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +74,8 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
             public void onClick(View v) {
 
                 // Get input values from fields
-                String firstName = firstNameEditText.getText().toString();
-                String lastName = lastNameEditText.getText().toString();
+                String inputFirstName = firstNameEditText.getText().toString();
+                String inputLastName = lastNameEditText.getText().toString();
                 String email = emailEditText.getText().toString();
                 String licenseNumber = licenseEditText.getText().toString();
                 String phoneNumber = phoneNumberEditText.getText().toString();
@@ -77,12 +83,12 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
                 String rePassword = rePasswordEditText.getText().toString().trim();
 
                 // Validate inputs
-                if (TextUtils.isEmpty(firstName)) {
+                if (TextUtils.isEmpty(inputFirstName)) {
                     firstNameEditText.setError("Enter first name");
                     firstNameEditText.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(lastName)) {
+                if (TextUtils.isEmpty(inputLastName)) {
                     lastNameEditText.setError("Enter last name");
                     lastNameEditText.requestFocus();
                     return;
@@ -139,6 +145,9 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
                     rePasswordEditText.requestFocus();
                     return;
                 }
+
+                String firstName = capitalizeWord(inputFirstName);
+                String lastName = capitalizeWord(inputLastName);
 
                 progressBar.setVisibility(View.VISIBLE);
                 // Create doctor account with Firebase Authentication
