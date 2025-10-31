@@ -29,7 +29,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_bold"
-            android:text="Mohammed Saifain"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -37,7 +36,6 @@
             android:id="@+id/patientEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mohammed@Saifain"
             android:textColor="#CACACA"
             android:textSize="11sp" />
 
@@ -46,7 +44,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Pending"
             android:textColor="@color/white"
             android:textSize="14sp" />
 
