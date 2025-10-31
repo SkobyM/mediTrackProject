@@ -1,15 +1,14 @@
 package com.example.meditrackproject;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 public class DoctorHomePageFragment extends Fragment {
 
@@ -17,8 +16,6 @@ public class DoctorHomePageFragment extends Fragment {
     public DoctorHomePageFragment() {
         // Required empty public constructor
     }
-
-
 
 
     @Override
@@ -33,6 +30,17 @@ public class DoctorHomePageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         LinearLayout addPatientButton = view.findViewById(R.id.addPatientButton);
+        LinearLayout pendingInvitation = view.findViewById(R.id.pendingInvitationTextView);
+
+        pendingInvitation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new DoctorPendingInvitation();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.doctor_fragment_container, fragment).addToBackStack(null)
+                        .commit();
+            }
+        });
 
         addPatientButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +56,6 @@ public class DoctorHomePageFragment extends Fragment {
         });
 
     }
-
 
 
 }

@@ -23,7 +23,7 @@ public class z_DoctorPatientsAdapter extends RecyclerView.Adapter<z_DoctorPatien
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.z_item_patient, parent, false);
+                .inflate(R.layout.z_item_patient_pending_invite, parent, false);
         return new ViewHolder(view);
     }
 

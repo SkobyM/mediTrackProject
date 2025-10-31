@@ -126,8 +126,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="@string/view_all_patients"
             android:clickable="true"
+            android:text="@string/view_all_patients"
             android:textColor="@color/black"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -275,15 +275,15 @@
         app:layout_constraintTop_toBottomOf="@id/shortcutTextView">
 
         <LinearLayout
+            android:id="@+id/addPatientButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
+            android:background="@drawable/card_bg_home_add_patient_doctor"
             android:clickable="true"
             android:focusable="true"
-            android:id="@+id/addPatientButton"
             android:gravity="center_horizontal"
-            android:background="@drawable/card_bg_home_add_patient_doctor"
             android:orientation="vertical">
 
             <TextView
@@ -308,8 +308,8 @@
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
             android:background="@drawable/card_bg_home_add_prescription_doctor"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
@@ -329,8 +329,6 @@
         </LinearLayout>
 
 
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -348,10 +346,10 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
             android:background="@drawable/card_bg_home_show_report_doctor"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
@@ -370,9 +368,36 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/card_bg_home_prescriptions_doctor"
+            android:clickable="true"
+            android:id="@+id/pendingInvitationTextView"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pending_invitation"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/add_patient"
+                android:src="@drawable/ic_pending_actions_24_doctor" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
