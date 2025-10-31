@@ -22,7 +22,7 @@ public class Doctor_HomePage extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.doctor_bottomNavigationView);
 
         Fragment homePage = new DoctorHomePageFragment();
-        Fragment patientsPage = new DoctorPatientsPageFragment();
+        Fragment patientsPage = new DoctorApprovedPatientsPageFragment();
         Fragment profilePage = new DoctorProfilePageFragment();
         setCurrentFragment(homePage);
 
