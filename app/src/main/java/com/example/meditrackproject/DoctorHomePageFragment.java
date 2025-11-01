@@ -17,7 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DoctorHomePageFragment extends Fragment {
 
-    TextView numberOfPatientTextView, textBesideNumberOfPatient;
+    TextView numberOfPatientTextView, textBesideNumberOfPatient, doctorNameTextView;
     LinearLayout pendingInvitation, addPatientButton;
 
     FirebaseAuth mAuth;
@@ -53,6 +53,7 @@ public class DoctorHomePageFragment extends Fragment {
         numberOfPatientTextView = view.findViewById(R.id.numberOfPatientsTextView);
         textBesideNumberOfPatient = view.findViewById(R.id.textBesideNumberOfPatient);
         progressBar = view.findViewById(R.id.progressBar);
+        doctorNameTextView = view.findViewById(R.id.doctorNameTextView);
 
         pendingInvitation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +95,10 @@ public class DoctorHomePageFragment extends Fragment {
             numberOfPatientTextView.setVisibility(View.VISIBLE);
             textBesideNumberOfPatient.setVisibility(View.VISIBLE);
 //            progressBar.setVisibility(View.GONE);
+        });
+
+        db.collection("users").document(doctorId).get().addOnSuccessListener(documentSnapshot -> {
+            doctorNameTextView.setText(documentSnapshot.getString("firstName"));
         });
 
     }
