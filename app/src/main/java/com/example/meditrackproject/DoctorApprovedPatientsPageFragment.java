@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ public class DoctorApprovedPatientsPageFragment extends Fragment {
 
     ProgressBar progressBar;
     TextView youDontHaveAnyPatientTextView;
+    ImageView addPatientImageView;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
@@ -47,6 +49,7 @@ public class DoctorApprovedPatientsPageFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         progressBar = view.findViewById(R.id.progressBar);
+        addPatientImageView = view.findViewById(R.id.addPatientImageView);
         recyclerView = view.findViewById(R.id.patientsRecyclerView);
         youDontHaveAnyPatientTextView = view.findViewById(R.id.youDontHaveAnyPatientTextView);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -56,6 +59,14 @@ public class DoctorApprovedPatientsPageFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         loadPatients();
+
+        addPatientImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment nextFragment = new DoctorAddPatientFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
+            }
+        });
 
     }
 
