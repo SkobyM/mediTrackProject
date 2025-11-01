@@ -62,6 +62,51 @@
         app:layout_constraintStart_toEndOf="@+id/welcomeTextView"
         app:layout_constraintTop_toBottomOf="@+id/notificationImageView" />
 
+    <LinearLayout
+        android:id="@+id/patientDecision"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/card_bg_home_show_report_doctor"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patientNameTextView">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
+            android:id="@+id/patientDecisionTextView"
+            android:text="You got invite from Dr. "
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:text="Accept" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:text="Reject" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/searchViewCard"
@@ -73,7 +118,7 @@
         app:cardElevation="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/patientNameTextView">
+        app:layout_constraintTop_toBottomOf="@+id/patientDecision">
 
         <SearchView
             android:id="@+id/searchView"
