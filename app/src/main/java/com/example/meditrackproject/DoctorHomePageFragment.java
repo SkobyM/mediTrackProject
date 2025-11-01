@@ -67,7 +67,7 @@ public class DoctorHomePageFragment extends Fragment {
         addPrescriptionLineaLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new DoctorAppPrescriptionPageFragment();
+                Fragment fragment = new DoctorAddPrescriptionPageFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, fragment).addToBackStack(null).commit();
             }
         });

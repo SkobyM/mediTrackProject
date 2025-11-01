@@ -10,10 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class DoctorAppPrescriptionPageFragment extends Fragment {
+public class DoctorAddPrescriptionPageFragment extends Fragment {
 
 
-    public DoctorAppPrescriptionPageFragment() {
+    public DoctorAddPrescriptionPageFragment() {
         // Required empty public constructor
     }
 
@@ -21,7 +21,7 @@ public class DoctorAppPrescriptionPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_doctor_app_prescription_page, container, false);
+        return inflater.inflate(R.layout.fragment_doctor_add_prescription_page, container, false);
     }
 
     @Override
