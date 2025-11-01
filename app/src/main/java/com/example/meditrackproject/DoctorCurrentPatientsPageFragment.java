@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class DoctorApprovedPatientsPageFragment extends Fragment {
+public class DoctorCurrentPatientsPageFragment extends Fragment {
 
     ProgressBar progressBar;
     TextView youDontHaveAnyPatientTextView;
@@ -38,7 +38,7 @@ public class DoctorApprovedPatientsPageFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_doctor_approved_patients_page, container, false);
+        return inflater.inflate(R.layout.fragment_doctor_current_patients_page, container, false);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class DoctorApprovedPatientsPageFragment extends Fragment {
         addPatientImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment nextFragment = new DoctorAddPatientFragment();
+                Fragment nextFragment = new DoctorAddPatientPageFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
             }
         });

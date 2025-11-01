@@ -66,7 +66,7 @@ public class Patient_Activity_LogInPage extends AppCompatActivity {
         forgetPasswordTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Patient_Activity_LogInPage.this, Patient_ForgetPasswordPage.class);
+                Intent intent = new Intent(Patient_Activity_LogInPage.this, Patient_Activity_ForgetPasswordPage.class);
                 startActivity(intent);
             }
         });

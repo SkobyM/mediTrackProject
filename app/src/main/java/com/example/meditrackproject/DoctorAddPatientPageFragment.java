@@ -20,13 +20,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class DoctorAddPatientFragment extends Fragment {
+public class DoctorAddPatientPageFragment extends Fragment {
 
     FirebaseAuth mAuth;
     FirebaseFirestore db;
 
 
-    public DoctorAddPatientFragment() {
+    public DoctorAddPatientPageFragment() {
         // Required empty public constructor
     }
 
@@ -40,7 +40,7 @@ public class DoctorAddPatientFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_doctor_add_patient, container, false);
+        return inflater.inflate(R.layout.fragment_doctor_add_patient_page, container, false);
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {

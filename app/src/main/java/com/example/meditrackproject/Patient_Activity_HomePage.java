@@ -19,8 +19,8 @@ public class Patient_Activity_HomePage extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.patient_bottomNavigationView);
 
         Fragment homePage = new PatientHomePageFragment();
-        Fragment calenderPage = new PatientCalenderFragment();
-        Fragment profilePage = new PatientProfileFragment();
+        Fragment calenderPage = new PatientCalenderPageFragment();
+        Fragment profilePage = new PatientProfilePageFragment();
         setCurrentFragment(homePage);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {

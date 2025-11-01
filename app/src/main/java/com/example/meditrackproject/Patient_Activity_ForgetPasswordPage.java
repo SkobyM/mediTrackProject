@@ -12,7 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Patient_ForgetPasswordPage extends AppCompatActivity {
+public class Patient_Activity_ForgetPasswordPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class Patient_ForgetPasswordPage extends AppCompatActivity {
 
         ImageView arrowBackImageView = findViewById(R.id.arrowBackForBackPage);
         arrowBackImageView.setOnClickListener(v -> {
-            Intent intent = new Intent(Patient_ForgetPasswordPage.this, Patient_Activity_LogInPage.class);
+            Intent intent = new Intent(Patient_Activity_ForgetPasswordPage.this, Patient_Activity_LogInPage.class);
             startActivity(intent);
             finish();
         });

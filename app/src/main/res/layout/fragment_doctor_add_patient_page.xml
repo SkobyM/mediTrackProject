@@ -10,7 +10,7 @@
     android:paddingTop="40dp"
     android:paddingEnd="28dp"
     android:paddingBottom="40dp"
-    tools:context=".DoctorAddPatientFragment">
+    tools:context=".DoctorAddPatientPageFragment">
 
     <ImageView
         android:id="@+id/arrowBackForPatientPage"

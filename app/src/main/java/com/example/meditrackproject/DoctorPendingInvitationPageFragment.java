@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class DoctorPendingInvitation extends Fragment {
+public class DoctorPendingInvitationPageFragment extends Fragment {
 
     ProgressBar progressBar;
     private FirebaseFirestore db;
@@ -31,14 +31,14 @@ public class DoctorPendingInvitation extends Fragment {
     private z_DoctorPendingPatientsAdapter adapter;
     private List<Map<String, Object>> patientList;
 
-    public DoctorPendingInvitation() {
+    public DoctorPendingInvitationPageFragment() {
         // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_doctor_pending_invitation, container, false);
+        return inflater.inflate(R.layout.fragment_doctor_pending_invitation_page, container, false);
     }
 
     @Override

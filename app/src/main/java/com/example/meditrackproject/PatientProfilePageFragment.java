@@ -13,17 +13,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
-public class PatientProfileFragment extends Fragment {
+public class PatientProfilePageFragment extends Fragment {
 
 
-    public PatientProfileFragment() {
+    public PatientProfilePageFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View views = inflater.inflate(R.layout.fragment_patient_profile, container, false);
+        View views = inflater.inflate(R.layout.fragment_patient_profile_page, container, false);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
