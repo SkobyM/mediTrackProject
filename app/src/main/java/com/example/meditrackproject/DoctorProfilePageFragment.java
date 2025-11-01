@@ -15,6 +15,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DoctorProfilePageFragment extends Fragment {
 
+    TextView logoutTextView, doctorNameTextView, doctorLicenseTextView;
+
 
     public DoctorProfilePageFragment() {
         // Required empty public constructor
@@ -34,8 +36,17 @@ public class DoctorProfilePageFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        TextView logoutTextView = view.findViewById(R.id.logoutTextView);
+        logoutTextView = view.findViewById(R.id.logoutTextView);
+        doctorNameTextView = view.findViewById(R.id.doctorFullName);
+        doctorLicenseTextView = view.findViewById(R.id.doctorLicenseTextView);
 
+        String userID = mAuth.getCurrentUser().getUid();
+
+
+        db.collection("users").document(userID).get().addOnSuccessListener(documentSnapshot -> {
+            doctorNameTextView.setText("Dr. " + documentSnapshot.getString("firstName"));
+            doctorLicenseTextView.setText(documentSnapshot.getString("licenseNumber"));
+        });
 
         logoutTextView.setOnClickListener(new View.OnClickListener() {
             @Override
