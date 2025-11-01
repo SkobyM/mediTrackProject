@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,20 +24,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class DoctorApprovedPatientsPageFragment extends Fragment {
+public class DoctorCurrentPatientsPageFragment extends Fragment {
 
     ProgressBar progressBar;
     TextView youDontHaveAnyPatientTextView;
+    ImageView addPatientImageView;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
-    private z_doctorApprovedPatientAdapter adapter;
+    private card_doctor_item_patient_current_invite_adapter adapter;
     private List<Map<String, Object>> patientList;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_doctor_approved_patients_page, container, false);
+        return inflater.inflate(R.layout.fragment_doctor_current_patients_page, container, false);
     }
 
     @Override
@@ -47,15 +49,24 @@ public class DoctorApprovedPatientsPageFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         progressBar = view.findViewById(R.id.progressBar);
+        addPatientImageView = view.findViewById(R.id.addPatientImageView);
         recyclerView = view.findViewById(R.id.patientsRecyclerView);
         youDontHaveAnyPatientTextView = view.findViewById(R.id.youDontHaveAnyPatientTextView);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         patientList = new ArrayList<>();
-        adapter = new z_doctorApprovedPatientAdapter(patientList);
+        adapter = new card_doctor_item_patient_current_invite_adapter(patientList);
         recyclerView.setAdapter(adapter);
 
         loadPatients();
+
+        addPatientImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment nextFragment = new DoctorAddPatientPageFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
+            }
+        });
 
     }
 

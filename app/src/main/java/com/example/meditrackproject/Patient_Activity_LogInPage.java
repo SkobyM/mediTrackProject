@@ -1,12 +1,15 @@
 package com.example.meditrackproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,60 +26,81 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class doctor_LogInPage extends AppCompatActivity {
+public class Patient_Activity_LogInPage extends AppCompatActivity {
 
     EditText emailEditText, passwordEditText;
     Button loginButton;
-    FirebaseAuth mAuth;
+    ProgressBar progressBar;
     FirebaseFirestore db;
-    TextView invalidEmailPasswordTextView, approvedTextView;
-
+    TextView invalidEmailPasswordTextView;
+    CheckBox remeberCheckBox;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_doctor_log_in_page);
-
-
-        TextView doctorToPatientTextView = findViewById(R.id.patientLoginTextView);
-        doctorToPatientTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(doctor_LogInPage.this, Patient_LogInPage.class);
-                startActivity(intent);
-            }
-        });
-
-        TextView requestSignUpTextView = findViewById(R.id.RequestTextView);
-        requestSignUpTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(doctor_LogInPage.this, Doctor_SignUp_Page.class);
-                startActivity(intent);
-            }
-        });
-
-//        Firebase starting
+        setContentView(R.layout.activity_patient_login_page);
 
         mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
+        SharedPreferences prefs = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        boolean remember = prefs.getBoolean("remember", false);
+
+        if (remember && mAuth.getCurrentUser() != null) {
+            // إذا كان مفعل "تذكرني" والمستخدم لا زال مسجل دخوله
+            Intent intent = new Intent(Patient_Activity_LogInPage.this, Patient_Activity_HomePage.class);
+            startActivity(intent);
+            finish();
+        }
+
+        TextView patientToDoctorTextView = findViewById(R.id.doctorLoginPatientView);
+        patientToDoctorTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Patient_Activity_LogInPage.this, Doctor_Activity_LogInPage.class);
+                startActivity(intent);
+            }
+        });
+
+        TextView forgetPasswordTextView = findViewById(R.id.forgotPasswordTextView);
+        forgetPasswordTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Patient_Activity_LogInPage.this, Patient_Activity_ForgetPasswordPage.class);
+                startActivity(intent);
+            }
+        });
+
+        TextView signUpTextView = findViewById(R.id.SignUpTextView);
+        signUpTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Patient_Activity_LogInPage.this, Patient_Activity_SignUp_Page.class);
+                startActivity(intent);
+            }
+        });
+
+//        Start of fireBase
+
+
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
-        approvedTextView = findViewById(R.id.approvedTextView);
+        progressBar = findViewById(R.id.progressBar);
         invalidEmailPasswordTextView = findViewById(R.id.invalidEmailPasswordTextView);
+        remeberCheckBox = findViewById(R.id.rememberCheckBox);
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailEditText.getText().toString().trim();
-                String password = passwordEditText.getText().toString().trim();
-                Boolean validateLogin;
+                String email = emailEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                boolean isChecked = remeberCheckBox.isChecked();
 
                 invalidEmailPasswordTextView.setVisibility(View.GONE);
-                approvedTextView.setVisibility(View.GONE);
 
                 if (TextUtils.isEmpty(email)) {
                     emailEditText.setError("Email is required");
@@ -98,42 +122,54 @@ public class doctor_LogInPage extends AppCompatActivity {
                     passwordEditText.requestFocus();
                     return;
                 }
-
-
+                progressBar.setVisibility(View.VISIBLE);
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
 
                         if (task.isSuccessful()) {
                             String uid = mAuth.getCurrentUser().getUid();
                             db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
                                 if (documentSnapshot.exists()) {
 
-                                    Boolean isValid = documentSnapshot.getBoolean("approved");
-                                    if (isValid) {
-                                        Intent intent = new Intent(doctor_LogInPage.this, Doctor_HomePage.class);
+                                    String userType = documentSnapshot.getString("userType");
+
+                                    if (isChecked) {
+                                        getSharedPreferences("loginPrefs", MODE_PRIVATE).edit().putBoolean("remember", true).apply();
+                                    }
+
+
+                                    if ("doctor".equals(userType)) {
+                                        Intent intent = new Intent(Patient_Activity_LogInPage.this, Doctor_Activity_LogInPage.class);
                                         startActivity(intent);
                                         finish();
-                                    } else {
-                                        approvedTextView.setVisibility(View.VISIBLE);
+                                    } else if ("patient".equals(userType)) {
+                                        Intent intent = new Intent(Patient_Activity_LogInPage.this, Patient_Activity_HomePage.class);
+                                        startActivity(intent);
+                                        finish();
+                                        Toast.makeText(Patient_Activity_LogInPage.this, "Sign in Successfully", Toast.LENGTH_SHORT).show();
                                     }
                                 }
+                                progressBar.setVisibility(View.GONE);
                             });
+                            // Sign in success, update UI with the signed-in user's information
+
+
                         } else {
                             // If sign in fails, display a message to the user.
-
+                            progressBar.setVisibility(View.GONE);
                             invalidEmailPasswordTextView.setVisibility(View.VISIBLE);
 
-
                         }
+
                     }
                 });
+
             }
         });
 
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.doctorLogInPage), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.patientLoginPage), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left + 28, systemBars.top + 28, systemBars.right + 28, systemBars.bottom + 28);
             return insets;

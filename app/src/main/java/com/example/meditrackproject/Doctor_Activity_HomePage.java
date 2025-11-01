@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Doctor_HomePage extends AppCompatActivity {
+public class Doctor_Activity_HomePage extends AppCompatActivity {
 //test
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class Doctor_HomePage extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.doctor_bottomNavigationView);
 
         Fragment homePage = new DoctorHomePageFragment();
-        Fragment patientsPage = new DoctorApprovedPatientsPageFragment();
+        Fragment patientsPage = new DoctorCurrentPatientsPageFragment();
         Fragment profilePage = new DoctorProfilePageFragment();
         setCurrentFragment(homePage);
 

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_soft_gradient_patient"
     android:orientation="vertical"
-    tools:context=".Patient_SignUp_Page">
+    tools:context=".Patient_Activity_SignUp_Page">
 
     <ImageView
         android:id="@+id/arrowBackForBackPageInSignUp"

@@ -54,7 +54,7 @@ public class DoctorProfilePageFragment extends Fragment {
                 requireActivity().getSharedPreferences("loginPrefs", android.content.Context.MODE_PRIVATE).edit().clear().apply();
                 mAuth.signOut();
 
-                Intent intent = new Intent(getActivity(), doctor_LogInPage.class);
+                Intent intent = new Intent(getActivity(), Doctor_Activity_LogInPage.class);
                 startActivity(intent);
                 getActivity().finish();
             }

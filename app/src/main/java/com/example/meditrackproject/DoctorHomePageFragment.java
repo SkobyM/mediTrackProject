@@ -58,7 +58,7 @@ public class DoctorHomePageFragment extends Fragment {
         pendingInvitation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new DoctorPendingInvitation();
+                Fragment fragment = new DoctorPendingInvitationPageFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, fragment).addToBackStack(null).commit();
             }
         });
@@ -66,7 +66,7 @@ public class DoctorHomePageFragment extends Fragment {
         addPatientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment nextFragment = new DoctorAddPatientFragment();
+                Fragment nextFragment = new DoctorAddPatientPageFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
             }
         });

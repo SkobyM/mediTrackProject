@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PatientCalenderFragment#newInstance} factory method to
+ * Use the {@link PatientCalenderPageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PatientCalenderFragment extends Fragment {
+public class PatientCalenderPageFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class PatientCalenderFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public PatientCalenderFragment() {
+    public PatientCalenderPageFragment() {
         // Required empty public constructor
     }
 
@@ -34,11 +34,11 @@ public class PatientCalenderFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PatientCalenderFragment.
+     * @return A new instance of fragment PatientCalenderPageFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PatientCalenderFragment newInstance(String param1, String param2) {
-        PatientCalenderFragment fragment = new PatientCalenderFragment();
+    public static PatientCalenderPageFragment newInstance(String param1, String param2) {
+        PatientCalenderPageFragment fragment = new PatientCalenderPageFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +59,6 @@ public class PatientCalenderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_patient_calender, container, false);
+        return inflater.inflate(R.layout.fragment_patient_calender_page, container, false);
     }
 }

@@ -11,28 +11,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import java.util.Map;
 
-public class z_DoctorPendingPatientsAdapter extends RecyclerView.Adapter<z_DoctorPendingPatientsAdapter.ViewHolder> {
-
+public class card_doctor_item_patient_current_invite_adapter extends RecyclerView.Adapter<card_doctor_item_patient_current_invite_adapter.ViewHolder> {
     private List<Map<String, Object>> patientList;
 
-    public z_DoctorPendingPatientsAdapter(List<Map<String, Object>> patientList) {
+    public card_doctor_item_patient_current_invite_adapter(List<Map<String, Object>> patientList) {
         this.patientList = patientList;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public card_doctor_item_patient_current_invite_adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.z_item_patient_pending_invite, parent, false);
-        return new ViewHolder(view);
+                .inflate(R.layout.card_doctor_item_patient_current_invite, parent, false);
+        return new card_doctor_item_patient_current_invite_adapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull card_doctor_item_patient_current_invite_adapter.ViewHolder holder, int position) {
         Map<String, Object> patient = patientList.get(position);
         holder.patientName.setText((String) patient.get("patientFullName"));
-        holder.patientEmail.setText("Email: " + patient.get("patientEmail"));
-        holder.patientStatus.setText("Status: " + patient.get("status"));
+        holder.patientPhoneNumber.setText("phoneNumber: " + patient.get("phoneNumber"));
+        holder.patientStatus.setText("Active Meds " + patient.get("@null"));
     }
 
     @Override
@@ -41,12 +40,12 @@ public class z_DoctorPendingPatientsAdapter extends RecyclerView.Adapter<z_Docto
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView patientName, patientEmail, patientStatus;
+        TextView patientName, patientPhoneNumber, patientStatus;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             patientName = itemView.findViewById(R.id.patientName);
-            patientEmail = itemView.findViewById(R.id.patientEmail);
+            patientPhoneNumber = itemView.findViewById(R.id.patientPhoneNumber);
             patientStatus = itemView.findViewById(R.id.patientStatus);
         }
     }
