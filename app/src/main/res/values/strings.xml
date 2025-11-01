@@ -87,5 +87,7 @@
     <string name="send_invite">Send Invite</string>
     <string name="pending_invitation">pending invitation</string>
     <string name="you_don_t_have_any_patient">You don\'t have any patient!</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
 
 </resources>

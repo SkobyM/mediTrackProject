@@ -66,42 +66,66 @@
         android:id="@+id/patientDecision"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/card_bg_home_show_report_doctor"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/bg_for_patient_to_accept_doctors"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:padding="12dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patientNameTextView">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_bold"
-            android:id="@+id/patientDecisionTextView"
-            android:text="You got invite from Dr. "
-            android:textColor="@color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/your_doctors"
+                android:src="@drawable/doctor_avatar" />
+
+            <TextView
+                android:id="@+id/patientDecisionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_weight="1"
-                android:text="Accept" />
+                android:fontFamily="@font/inter_bold"
+                android:text="You got invite from\nDr. "
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
             <Button
+                android:id="@+id/patientAcceptButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_weight="1"
-                android:text="Reject" />
+                android:text="@string/accept" />
+
+            <Button
+                android:id="@+id/patientRejectButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:layout_weight="1"
+                android:text="@string/reject" />
         </LinearLayout>
 
 

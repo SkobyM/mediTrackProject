@@ -60,7 +60,7 @@ public class PatientHomePageFragment extends Fragment {
                     DocumentSnapshot invitationDoc = queryDocumentSnapshots.getDocuments().get(0);
                     String doctorId = invitationDoc.getString("doctorId");
                     db.collection("users").document(doctorId).get().addOnSuccessListener(documentSnapshot1 -> {
-                        patientDecisionTextView.setText(String.format("You got invite from Dr. %s %s", documentSnapshot1.getString("firstName"), documentSnapshot1.getString("lastName")));
+                        patientDecisionTextView.setText(String.format("You got invite from\nDr. %s %s", documentSnapshot1.getString("firstName"), documentSnapshot1.getString("lastName")));
                     });
                     patientDecision.setVisibility(View.VISIBLE);
                 } else {
