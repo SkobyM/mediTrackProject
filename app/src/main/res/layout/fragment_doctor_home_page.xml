@@ -97,12 +97,12 @@
                 android:src="@drawable/ic_patient_list_24_doctor" />
 
             <ProgressBar
+                android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="100dp"
                 android:layout_marginEnd="15dp"
-                android:id="@+id/progressBar"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/numberOfPatientsTextView"
@@ -110,26 +110,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="0"
-                android:visibility="gone"
                 android:textColor="@color/black"
                 android:textSize="45sp"
                 android:textStyle="bold"
+                android:visibility="gone"
 
                 />
 
 
             <TextView
+                android:id="@+id/textBesideNumberOfPatient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:fontFamily="@font/inter_bold"
-                android:visibility="gone"
-                android:id="@+id/textBesideNumberOfPatient"
-                android:text="you have 0 patient \nunder your care"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -189,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/inter_bold"
-                    android:text="35"
+                    android:text="-"
                     android:textColor="@color/black"
                     android:textSize="48sp"
                     android:textStyle="bold" />
@@ -200,7 +198,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
-                android:text="you have 35 Active\nprescriptions"
+                android:text="you have - Active\nprescriptions"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -241,7 +239,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/inter_bold"
-                    android:text="3"
+                    android:text="-"
                     android:textColor="@color/black"
                     android:textSize="48sp"
                     android:textStyle="bold" />
@@ -252,7 +250,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
-                android:text="you have 3 Upcoming \refill"
+                android:text="you have - Upcoming \refill"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -315,11 +313,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/addPrescriptionLinearLayout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
             android:background="@drawable/card_bg_home_add_prescription_doctor"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -380,13 +381,13 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/pendingInvitationTextView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
             android:background="@drawable/card_bg_home_prescriptions_doctor"
             android:clickable="true"
-            android:id="@+id/pendingInvitationTextView"
             android:focusable="true"
             android:gravity="center_horizontal"
             android:orientation="vertical">

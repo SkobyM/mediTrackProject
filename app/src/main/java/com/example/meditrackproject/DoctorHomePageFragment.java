@@ -18,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class DoctorHomePageFragment extends Fragment {
 
     TextView numberOfPatientTextView, textBesideNumberOfPatient, doctorNameTextView;
-    LinearLayout pendingInvitation, addPatientButton;
+    LinearLayout pendingInvitationLinearLayout, addPatientLinearLayout, addPrescriptionLineaLayout;
 
     FirebaseAuth mAuth;
     FirebaseFirestore db;
@@ -48,14 +48,15 @@ public class DoctorHomePageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        addPatientButton = view.findViewById(R.id.addPatientButton);
-        pendingInvitation = view.findViewById(R.id.pendingInvitationTextView);
+        addPatientLinearLayout = view.findViewById(R.id.addPatientButton);
+        pendingInvitationLinearLayout = view.findViewById(R.id.pendingInvitationTextView);
+        addPrescriptionLineaLayout = view.findViewById(R.id.addPrescriptionLinearLayout);
         numberOfPatientTextView = view.findViewById(R.id.numberOfPatientsTextView);
         textBesideNumberOfPatient = view.findViewById(R.id.textBesideNumberOfPatient);
         progressBar = view.findViewById(R.id.progressBar);
         doctorNameTextView = view.findViewById(R.id.doctorNameTextView);
 
-        pendingInvitation.setOnClickListener(new View.OnClickListener() {
+        pendingInvitationLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new DoctorPendingInvitationPageFragment();
@@ -63,7 +64,15 @@ public class DoctorHomePageFragment extends Fragment {
             }
         });
 
-        addPatientButton.setOnClickListener(new View.OnClickListener() {
+        addPrescriptionLineaLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new DoctorAppPrescriptionPageFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, fragment).addToBackStack(null).commit();
+            }
+        });
+
+        addPatientLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment nextFragment = new DoctorAddPatientPageFragment();
