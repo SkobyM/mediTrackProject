@@ -32,7 +32,7 @@ public class DoctorCurrentPatientsPageFragment extends Fragment {
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
-    private z_doctorApprovedPatientAdapter adapter;
+    private card_doctor_item_patient_current_invite_adapter adapter;
     private List<Map<String, Object>> patientList;
 
     @Override
@@ -55,7 +55,7 @@ public class DoctorCurrentPatientsPageFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         patientList = new ArrayList<>();
-        adapter = new z_doctorApprovedPatientAdapter(patientList);
+        adapter = new card_doctor_item_patient_current_invite_adapter(patientList);
         recyclerView.setAdapter(adapter);
 
         loadPatients();

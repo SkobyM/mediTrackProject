@@ -28,7 +28,7 @@ public class DoctorPendingInvitationPageFragment extends Fragment {
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
-    private z_DoctorPendingPatientsAdapter adapter;
+    private card_doctor_item_patient_pending_invite_adapter adapter;
     private List<Map<String, Object>> patientList;
 
     public DoctorPendingInvitationPageFragment() {
@@ -54,7 +54,7 @@ public class DoctorPendingInvitationPageFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         patientList = new ArrayList<>();
-        adapter = new z_DoctorPendingPatientsAdapter(patientList);
+        adapter = new card_doctor_item_patient_pending_invite_adapter(patientList);
         recyclerView.setAdapter(adapter);
 
         loadPatients();
