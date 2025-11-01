@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +25,7 @@ public class PatientHomePageFragment extends Fragment {
     String patientEmail;
     LinearLayout patientDecision;
     TextView patientNameTextView, patientDecisionTextView;
+    Button acceptButton, rejectButton;
 
     public PatientHomePageFragment() {
         // Required empty public constructor
@@ -47,6 +50,8 @@ public class PatientHomePageFragment extends Fragment {
         patientNameTextView = view.findViewById(R.id.patientNameTextView);
         patientDecision = view.findViewById(R.id.patientDecision);
         patientDecisionTextView = view.findViewById(R.id.patientDecisionTextView);
+        acceptButton = view.findViewById(R.id.patientAcceptButton);
+        rejectButton = view.findViewById(R.id.patientRejectButton);
 
         String uid = mAuth.getCurrentUser().getUid();
 
@@ -67,10 +72,40 @@ public class PatientHomePageFragment extends Fragment {
                     patientDecision.setVisibility(View.GONE);
                 }
             });
-
-
         });
 
 
+        acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                acceptButton.setEnabled(false);
+
+                db.collection("invitations").whereEqualTo("patientEmail", patientEmail).whereEqualTo("status", "pending").get().addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        DocumentSnapshot acceptInvitation = queryDocumentSnapshots.getDocuments().get(0);
+                        acceptInvitation.getReference().update("status", "approved").addOnSuccessListener(aVoid -> {
+                            Toast.makeText(getContext(), "Invitation accepted ✅", Toast.LENGTH_SHORT).show();
+                            patientDecision.setVisibility(View.GONE);
+                        });
+                    }
+                });
+            }
+        });
+
+        rejectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rejectButton.setEnabled(false);
+                db.collection("invitations").whereEqualTo("patientEmail", patientEmail).whereEqualTo("status", "pending").get().addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        DocumentSnapshot acceptInvitation = queryDocumentSnapshots.getDocuments().get(0);
+                        acceptInvitation.getReference().update("status", "rejected").addOnSuccessListener(aVoid -> {
+                            patientDecision.setVisibility(View.GONE);
+                            Toast.makeText(getContext(), "Invitation rejected", Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                });
+            }
+        });
     }
 }
