@@ -185,7 +185,9 @@ public class Patient_Activity_SignUp_Page extends AppCompatActivity {
                             user.put("email", email);
                             user.put("phoneNumber", phoneNumber);
                             user.put("cuntryCode", cuntryCode);
-                            user.put("userType", "patient"); // differentiate between patient/doctor
+                            user.put("userType", "patient");
+                            user.put("doctorEmail", "");
+                            user.put("doctorId", "");
 
                             // Save user details to Firestore
                             db.collection("users").document(uid).set(user).addOnSuccessListener(aVoid -> {

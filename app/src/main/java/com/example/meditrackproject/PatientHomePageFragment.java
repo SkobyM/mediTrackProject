@@ -26,6 +26,7 @@ public class PatientHomePageFragment extends Fragment {
     LinearLayout patientDecision;
     TextView patientNameTextView, patientDecisionTextView;
     Button acceptButton, rejectButton;
+    String doctorEmail, doctorIdToSaveIt;
 
     public PatientHomePageFragment() {
         // Required empty public constructor
@@ -65,6 +66,8 @@ public class PatientHomePageFragment extends Fragment {
                     DocumentSnapshot invitationDoc = queryDocumentSnapshots.getDocuments().get(0);
                     String doctorId = invitationDoc.getString("doctorId");
                     db.collection("users").document(doctorId).get().addOnSuccessListener(documentSnapshot1 -> {
+                        doctorEmail = documentSnapshot1.getString("email");
+                        doctorIdToSaveIt = doctorId;
                         patientDecisionTextView.setText(String.format("You got invite from\nDr. %s %s", documentSnapshot1.getString("firstName"), documentSnapshot1.getString("lastName")));
                     });
                     patientDecision.setVisibility(View.VISIBLE);
@@ -86,6 +89,12 @@ public class PatientHomePageFragment extends Fragment {
                         acceptInvitation.getReference().update("status", "approved").addOnSuccessListener(aVoid -> {
                             Toast.makeText(getContext(), "Invitation accepted ✅", Toast.LENGTH_SHORT).show();
                             patientDecision.setVisibility(View.GONE);
+                            db.collection("users").whereEqualTo("email", patientEmail).get().addOnSuccessListener(userSnapshots -> {
+                                if (!userSnapshots.isEmpty()) {
+                                    DocumentSnapshot patientDoc = userSnapshots.getDocuments().get(0);
+                                    patientDoc.getReference().update("doctorEmail", doctorEmail, "doctorId", doctorIdToSaveIt);
+                                }
+                            });
                         });
                     }
                 });
