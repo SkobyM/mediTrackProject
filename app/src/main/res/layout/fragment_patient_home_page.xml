@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +21,6 @@
     android:paddingEnd="28dp"
     android:paddingBottom="40dp"
     tools:context=".PatientHomePageFragment">
-
     <!--    support image view (Headset) -->
     <ImageView
         android:id="@+id/supportImageView"
@@ -102,7 +111,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/card_upcoming_med_patient"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:padding="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/upcomingMedTextView">
 
@@ -185,5 +194,152 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/upcomingMedCard" />
 
+    <LinearLayout
+        android:id="@+id/TimetypeofmedicationLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/todayScheduleTextView"
+        android:padding="12dp">
+
+        <!-- 8:00 AM - Amoxicillin -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8:00 AM"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="24dp" />
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="20dp"
+                android:background="#E94B4B"
+                android:layout_marginHorizontal="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amoxicillin 250mg"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="24dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#FFE5E5"
+            android:layout_marginBottom="6dp" />
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#FFE5E5"
+            android:layout_marginBottom="6dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/dailytipsLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/TimetypeofmedicationLinearLayout"
+        android:padding="2dp"
+        android:background="@drawable/tips_background">
+
+        <!-- Daily Tips Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Daily Tips"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="#000000"/>
+
+        <!-- Daily Tips Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginTop="8dp"
+
+            android:elevation="4dp"
+            android:clipToPadding="false"
+            android:clipToOutline="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Drink 8 glasses of water today"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Avoid taking Vitamin D on an empty stomach"
+            android:textSize="14sp"
+            android:textColor="#000000"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/emergencyLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/dailytipsLinearLayout"
+        android:padding="2dp"
+        >
+        <!-- Emergency Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Emergency"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Call Ambulance Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/emergency_button"
+            android:paddingHorizontal="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Call an Ambulance (997)"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</ScrollView>
+
