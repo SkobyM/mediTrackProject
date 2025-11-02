@@ -19,6 +19,37 @@
             android:contentDescription="Image 1" />
 
     </FrameLayout>
+    <TextView
+        android:id="@+id/notifications_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notifications"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"/>
+
+
+    <TextView
+        android:id="@+id/notification_Time1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10 Minutes ago"
+        android:textSize="12sp"
+        android:alpha="0.7"
+        android:textColor="#B0B0B0"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:id="@+id/motification_Title1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Medication has been updated by your doctor"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:layout_marginBottom="12dp"/>
 
 
 </LinearLayout>
