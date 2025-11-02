@@ -105,5 +105,6 @@
     <string name="additional_notes">Additional Notes</string>
     <string name="cancel">Cancel</string>
     <string name="patient_email">Patient Email</string>
+    <string name="patients_under_your_care">Patients under your care</string>
 
 </resources>
