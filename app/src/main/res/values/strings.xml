@@ -104,5 +104,6 @@
     <string name="time">Time</string>
     <string name="additional_notes">Additional Notes</string>
     <string name="cancel">Cancel</string>
+    <string name="patient_email">Patient Email</string>
 
 </resources>

@@ -1,360 +1,395 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/doctor_bg"
-    android:paddingStart="28dp"
-    android:paddingTop="40dp"
-    android:paddingEnd="28dp"
-    android:paddingBottom="40dp"
+    android:fillViewport="true"
     tools:context=".DoctorAddPrescriptionPageFragment">
 
-    <ImageView
-        android:id="@+id/arrowBackForPatientPage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:contentDescription="@null"
-        android:focusable="true"
-        android:src="@drawable/ic_arrow_back_24_doctor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/inter_bold"
-        android:text="@string/patients"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/arrowBackForPatientPage"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/appLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_doctor" />
-
-    <TextView
-        android:id="@+id/addPrescriptionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/inter_bold"
-        android:text="@string/add_prescription"
-        android:textColor="@color/white"
-        android:textSize="32sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/arrowBackForPatientPage" />
-
-    <TextView
-        android:id="@+id/medicineNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/inter_bold"
-        android:text="@string/medicine_name"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addPrescriptionTextView" />
-
-    <EditText
-        android:id="@+id/medicineNameEditText"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:autofillHints="name"
-        android:background="@drawable/bg_edit_text"
-        android:hint="@null"
-        android:inputType="text"
-        android:padding="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medicineNameTextView" />
+        android:background="@color/doctor_bg"
+        android:paddingStart="28dp"
+        android:paddingTop="40dp"
+        android:paddingEnd="28dp"
+        android:paddingBottom="40dp"
+        tools:context=".DoctorAddPrescriptionPageFragment">
 
-    <TextView
-        android:id="@+id/medicineCodeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/inter_bold"
-        android:text="@string/medicine_code"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medicineNameEditText" />
-
-    <EditText
-        android:id="@+id/medicineCodeEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:autofillHints="name"
-        android:background="@drawable/bg_edit_text"
-        android:hint="@null"
-        android:inputType="text"
-        android:padding="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medicineCodeTextView" />
-
-
-    <LinearLayout
-        android:id="@+id/dateLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medicineCodeEditText">
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/arrowBackForPatientPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:contentDescription="@null"
+            android:focusable="true"
+            android:src="@drawable/ic_arrow_back_24_doctor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/patients"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/arrowBackForPatientPage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/appLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_doctor" />
+
+        <TextView
+            android:id="@+id/addPrescriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/add_prescription"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/arrowBackForPatientPage" />
+
+        <TextView
+            android:id="@+id/patientEmailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/patient_email"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addPrescriptionTextView" />
+
+        <EditText
+            android:id="@+id/patientEmailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:autofillHints="name"
+            android:background="@drawable/bg_edit_text"
+            android:hint="@null"
+            android:inputType="textEmailAddress"
+            android:padding="4dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/patientEmailTextView" />
+
+
+        <TextView
+            android:id="@+id/medicineNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/medicine_name"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/patientEmailEditText" />
+
+        <EditText
+            android:id="@+id/medicineNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:autofillHints="name"
+            android:background="@drawable/bg_edit_text"
+            android:hint="@null"
+            android:inputType="text"
+            android:padding="4dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/medicineNameTextView" />
+
+        <TextView
+            android:id="@+id/medicineCodeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/medicine_code"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/medicineNameEditText" />
+
+        <EditText
+            android:id="@+id/medicineCodeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:autofillHints="name"
+            android:background="@drawable/bg_edit_text"
+            android:hint="@null"
+            android:inputType="text"
+            android:padding="4dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/medicineCodeTextView" />
+
+
+        <LinearLayout
+            android:id="@+id/dateLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/medicineCodeEditText">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                app:alignItems="center"
+                app:flexWrap="wrap">
+
+                <TextView
+                    android:id="@+id/startDateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="@string/start_date"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/startDateEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@null"
+                    android:background="@drawable/bg_edit_text"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:padding="4dp"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/endDateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="@string/end_date"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/endDateEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@null"
+                    android:background="@drawable/bg_edit_text"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:padding="4dp"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/daysCheckBoxTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/days"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dateLinearLayout" />
+
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/daysContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:flexWrap="wrap"
-            app:alignItems="center"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            app:justifyContent="flex_start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/daysCheckBoxTextView">
 
-            <TextView
-                android:id="@+id/startDateTextView"
+            <CheckBox
+                android:id="@+id/sunCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/white"
                 android:fontFamily="@font/inter_bold"
-                android:text="@string/start_date"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/startDateEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="@null"
-                android:background="@drawable/bg_edit_text"
-                android:focusable="false"
-                android:fontFamily="@font/inter_bold"
-                android:inputType="date"
-                android:padding="4dp"
+                android:text="@string/sun"
                 android:textColor="@color/white" />
-        </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/monCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/white"
+                android:fontFamily="@font/inter_bold"
+                android:text="@string/mon"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/tueCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/white"
+                android:fontFamily="@font/inter_bold"
+                android:text="@string/tue"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/wedCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/white"
+                android:fontFamily="@font/inter_bold"
+                android:text="@string/wed"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/thuCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/white"
+                android:fontFamily="@font/inter_bold"
+                android:text="@string/thu"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/friCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/white"
+                android:fontFamily="@font/inter_bold"
+                android:text="@string/fri"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/satCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/white"
+                android:fontFamily="@font/inter_bold"
+                android:text="@string/sat"
+                android:textColor="@color/white" />
+        </com.google.android.flexbox.FlexboxLayout>
+
+
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/time"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/daysContainer" />
+
+        <EditText
+            android:id="@+id/timeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:autofillHints="@null"
+            android:background="@drawable/bg_edit_text"
+            android:focusable="false"
+            android:fontFamily="@font/inter_bold"
+            android:inputType="time"
+            android:padding="4dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/timeTextView" />
+
+        <TextView
+            android:id="@+id/notesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/additional_notes"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/timeEditText" />
+
+        <EditText
+            android:id="@+id/notesEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:autofillHints="@null"
+            android:background="@drawable/bg_edit_text"
+            android:fontFamily="@font/inter_bold"
+            android:inputType="text"
+            android:padding="30dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notesTextView" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:alignItems="center"
+            app:flexWrap="wrap"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notesEditText">
 
-
-            <TextView
-                android:id="@+id/endDateTextView"
+            <Button
+                android:id="@+id/addPrescriptionButton"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_bold"
-                android:text="@string/end_date"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:layout_marginEnd="30dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/darkBlue"
+                android:text="@string/add_prescription"
+                android:textColor="@color/white" />
 
-            <EditText
-                android:id="@+id/endDateEditText"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/cancelButton"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:autofillHints="@null"
-                android:background="@drawable/bg_edit_text"
-                android:focusable="false"
-                android:fontFamily="@font/inter_bold"
-                android:inputType="date"
-                android:padding="4dp"
+                android:layout_marginStart="30dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/darkBlue"
+                android:text="@string/cancel"
                 android:textColor="@color/white" />
 
         </LinearLayout>
 
-
-    </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/daysCheckBoxTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/inter_bold"
-        android:text="@string/days"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dateLinearLayout" />
-
-
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/daysContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:flexWrap="wrap"
-        app:justifyContent="flex_start"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/daysCheckBoxTextView">
-
-        <CheckBox
-            android:id="@+id/sunCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/white"
-            android:fontFamily="@font/inter_bold"
-            android:text="@string/sun"
-            android:textColor="@color/white" />
-
-        <CheckBox
-            android:id="@+id/monCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/white"
-            android:fontFamily="@font/inter_bold"
-            android:text="@string/mon"
-            android:textColor="@color/white" />
-
-        <CheckBox
-            android:id="@+id/tueCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/white"
-            android:fontFamily="@font/inter_bold"
-            android:text="@string/tue"
-            android:textColor="@color/white" />
-
-        <CheckBox
-            android:id="@+id/wedCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/white"
-            android:fontFamily="@font/inter_bold"
-            android:text="@string/wed"
-            android:textColor="@color/white" />
-
-        <CheckBox
-            android:id="@+id/thuCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/white"
-            android:fontFamily="@font/inter_bold"
-            android:text="@string/thu"
-            android:textColor="@color/white" />
-
-        <CheckBox
-            android:id="@+id/friCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/white"
-            android:fontFamily="@font/inter_bold"
-            android:text="@string/fri"
-            android:textColor="@color/white" />
-
-        <CheckBox
-            android:id="@+id/satCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/white"
-            android:fontFamily="@font/inter_bold"
-            android:text="@string/sat"
-            android:textColor="@color/white" />
-    </com.google.android.flexbox.FlexboxLayout>
-
-
-    <TextView
-        android:id="@+id/timeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_bold"
-        android:text="@string/time"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/daysContainer" />
-
-    <EditText
-        android:id="@+id/timeEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:autofillHints="@null"
-        android:background="@drawable/bg_edit_text"
-        android:focusable="false"
-        android:fontFamily="@font/inter_bold"
-        android:inputType="time"
-        android:padding="4dp"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timeTextView" />
-
-    <TextView
-        android:id="@+id/notesTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/inter_bold"
-        android:text="@string/additional_notes"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timeEditText" />
-
-    <EditText
-        android:id="@+id/notesEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:autofillHints="@null"
-        android:background="@drawable/bg_edit_text"
-        android:fontFamily="@font/inter_bold"
-        android:inputType="text"
-        android:padding="30dp"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/notesTextView" />
-
-    <LinearLayout
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal"
-        app:flexWrap="wrap"
-        app:alignItems="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/notesEditText">
-
-        <Button
-            android:id="@+id/addPrescriptionButton"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:layout_marginEnd="30dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/darkBlue"
-            android:text="@string/add_prescription" />
-
-        <Button
-            android:id="@+id/cancelButton"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/darkBlue"
-            android:textColor="@color/white"
-            android:text="@string/cancel" />
-
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
