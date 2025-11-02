@@ -12,32 +12,7 @@
     android:paddingBottom="40dp"
     tools:context=".PatientHomePageFragment">
 
-    <!--    support image view (Headset) -->
-    <ImageView
-        android:id="@+id/supportImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/support_button"
-        android:src="@drawable/ic_headset_mic_24_patient"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/notificationImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:contentDescription="@string/notfication_button"
-        android:src="@drawable/ic_notifications_24_patient"
-        app:layout_constraintStart_toEndOf="@+id/supportImageView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/welcomeTextView"
@@ -48,7 +23,7 @@
         android:text="@string/welcome"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/supportImageView" />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/patientNameTextView"
@@ -60,7 +35,7 @@
         android:text="@string/app_name"
         android:textSize="26sp"
         app:layout_constraintStart_toEndOf="@+id/welcomeTextView"
-        app:layout_constraintTop_toBottomOf="@+id/notificationImageView" />
+        tools:ignore="MissingConstraints" />
 
     <LinearLayout
         android:id="@+id/patientDecision"
@@ -253,6 +228,153 @@
         android:textSize="26sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/upcomingMedCard" />
+
+    <LinearLayout
+        android:id="@+id/TimetypeofmedicationLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/todayScheduleTextView"
+        android:padding="12dp">
+
+        <!-- 8:00 AM - Amoxicillin -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8:00 AM"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="24dp" />
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="20dp"
+                android:background="#E94B4B"
+                android:layout_marginHorizontal="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amoxicillin 250mg"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="24dp" />
+        </LinearLayout>
+
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#FFE5E5"
+            android:layout_marginBottom="6dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dailytipsLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/TimetypeofmedicationLinearLayout"
+        android:padding="2dp"
+        android:background="@drawable/tips_background">
+
+        <!-- Daily Tips Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="12dp"
+            android:text="Daily Tips"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="#000000"/>
+
+        <!-- Daily Tips Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginTop="8dp"
+
+            android:elevation="4dp"
+            android:clipToPadding="false"
+            android:clipToOutline="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Drink 8 glasses of water today"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Avoid taking Vitamin D on an empty stomach"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="#000000"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/emergencyLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/dailytipsLinearLayout"
+        android:padding="2dp"
+        >
+        <!-- Emergency Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Emergency"
+            android:textStyle="bold"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Call Ambulance Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/emergency_button"
+            android:paddingHorizontal="2dp">
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_ambulance"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Call an Ambulance (997)"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"/>
+        </LinearLayout>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

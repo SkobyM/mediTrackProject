@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,6 +19,40 @@
     android:background="@drawable/bg_soft_gradient_patient"
     android:orientation="vertical"
     tools:context=".Patient_Activity_HomePage">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/supportImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/support_button"
+            android:src="@drawable/ic_headset_mic_24_patient"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="30dp"
+            />
+
+        <ImageView
+            android:id="@+id/notificationImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/notfication_button"
+            android:src="@drawable/ic_notifications_24_patient"
+            app:layout_constraintStart_toEndOf="@+id/supportImageView"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="220dp"
+            android:layout_marginTop="50dp"
+            app:srcCompat="@drawable/logo" />
+    </LinearLayout>
+
 
     <FrameLayout
         android:id="@+id/patient_fragment_container"
@@ -30,3 +75,8 @@
         app:menu="@menu/patient_bottom_nav_menu" />
 
 </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>
