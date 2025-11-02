@@ -12,32 +12,6 @@
     android:paddingBottom="40dp"
     tools:context=".PatientProfileFragment">
 
-    <!--    support image view (Headset) -->
-    <ImageView
-        android:id="@+id/supportImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/support_button"
-        android:src="@drawable/ic_headset_mic_24_patient"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/notificationImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:contentDescription="@string/notfication_button"
-        android:src="@drawable/ic_notifications_24_patient"
-        app:layout_constraintStart_toEndOf="@+id/supportImageView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
 
     <ImageView
         android:id="@+id/profilePictureImageView"
