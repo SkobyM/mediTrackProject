@@ -18,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class DoctorHomePageFragment extends Fragment {
 
     TextView numberOfPatientTextView, textBesideNumberOfPatient, doctorNameTextView;
-    LinearLayout pendingInvitationLinearLayout, addPatientLinearLayout, addPrescriptionLineaLayout;
+    LinearLayout addPatientLinearLayout, addPrescriptionLineaLayout;
 
     FirebaseAuth mAuth;
     FirebaseFirestore db;
@@ -49,20 +49,12 @@ public class DoctorHomePageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         addPatientLinearLayout = view.findViewById(R.id.addPatientButton);
-        pendingInvitationLinearLayout = view.findViewById(R.id.pendingInvitationTextView);
         addPrescriptionLineaLayout = view.findViewById(R.id.addPrescriptionLinearLayout);
         numberOfPatientTextView = view.findViewById(R.id.numberOfPatientsTextView);
         textBesideNumberOfPatient = view.findViewById(R.id.textBesideNumberOfPatient);
         progressBar = view.findViewById(R.id.progressBar);
         doctorNameTextView = view.findViewById(R.id.doctorNameTextView);
 
-        pendingInvitationLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new DoctorPendingInvitationPageFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, fragment).addToBackStack(null).commit();
-            }
-        });
 
         addPrescriptionLineaLayout.setOnClickListener(new View.OnClickListener() {
             @Override

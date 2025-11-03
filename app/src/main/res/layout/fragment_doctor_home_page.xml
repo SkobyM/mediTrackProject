@@ -380,33 +380,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/pendingInvitationTextView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/card_bg_home_prescriptions_doctor"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pending_invitation"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/add_patient"
-                android:src="@drawable/ic_pending_actions_24_doctor" />
-
-        </LinearLayout>
 
 
     </LinearLayout>

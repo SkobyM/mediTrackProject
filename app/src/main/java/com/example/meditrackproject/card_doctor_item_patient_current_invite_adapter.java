@@ -30,8 +30,8 @@ public class card_doctor_item_patient_current_invite_adapter extends RecyclerVie
     public void onBindViewHolder(@NonNull card_doctor_item_patient_current_invite_adapter.ViewHolder holder, int position) {
         Map<String, Object> patient = patientList.get(position);
         holder.patientName.setText((String) patient.get("patientFullName"));
-        holder.patientPhoneNumber.setText("phoneNumber: " + patient.get("phoneNumber"));
-        holder.patientStatus.setText("Active Meds " + patient.get("@null"));
+        holder.patientPhoneNumber.setText("Patient Email: " + patient.get("patientEmail"));
+        holder.patientStatus.setText("Active Meds " + patient.get("activeMed"));
     }
 
     @Override
