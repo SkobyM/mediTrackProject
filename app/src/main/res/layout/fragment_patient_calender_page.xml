@@ -32,7 +32,8 @@
                 android:layout_marginEnd="12dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?android:attr/selectableItemBackgroundBorderless"/>
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/support_button" />
 
             <ImageView
                 android:id="@+id/notificationImageView"
@@ -41,7 +42,8 @@
                 android:src="@drawable/ic_notifications_24_patient"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?android:attr/selectableItemBackgroundBorderless"/>
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/notification_button" />
         </LinearLayout>
 
         <View
@@ -56,7 +58,8 @@
             android:src="@drawable/logo"
             android:clickable="true"
             android:focusable="true"
-            android:background="?android:attr/selectableItemBackgroundBorderless"/>
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/app_logo" />
     </LinearLayout>
 
     <!-- Calendar Month -->
@@ -83,7 +86,8 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_calendar_today_24"
-                android:layout_marginEnd="4dp"/>
+                android:layout_marginEnd="4dp"
+                android:contentDescription="@string/calender_icon" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -459,16 +463,16 @@
 
             <TextView
                 android:id="@+id/firstMedicineTime"
-                android:layout_width="60dp"
+                android:layout_width="93dp"
                 android:layout_height="wrap_content"
                 android:text="@string/firstMedTime"
                 android:textStyle="bold"
-                android:textSize="12sp"
+                android:textSize="20sp"
                 android:textColor="@color/calender_Second_text_color" />
 
             <View
                 android:layout_width="2dp"
-                android:layout_height="28dp"
+                android:layout_height="50dp"
                 android:background="@color/calender_main_pink_text_color"
                 android:layout_marginEnd="16dp" />
 
@@ -483,7 +487,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/firstMedName"
-                    android:textSize="14sp"
+                    android:textSize="23sp"
                     android:textColor="@color/calender_Second_text_color"
                     android:textStyle="bold" />
 
@@ -492,7 +496,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/firstMedDose"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textColor="@color/calender_Second_text_color" />
             </LinearLayout>
         </LinearLayout>
@@ -509,16 +513,16 @@
 
             <TextView
                 android:id="@+id/secondMedicineTime"
-                android:layout_width="60dp"
+                android:layout_width="93dp"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:text="@string/secondMedTime"
-                android:textSize="12sp"
+                android:textSize="20sp"
                 android:textColor="@color/calender_Second_text_color" />
 
             <View
                 android:layout_width="2dp"
-                android:layout_height="28dp"
+                android:layout_height="50dp"
                 android:background="@color/calender_main_pink_text_color"
                 android:layout_marginEnd="16dp" />
 
@@ -533,7 +537,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/secondMedName"
-                    android:textSize="14sp"
+                    android:textSize="23sp"
                     android:textColor="@color/calender_Second_text_color"
                     android:textStyle="bold" />
 
@@ -542,7 +546,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/secondMedDose"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textColor="@color/calender_Second_text_color" />
             </LinearLayout>
         </LinearLayout>
@@ -558,16 +562,16 @@
 
             <TextView
                 android:id="@+id/thirdMedicineTime"
-                android:layout_width="60dp"
+                android:layout_width="93dp"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:text="@string/thirdMedTime"
-                android:textSize="12sp"
+                android:textSize="20sp"
                 android:textColor="@color/calender_Second_text_color" />
 
             <View
                 android:layout_width="2dp"
-                android:layout_height="28dp"
+                android:layout_height="50dp"
                 android:background="@color/calender_main_pink_text_color"
                 android:layout_marginEnd="16dp" />
 
@@ -582,7 +586,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/thirdMedName"
-                    android:textSize="14sp"
+                    android:textSize="23sp"
                     android:textColor="@color/calender_Second_text_color"
                     android:textStyle="bold" />
 
@@ -591,7 +595,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/thirdMedDose"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textColor="@color/calender_Second_text_color" />
             </LinearLayout>
         </LinearLayout>
