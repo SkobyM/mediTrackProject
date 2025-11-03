@@ -1,6 +1,7 @@
 package com.example.meditrackproject;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +37,7 @@ public class DoctorCurrentPatientsPageFragment extends Fragment {
     private List<Map<String, Object>> patientList;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_doctor_current_patients_page, container, false);
     }
 
@@ -72,52 +72,51 @@ public class DoctorCurrentPatientsPageFragment extends Fragment {
 
     private void loadPatients() {
         String doctorId = mAuth.getCurrentUser().getUid();
+
+
         progressBar.setVisibility(View.VISIBLE);
 
-        db.collection("invitations")
-                .whereEqualTo("doctorId", doctorId)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    patientList.clear();
+        db.collection("invitations").whereEqualTo("doctorId", doctorId).whereEqualTo("status", "approved").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            patientList.clear();
 
-                    int counter = 0;
-                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                        Map<String, Object> data = doc.getData();
-                        String status = (String) data.get("status");
-                        if ("approved".equals(status)) {
-                            String patientEmail = (String) data.get("patientEmail");
-                            counter++;
-                            db.collection("users").whereEqualTo("email", patientEmail)
-                                    .get()
-                                    .addOnSuccessListener(userSnapshots -> {
-                                        if (!userSnapshots.isEmpty()) {
-                                            DocumentSnapshot userDoc = userSnapshots.getDocuments().get(0);
-                                            String fullName = userDoc.getString("firstName") + " " + userDoc.getString("lastName");
-                                            data.put("patientFullName", fullName);
-                                            String phoneNumber = userDoc.getString("phoneNumber");
-                                            data.put("phoneNumber", phoneNumber);
-                                        } else {
-                                            data.put("patientFullName", "Unknown Patient");
-                                        }
+            int counter = 0;
+            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                Map<String, Object> data = doc.getData();
+                String patientEmail = (String) data.get("patientEmail");
+                counter++;
+                db.collection("users").whereEqualTo("email", patientEmail).get().addOnSuccessListener(userSnapshots -> {
+                    if (!userSnapshots.isEmpty()) {
+                        DocumentSnapshot userDoc = userSnapshots.getDocuments().get(0);
+                        String fullName = userDoc.getString("firstName") + " " + userDoc.getString("lastName");
+                        data.put("patientFullName", fullName);
+                        data.put("patientEmail", patientEmail);
+                    }
 
-                                        patientList.add(data);
-                                        adapter.notifyDataSetChanged();
-
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        progressBar.setVisibility(View.GONE);
-                                        Toast.makeText(requireContext(), "Error loading patient: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    });
+                    db.collection("prescriptions").whereEqualTo("doctorId", doctorId).whereEqualTo("patientEmail", patientEmail).whereEqualTo("status", "active").get().addOnSuccessListener(queryDocumentSnapshots1 -> {
+                        int medCounter = 0;
+                        for (QueryDocumentSnapshot docRef : queryDocumentSnapshots1) {
+                            medCounter++;
                         }
-                    }
+                        data.put("activeMed", medCounter);
+                        patientList.add(data);
+                        adapter.notifyDataSetChanged();
+                    }).addOnFailureListener(e -> {
+                        progressBar.setVisibility(View.GONE);
+                    });
+
+                }).addOnFailureListener(e -> {
                     progressBar.setVisibility(View.GONE);
-                    if (counter == 0) {
-                        youDontHaveAnyPatientTextView.setVisibility(View.VISIBLE);
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Error loading patient: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+
+            }
+            progressBar.setVisibility(View.GONE);
+            if (counter == 0) {
+                youDontHaveAnyPatientTextView.setVisibility(View.VISIBLE);
+            }
+        }).addOnFailureListener(e -> {
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
     }
 }
