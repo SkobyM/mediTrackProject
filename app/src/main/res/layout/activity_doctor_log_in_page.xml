@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_soft_gradient_patient"
     android:orientation="vertical"
-    tools:context=".doctor_LogInPage">
+    tools:context=".Doctor_Activity_LogInPage">
 
     <ImageView
         android:id="@+id/ourLogoInLogInPage"

@@ -17,8 +17,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DoctorHomePageFragment extends Fragment {
 
-    TextView numberOfPatientTextView, textBesideNumberOfPatient;
-    LinearLayout pendingInvitation, addPatientButton;
+    TextView numberOfPatientTextView, textBesideNumberOfPatient, doctorNameTextView;
+    LinearLayout pendingInvitationLinearLayout, addPatientLinearLayout, addPrescriptionLineaLayout;
 
     FirebaseAuth mAuth;
     FirebaseFirestore db;
@@ -48,24 +48,34 @@ public class DoctorHomePageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        addPatientButton = view.findViewById(R.id.addPatientButton);
-        pendingInvitation = view.findViewById(R.id.pendingInvitationTextView);
+        addPatientLinearLayout = view.findViewById(R.id.addPatientButton);
+        pendingInvitationLinearLayout = view.findViewById(R.id.pendingInvitationTextView);
+        addPrescriptionLineaLayout = view.findViewById(R.id.addPrescriptionLinearLayout);
         numberOfPatientTextView = view.findViewById(R.id.numberOfPatientsTextView);
         textBesideNumberOfPatient = view.findViewById(R.id.textBesideNumberOfPatient);
         progressBar = view.findViewById(R.id.progressBar);
+        doctorNameTextView = view.findViewById(R.id.doctorNameTextView);
 
-        pendingInvitation.setOnClickListener(new View.OnClickListener() {
+        pendingInvitationLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new DoctorPendingInvitation();
+                Fragment fragment = new DoctorPendingInvitationPageFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, fragment).addToBackStack(null).commit();
             }
         });
 
-        addPatientButton.setOnClickListener(new View.OnClickListener() {
+        addPrescriptionLineaLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment nextFragment = new DoctorAddPatientFragment();
+                Fragment fragment = new DoctorAddPrescriptionPageFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, fragment).addToBackStack(null).commit();
+            }
+        });
+
+        addPatientLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment nextFragment = new DoctorAddPatientPageFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
             }
         });
@@ -94,6 +104,10 @@ public class DoctorHomePageFragment extends Fragment {
             numberOfPatientTextView.setVisibility(View.VISIBLE);
             textBesideNumberOfPatient.setVisibility(View.VISIBLE);
 //            progressBar.setVisibility(View.GONE);
+        });
+
+        db.collection("users").document(doctorId).get().addOnSuccessListener(documentSnapshot -> {
+            doctorNameTextView.setText(documentSnapshot.getString("firstName"));
         });
 
     }

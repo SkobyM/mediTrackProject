@@ -27,7 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Doctor_SignUp_Page extends AppCompatActivity {
+public class Doctor_Activity_SignUp_Page extends AppCompatActivity {
 
     // UI components
     EditText firstNameEditText, lastNameEditText, emailEditText, licenseEditText, passwordEditText, phoneNumberEditText, rePasswordEditText;
@@ -39,6 +39,12 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
     ImageView arrowBackForBackPageInSignUp;
     ProgressBar progressBar;
 
+    private String capitalizeWord(String input) {
+        input = input.trim();
+        if (input.isEmpty()) return input;
+        if (input.length() == 1) return input.toUpperCase();
+        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +74,8 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
             public void onClick(View v) {
 
                 // Get input values from fields
-                String firstName = firstNameEditText.getText().toString();
-                String lastName = lastNameEditText.getText().toString();
+                String inputFirstName = firstNameEditText.getText().toString();
+                String inputLastName = lastNameEditText.getText().toString();
                 String email = emailEditText.getText().toString();
                 String licenseNumber = licenseEditText.getText().toString();
                 String phoneNumber = phoneNumberEditText.getText().toString();
@@ -77,12 +83,12 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
                 String rePassword = rePasswordEditText.getText().toString().trim();
 
                 // Validate inputs
-                if (TextUtils.isEmpty(firstName)) {
+                if (TextUtils.isEmpty(inputFirstName)) {
                     firstNameEditText.setError("Enter first name");
                     firstNameEditText.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(lastName)) {
+                if (TextUtils.isEmpty(inputLastName)) {
                     lastNameEditText.setError("Enter last name");
                     lastNameEditText.requestFocus();
                     return;
@@ -140,6 +146,9 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
                     return;
                 }
 
+                String firstName = capitalizeWord(inputFirstName);
+                String lastName = capitalizeWord(inputLastName);
+
                 progressBar.setVisibility(View.VISIBLE);
                 // Create doctor account with Firebase Authentication
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -162,21 +171,21 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
 
                             // Save doctor request details to Firestore
                             db.collection("users").document(uid).set(user).addOnSuccessListener(aVoid -> {
-                                Toast.makeText(Doctor_SignUp_Page.this, "Requesting Account Successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Doctor_Activity_SignUp_Page.this, "Requesting Account Successful", Toast.LENGTH_SHORT).show();
                             }).addOnFailureListener(e -> {
-                                Toast.makeText(Doctor_SignUp_Page.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Doctor_Activity_SignUp_Page.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             });
 
                             progressBar.setVisibility(View.GONE);
                             // Navigate to Doctor log in page after successful request
-                            Intent intent = new Intent(Doctor_SignUp_Page.this, doctor_LogInPage.class);
+                            Intent intent = new Intent(Doctor_Activity_SignUp_Page.this, Doctor_Activity_LogInPage.class);
                             startActivity(intent);
                             finish();
 
                         } else {
                             progressBar.setVisibility(View.GONE);
                             String errorMessage = task.getException() != null ? task.getException().getMessage() : "Unknown error";
-                            Toast.makeText(Doctor_SignUp_Page.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
+                            Toast.makeText(Doctor_Activity_SignUp_Page.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -187,7 +196,7 @@ public class Doctor_SignUp_Page extends AppCompatActivity {
         arrowBackForBackPageInSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Doctor_SignUp_Page.this, doctor_LogInPage.class);
+                Intent intent = new Intent(Doctor_Activity_SignUp_Page.this, Doctor_Activity_LogInPage.class);
                 startActivity(intent);
                 finish();
             }

@@ -29,13 +29,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Patient_SignUp_Page extends AppCompatActivity {
+public class Patient_Activity_SignUp_Page extends AppCompatActivity {
 
     // UI components
     EditText firstNameEditText, lastNameEditText, emailEditText, phoneNumberEditText, passwordEditText, rePasswordEditText;
     Button createAccountButton;
     FirebaseAuth mAuth; // Firebase Authentication instance
     ProgressBar progressBar;
+
+    private String capitalizeWord(String input) {
+        input = input.trim();
+        if (input.isEmpty()) return input;
+        if (input.length() == 1) return input.toUpperCase();
+        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +62,7 @@ public class Patient_SignUp_Page extends AppCompatActivity {
         arrowBackForBackPageInSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Patient_SignUp_Page.this, Patient_LogInPage.class);
+                Intent intent = new Intent(Patient_Activity_SignUp_Page.this, Patient_Activity_LogInPage.class);
                 startActivity(intent);
                 finish();
             }
@@ -85,28 +92,28 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                 String email = emailEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
                 String rePassword = rePasswordEditText.getText().toString().trim();
-                String firstName = firstNameEditText.getText().toString();
-                String lastName = lastNameEditText.getText().toString();
+                String inputFirstName = firstNameEditText.getText().toString();
+                String inputLastName = lastNameEditText.getText().toString();
                 String phoneNumber = phoneNumberEditText.getText().toString();
                 String cuntryCode = countryCodeSpinner.getSelectedItem().toString();
 
                 // Validate inputs
-                if (TextUtils.isEmpty(firstName)) {
+                if (TextUtils.isEmpty(inputFirstName)) {
                     firstNameEditText.setError("Enter first name");
                     firstNameEditText.requestFocus();
                     return;
                 }
-                if (TextUtils.isDigitsOnly(firstName)) {
+                if (TextUtils.isDigitsOnly(inputFirstName)) {
                     firstNameEditText.setError("Please enter valid name");
                     firstNameEditText.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(lastName)) {
+                if (TextUtils.isEmpty(inputLastName)) {
                     lastNameEditText.setError("Enter last name");
                     lastNameEditText.requestFocus();
                     return;
                 }
-                if (TextUtils.isDigitsOnly(lastName)) {
+                if (TextUtils.isDigitsOnly(inputLastName)) {
                     lastNameEditText.setError("Please enter valid name");
                     lastNameEditText.requestFocus();
                     return;
@@ -159,6 +166,9 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                     return;
                 }
 
+                String firstName = capitalizeWord(inputFirstName);
+                String lastName = capitalizeWord(inputLastName);
+
                 progressBar.setVisibility(View.VISIBLE);
                 // Create a new user with Firebase Authentication
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -175,17 +185,19 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                             user.put("email", email);
                             user.put("phoneNumber", phoneNumber);
                             user.put("cuntryCode", cuntryCode);
-                            user.put("userType", "patient"); // differentiate between patient/doctor
+                            user.put("userType", "patient");
+                            user.put("doctorEmail", "");
+                            user.put("doctorId", "");
 
                             // Save user details to Firestore
                             db.collection("users").document(uid).set(user).addOnSuccessListener(aVoid -> {
-                                Toast.makeText(Patient_SignUp_Page.this, "Sign up Successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Patient_Activity_SignUp_Page.this, "Sign up Successfully", Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
-                                Intent intent = new Intent(Patient_SignUp_Page.this, Patient_HomePage.class);
+                                Intent intent = new Intent(Patient_Activity_SignUp_Page.this, Patient_Activity_HomePage.class);
                                 startActivity(intent);
                                 finish();
                             }).addOnFailureListener(e -> {
-                                Toast.makeText(Patient_SignUp_Page.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Patient_Activity_SignUp_Page.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                             });
 
@@ -198,7 +210,7 @@ public class Patient_SignUp_Page extends AppCompatActivity {
                                 emailEditText.setError("Email is already in use");
                                 emailEditText.requestFocus();
                             } else {
-                                Toast.makeText(Patient_SignUp_Page.this, "Error occurred during sign up", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Patient_Activity_SignUp_Page.this, "Error occurred during sign up", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

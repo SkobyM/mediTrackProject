@@ -14,25 +14,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MediTrackProject" >
         <activity
-            android:name=".Doctor_SignUp_Page"
+            android:name=".Doctor_Activity_SignUp_Page"
             android:exported="false" />
         <activity
-            android:name=".Doctor_HomePage"
+            android:name=".Doctor_Activity_HomePage"
             android:exported="false" />
         <activity
-            android:name=".Patient_HomePage"
+            android:name=".Patient_Activity_HomePage"
             android:exported="false" />
         <activity
-            android:name=".Patient_SignUp_Page"
+            android:name=".Patient_Activity_SignUp_Page"
             android:exported="true" />
         <activity
-            android:name=".Patient_ForgetPasswordPage"
+            android:name=".Patient_Activity_ForgetPasswordPage"
             android:exported="true" />
         <activity
-            android:name=".doctor_LogInPage"
+            android:name=".Doctor_Activity_LogInPage"
             android:exported="true" />
         <activity
-            android:name=".Patient_LogInPage"
+            android:name=".Patient_Activity_LogInPage"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,14 +42,7 @@
         </activity>
 
 
-<!--        <activity android:name="Doctor_HomePage"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
     </application>
 
 </manifest>
