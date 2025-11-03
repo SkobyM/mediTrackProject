@@ -12,7 +12,6 @@
     android:paddingBottom="40dp"
     tools:context=".PatientHomePageFragment">
 
-    <!--    This comment was added as a test -->
     <!--    support image view (Headset) -->
     <ImageView
         android:id="@+id/supportImageView"
