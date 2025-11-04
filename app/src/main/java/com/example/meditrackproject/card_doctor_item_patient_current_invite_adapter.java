@@ -40,7 +40,6 @@ public class card_doctor_item_patient_current_invite_adapter extends RecyclerVie
         holder.viewScheduleTextView.setOnClickListener(v -> {
             String patientEmail = String.valueOf(patient.get("patientEmail"));
             String patientFullName = String.valueOf(patient.get("patientFullName"));
-            Toast.makeText(v.getContext(), "Viewing schedule for " + patientEmail, Toast.LENGTH_SHORT).show();
 
             Fragment fragment = new DoctorViewScheduleFragment();
             Bundle bundle = new Bundle();

@@ -1,21 +1,25 @@
 package com.example.meditrackproject;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class DoctorViewScheduleFragment extends Fragment {
 
-    TextView patientEmailTextView, patientNameTextView, viewPrescriptionsTextView;
+    TextView patientEmailTextView, patientNameTextView, viewPrescriptionsTextView, numberOfPrescriptions;
     ImageView arrowBack;
+    FirebaseAuth mAuth;
+    FirebaseFirestore db;
 
 
     public DoctorViewScheduleFragment() {
@@ -30,6 +34,14 @@ public class DoctorViewScheduleFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -37,6 +49,7 @@ public class DoctorViewScheduleFragment extends Fragment {
         patientEmailTextView = view.findViewById(R.id.patientEmailTextView);
         patientNameTextView = view.findViewById(R.id.patientNameTextView);
         viewPrescriptionsTextView = view.findViewById(R.id.viewPrescriptionsTextView);
+        numberOfPrescriptions = view.findViewById(R.id.numberOfPrescriptions);
 
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +70,14 @@ public class DoctorViewScheduleFragment extends Fragment {
                 Fragment nextFragment = new DoctorViewPrescriptionsPage();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
             }
+        });
+
+        String doctorId = mAuth.getCurrentUser().getUid();
+
+        db.collection("prescriptions").whereEqualTo("doctorId", doctorId).whereEqualTo("patientEmail", patientEmail).get().addOnSuccessListener(documentSnapshots -> {
+            int counter = documentSnapshots.size();
+
+            numberOfPrescriptions.setText(String.valueOf(counter));
         });
 
 
