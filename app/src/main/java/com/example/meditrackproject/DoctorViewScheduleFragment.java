@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 public class DoctorViewScheduleFragment extends Fragment {
 
     TextView patientEmailTextView, patientNameTextView, viewPrescriptionsTextView, numberOfPrescriptions;
+    LinearLayout addPrescriptionLinearLayout;
     ImageView arrowBack;
     FirebaseAuth mAuth;
     FirebaseFirestore db;
@@ -54,6 +56,7 @@ public class DoctorViewScheduleFragment extends Fragment {
         patientNameTextView = view.findViewById(R.id.patientNameTextView);
         viewPrescriptionsTextView = view.findViewById(R.id.viewPrescriptionsTextView);
         numberOfPrescriptions = view.findViewById(R.id.numberOfPrescriptions);
+        addPrescriptionLinearLayout = view.findViewById(R.id.addPrescriptionLinearLayout);
 
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +70,17 @@ public class DoctorViewScheduleFragment extends Fragment {
 
         patientNameTextView.setText(patientName);
         patientEmailTextView.setText(patientEmail);
+
+        addPrescriptionLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment nextFragment = new DoctorAddPrescriptionPageFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("patientEmail", patientEmail);
+                nextFragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
+            }
+        });
 
         String doctorId = mAuth.getCurrentUser().getUid();
 

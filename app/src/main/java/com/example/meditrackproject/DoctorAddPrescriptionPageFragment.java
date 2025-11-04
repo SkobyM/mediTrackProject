@@ -63,11 +63,19 @@ public class DoctorAddPrescriptionPageFragment extends Fragment {
         endDateEditText = view.findViewById(R.id.endDateEditText);
         timeEditText = view.findViewById(R.id.timeEditText);
         addPrescriptionButton = view.findViewById(R.id.addPrescriptionButton);
+        patientEmailEditText = view.findViewById(R.id.patientEmailEditText);
 
 
         startDateEditText.setOnClickListener(v -> showDatePicker(true));
         endDateEditText.setOnClickListener(v -> showDatePicker(false));
         timeEditText.setOnClickListener(v -> showTimePicker());
+
+        Bundle args = getArguments();
+        if (args != null){
+            String patientEmail = args.getString("patientEmail");
+            patientEmailEditText.setText(patientEmail);
+        }
+
         addPrescriptionButton.setOnClickListener(v -> addPrescription(view));
 
 
@@ -77,6 +85,7 @@ public class DoctorAddPrescriptionPageFragment extends Fragment {
                 requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
+
     }
 
     private void addPrescription(View view) {
