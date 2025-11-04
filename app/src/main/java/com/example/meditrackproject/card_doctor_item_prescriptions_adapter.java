@@ -40,9 +40,9 @@ public class card_doctor_item_prescriptions_adapter extends RecyclerView.Adapter
 
         List<String> days = (List<String>) prescriptions.get("days");
         if (days != null && !days.isEmpty()) {
-            holder.days.setText("Days: " + TextUtils.join(", ", days));
+            holder.days.setText("" + TextUtils.join(" | ", days));
         } else {
-            holder.days.setText("Days: -");
+            holder.days.setText("-");
         }
 
 
