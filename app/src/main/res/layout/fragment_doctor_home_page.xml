@@ -183,11 +183,11 @@
                     android:src="@drawable/ic_medication_24_doctor" />
 
                 <TextView
+                    android:id="@+id/numberOfPrescriptions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/inter_bold"
-                    android:text="-"
                     android:textColor="@color/white"
                     android:textSize="48sp"
                     android:textStyle="bold" />
@@ -195,10 +195,10 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/textBesideNumberOfPrescriptions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
-                android:text="you have - Active\nprescriptions"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -379,7 +379,6 @@
                 android:src="@drawable/ic_document_search_24_doctor" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>

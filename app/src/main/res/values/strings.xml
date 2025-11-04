@@ -106,5 +106,10 @@
     <string name="cancel">Cancel</string>
     <string name="patient_email">Patient Email</string>
     <string name="patients_under_your_care">Patients under your care</string>
+    <string name="active_meds">Active Meds</string>
+    <string name="view_schedule"><![CDATA[View Schedule >]]></string>
+    <string name="medications">Medications</string>
+    <string name="next_refill">Next Refill</string>
+    <string name="view"><![CDATA[View >]]></string>
 
 </resources>

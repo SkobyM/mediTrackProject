@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DoctorHomePageFragment extends Fragment {
 
-    TextView numberOfPatientTextView, textBesideNumberOfPatient, doctorNameTextView;
+    TextView numberOfPatientTextView, textBesideNumberOfPatient, doctorNameTextView, numberOfPrescriptions, textBesideNumberOfPrescriptions;
     LinearLayout addPatientLinearLayout, addPrescriptionLineaLayout;
 
     FirebaseAuth mAuth;
@@ -54,6 +55,8 @@ public class DoctorHomePageFragment extends Fragment {
         textBesideNumberOfPatient = view.findViewById(R.id.textBesideNumberOfPatient);
         progressBar = view.findViewById(R.id.progressBar);
         doctorNameTextView = view.findViewById(R.id.doctorNameTextView);
+        numberOfPrescriptions = view.findViewById(R.id.numberOfPrescriptions);
+        textBesideNumberOfPrescriptions = view.findViewById(R.id.textBesideNumberOfPrescriptions);
 
 
         addPrescriptionLineaLayout.setOnClickListener(new View.OnClickListener() {
@@ -77,15 +80,9 @@ public class DoctorHomePageFragment extends Fragment {
 
 
         progressBar.setVisibility(View.VISIBLE);
-        db.collection("invitations").whereEqualTo("doctorId", doctorId).get().addOnSuccessListener(documentSnapshots -> {
-            int counter = 0;
-            for (int i = 0; i < documentSnapshots.size(); i++) {
-                String status = documentSnapshots.getDocuments().get(i).getString("status");
+        db.collection("invitations").whereEqualTo("doctorId", doctorId).whereEqualTo("status", "approved").get().addOnSuccessListener(documentSnapshots -> {
+            int counter = documentSnapshots.size();
 
-                if ("approved".equals(status)) {
-                    counter++;
-                }
-            }
             progressBar.setVisibility(View.GONE);
             numberOfPatientTextView.setText(String.valueOf(counter));
             textBesideNumberOfPatient.setText(String.format("you have %d patient\nunder your care", counter));
@@ -100,6 +97,13 @@ public class DoctorHomePageFragment extends Fragment {
 
         db.collection("users").document(doctorId).get().addOnSuccessListener(documentSnapshot -> {
             doctorNameTextView.setText(documentSnapshot.getString("firstName"));
+        });
+
+        db.collection("prescriptions").whereEqualTo("doctorId", doctorId).get().addOnSuccessListener(documentSnapshots -> {
+            int counter = documentSnapshots.size();
+
+            numberOfPrescriptions.setText(String.valueOf(counter));
+            textBesideNumberOfPrescriptions.setText(String.format("you have %d Active\nprescriptions", counter));
         });
 
     }
