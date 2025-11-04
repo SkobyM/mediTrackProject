@@ -13,6 +13,10 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DoctorViewScheduleFragment extends Fragment {
 
@@ -64,20 +68,37 @@ public class DoctorViewScheduleFragment extends Fragment {
         patientNameTextView.setText(patientName);
         patientEmailTextView.setText(patientEmail);
 
-        viewPrescriptionsTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment nextFragment = new DoctorViewPrescriptionsPage();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
-            }
-        });
-
         String doctorId = mAuth.getCurrentUser().getUid();
 
         db.collection("prescriptions").whereEqualTo("doctorId", doctorId).whereEqualTo("patientEmail", patientEmail).get().addOnSuccessListener(documentSnapshots -> {
             int counter = documentSnapshots.size();
-
             numberOfPrescriptions.setText(String.valueOf(counter));
+
+            ArrayList<HashMap<String, Object>> prescriptionsList = new ArrayList<>();
+            for (QueryDocumentSnapshot doc : documentSnapshots){
+                HashMap<String, Object> prescription = new HashMap<>();
+
+                prescription.put("startDate", doc.get("startDate"));
+                prescription.put("endDate", doc.get("endDate"));
+                prescription.put("medicineCode", doc.get("medicineCode"));
+                prescription.put("medicineName", doc.get("medicineName"));
+                prescription.put("days", doc.get("days"));
+                prescription.put("patientName", patientName);
+                prescription.put("patientEmail", patientEmail);
+
+                prescriptionsList.add(prescription);
+            }
+
+            viewPrescriptionsTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Fragment nextFragment = new DoctorViewPrescriptionsPage();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("prescriptionsList", prescriptionsList);
+                    nextFragment.setArguments(bundle);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
+                }
+            });
         });
 
 
