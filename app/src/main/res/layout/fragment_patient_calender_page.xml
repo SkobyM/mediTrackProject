@@ -1,18 +1,604 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="28dp"
-    android:paddingEnd="28dp"
+    android:background="@drawable/bg_soft_gradient_patient"
+    android:orientation="vertical"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
     android:paddingTop="40dp"
-    android:paddingBottom="40dp"
+    android:paddingBottom="16dp"
     tools:context=".PatientCalenderPageFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- Header Icons -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="calender" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/supportImageView"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_headset_mic_24_patient"
+                android:layout_marginEnd="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/support_button" />
+
+            <ImageView
+                android:id="@+id/notificationImageView"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_notifications_24_patient"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/notification_button" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/heartLogoImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/logo"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/app_logo" />
+    </LinearLayout>
+
+    <!-- Calendar Month -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="8dp">
+
+        <LinearLayout
+            android:id="@+id/viewCalendarButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground">
+
+            <ImageView
+                android:id="@+id/patient_nav_calender"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_calendar_today_24"
+                android:layout_marginEnd="4dp"
+                android:contentDescription="@string/calender_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/view_calendar"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/yearMonthView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/month_select_left"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/calender_left_arrow"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@string/previous_month" />
+
+            <TextView
+                android:id="@+id/yearMonthTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/calenderYearMonth"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/month_select_right"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/next_month"
+                android:src="@drawable/calender_right_arrow" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Week Days Row -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_marginBottom="24dp">
+
+        <LinearLayout
+            android:id="@+id/daySelectView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- September starts on Saturday -->
+            <TextView
+                android:id="@+id/calenderDay1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays1"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays2"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays3"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays4"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays5"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay6"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays6"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay7"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays7"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay8"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays8"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay9"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays9"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay10"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays10"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay11"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays11"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay12"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays12"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay13"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays13"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay14"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays14"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay15"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays15"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay16"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays16"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay17"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays17"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay18"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays18"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay19"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays19"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay20"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays20"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay21"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays21"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay22"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays22"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay23"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays23"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_selected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay24"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays24"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay25"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays25"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay26"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays26"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay27"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays27"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay28"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays28"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay29"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays29"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+            <TextView
+                android:id="@+id/calenderDay30"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/calenderDays30"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_calender_day_unselected"
+                android:layout_margin="2dp" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- Selected Date -->
+    <TextView
+        android:id="@+id/selectedDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/selectedDaySchedule"
+        android:textColor="@color/calender_main_pink_text_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="@string/the_scheduled_medicines"
+        android:textSize="14sp"
+        android:textColor="@color/calender_Second_text_color"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Medicines List -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Medicine 1 -->
+        <LinearLayout
+            android:id="@+id/firstMedicine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="12dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/firstMedicineTime"
+                android:layout_width="93dp"
+                android:layout_height="wrap_content"
+                android:text="@string/firstMedTime"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/calender_Second_text_color" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="50dp"
+                android:background="@color/calender_main_pink_text_color"
+                android:layout_marginEnd="16dp" />
+
+            <LinearLayout
+                android:id="@+id/firstMedicineDetails"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/firstMedicineName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/firstMedName"
+                    android:textSize="23sp"
+                    android:textColor="@color/calender_Second_text_color"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/firstMedicineDosage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/firstMedDose"
+                    android:textSize="16sp"
+                    android:textColor="@color/calender_Second_text_color" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Medicine 2 -->
+        <LinearLayout
+            android:id="@+id/secondMedicine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="12dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/secondMedicineTime"
+                android:layout_width="93dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/secondMedTime"
+                android:textSize="20sp"
+                android:textColor="@color/calender_Second_text_color" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="50dp"
+                android:background="@color/calender_main_pink_text_color"
+                android:layout_marginEnd="16dp" />
+
+            <LinearLayout
+                android:id="@+id/secondMedicineDetails"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/secondMedicineName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/secondMedName"
+                    android:textSize="23sp"
+                    android:textColor="@color/calender_Second_text_color"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/secondMedicineDosage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/secondMedDose"
+                    android:textSize="16sp"
+                    android:textColor="@color/calender_Second_text_color" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Medicine 3 -->
+        <LinearLayout
+            android:id="@+id/thirdMedicine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="12dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/thirdMedicineTime"
+                android:layout_width="93dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/thirdMedTime"
+                android:textSize="20sp"
+                android:textColor="@color/calender_Second_text_color" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="50dp"
+                android:background="@color/calender_main_pink_text_color"
+                android:layout_marginEnd="16dp" />
+
+            <LinearLayout
+                android:id="@+id/thirdMedicineDetails"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/thirdMedicineName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/thirdMedName"
+                    android:textSize="23sp"
+                    android:textColor="@color/calender_Second_text_color"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/thirdMedicineDosage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/thirdMedDose"
+                    android:textSize="16sp"
+                    android:textColor="@color/calender_Second_text_color" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -6,5 +6,7 @@
     <color name="red">#F26565</color>
     <color name="doctor_bg">#173a3b</color>
     <color name="doctor_nav_bg">#3B5E5E</color>
+    <color name="calender_Second_text_color">#4A4A4A</color>
+    <color name="calender_main_pink_text_color">#EA6B6B</color>
 
 </resources>
