@@ -22,8 +22,7 @@ public class card_doctor_item_patient_pending_invite_adapter extends RecyclerVie
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_doctor_item_patient_pending_invite, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_doctor_item_patient_pending_invite, parent, false);
         return new ViewHolder(view);
     }
 
@@ -31,8 +30,7 @@ public class card_doctor_item_patient_pending_invite_adapter extends RecyclerVie
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Map<String, Object> patient = patientList.get(position);
         holder.patientName.setText((String) patient.get("patientFullName"));
-        holder.patientEmail.setText("Email: " + patient.get("patientEmail"));
-        holder.patientStatus.setText("Status: " + patient.get("status"));
+        holder.patientEmail.setText(String.valueOf(patient.get("patientEmail")));
     }
 
     @Override
