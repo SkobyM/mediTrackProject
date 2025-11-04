@@ -1,11 +1,15 @@
 package com.example.meditrackproject;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -32,6 +36,24 @@ public class card_doctor_item_patient_current_invite_adapter extends RecyclerVie
         holder.patientName.setText((String) patient.get("patientFullName"));
         holder.patientPhoneNumber.setText(String.valueOf(patient.get("patientEmail")));
         holder.patientStatus.setText(String.valueOf(patient.get("activeMed")));
+
+        holder.viewScheduleTextView.setOnClickListener(v -> {
+            String patientEmail = String.valueOf(patient.get("patientEmail"));
+            String patientFullName = String.valueOf(patient.get("patientFullName"));
+            Toast.makeText(v.getContext(), "Viewing schedule for " + patientEmail, Toast.LENGTH_SHORT).show();
+
+            Fragment fragment = new DoctorViewScheduleFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("patientEmail", patientEmail);
+            bundle.putString("patientFullName", patientFullName);
+            fragment.setArguments(bundle);
+
+            ((AppCompatActivity) v.getContext()).getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.doctor_fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
     }
 
     @Override
@@ -40,13 +62,14 @@ public class card_doctor_item_patient_current_invite_adapter extends RecyclerVie
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView patientName, patientPhoneNumber, patientStatus;
+        TextView patientName, patientPhoneNumber, patientStatus, viewScheduleTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             patientName = itemView.findViewById(R.id.patientName);
             patientPhoneNumber = itemView.findViewById(R.id.patientPhoneNumber);
             patientStatus = itemView.findViewById(R.id.patientStatus);
+            viewScheduleTextView = itemView.findViewById(R.id.viewScheduleTextView);
         }
     }
 }
