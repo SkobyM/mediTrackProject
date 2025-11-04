@@ -117,11 +117,13 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/viewPrescriptionTextView"
+                android:id="@+id/viewPrescriptionsTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
                 android:gravity="end"
+                android:clickable="true"
+                android:focusable="true"
                 android:text="@string/view"
                 android:textColor="@color/white"
                 android:textSize="14sp"
