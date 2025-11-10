@@ -42,12 +42,15 @@ public class DoctorPendingInvitationPageFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         progressBar = view.findViewById(R.id.progressBar);
         recyclerView = view.findViewById(R.id.patientsRecyclerView);
@@ -64,34 +67,33 @@ public class DoctorPendingInvitationPageFragment extends Fragment {
         String doctorId = mAuth.getCurrentUser().getUid();
         progressBar.setVisibility(View.VISIBLE);
 
-        db.collection("invitations").whereEqualTo("doctorId", doctorId).get().addOnSuccessListener(queryDocumentSnapshots -> {
+        db.collection("invitations").whereEqualTo("doctorId", doctorId).whereEqualTo("status", "pending").get().addOnSuccessListener(queryDocumentSnapshots -> {
             patientList.clear();
 
             for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                 Map<String, Object> data = doc.getData();
-                String status = (String) data.get("status");
 
-                if ("pending".equals(status)) {
-                    String patientEmail = (String) data.get("patientEmail");
 
-                    db.collection("users").whereEqualTo("email", patientEmail).get().addOnSuccessListener(userSnapshots -> {
-                        if (!userSnapshots.isEmpty()) {
-                            DocumentSnapshot userDoc = userSnapshots.getDocuments().get(0);
-                            String fullName = userDoc.getString("firstName") + " " + userDoc.getString("lastName");
-                            data.put("patientFullName", fullName);
-                        } else {
-                            data.put("patientFullName", "Unknown Patient");
-                            progressBar.setVisibility(View.GONE);
-                        }
+                String patientEmail = (String) data.get("patientEmail");
 
-                        patientList.add(data);
-                        adapter.notifyDataSetChanged();
+                db.collection("users").whereEqualTo("email", patientEmail).get().addOnSuccessListener(userSnapshots -> {
+                    if (!userSnapshots.isEmpty()) {
+                        DocumentSnapshot userDoc = userSnapshots.getDocuments().get(0);
+                        String fullName = userDoc.getString("firstName") + " " + userDoc.getString("lastName");
+                        data.put("patientFullName", fullName);
+                    } else {
+                        data.put("patientFullName", "Unknown Patient");
                         progressBar.setVisibility(View.GONE);
-                    }).addOnFailureListener(e -> {
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(requireContext(), "Error loading patient: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
-                }
+                    }
+
+                    patientList.add(data);
+                    adapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+                }).addOnFailureListener(e -> {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(requireContext(), "Error loading patient: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+
             }
         }).addOnFailureListener(e -> {
             progressBar.setVisibility(View.GONE);

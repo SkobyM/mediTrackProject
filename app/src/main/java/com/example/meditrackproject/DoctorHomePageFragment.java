@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +36,7 @@ public class DoctorHomePageFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_doctor_home_page, container, false);
     }
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -49,36 +49,27 @@ public class DoctorHomePageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        addPatientLinearLayout = view.findViewById(R.id.addPatientButton);
         addPrescriptionLineaLayout = view.findViewById(R.id.addPrescriptionLinearLayout);
-        numberOfPatientTextView = view.findViewById(R.id.numberOfPatientsTextView);
-        textBesideNumberOfPatient = view.findViewById(R.id.textBesideNumberOfPatient);
-        progressBar = view.findViewById(R.id.progressBar);
-        doctorNameTextView = view.findViewById(R.id.doctorNameTextView);
-        numberOfPrescriptions = view.findViewById(R.id.numberOfPrescriptions);
-        textBesideNumberOfPrescriptions = view.findViewById(R.id.textBesideNumberOfPrescriptions);
+        addPatientLinearLayout = view.findViewById(R.id.addPatientButton);
 
-
-        addPrescriptionLineaLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new DoctorAddPrescriptionPageFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, fragment).addToBackStack(null).commit();
-            }
-        });
-
-        addPatientLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment nextFragment = new DoctorAddPatientPageFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
-            }
-        });
+        addPrescriptionLineaLayout.setOnClickListener(v -> addPrescription());
+        addPatientLinearLayout.setOnClickListener(v -> addPatient());
 
 
         String doctorId = mAuth.getCurrentUser().getUid();
 
 
+        activePatient(doctorId, view);
+        doctorName(doctorId, view);
+        activePrescription(doctorId, view);
+
+
+    }
+
+    public void activePatient(String doctorId, View view) {
+        numberOfPatientTextView = view.findViewById(R.id.numberOfPatientsTextView);
+        textBesideNumberOfPatient = view.findViewById(R.id.textBesideNumberOfPatient);
+        progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
         db.collection("invitations").whereEqualTo("doctorId", doctorId).whereEqualTo("status", "approved").get().addOnSuccessListener(documentSnapshots -> {
             int counter = documentSnapshots.size();
@@ -94,18 +85,37 @@ public class DoctorHomePageFragment extends Fragment {
             textBesideNumberOfPatient.setVisibility(View.VISIBLE);
 //            progressBar.setVisibility(View.GONE);
         });
+    }
 
-        db.collection("users").document(doctorId).get().addOnSuccessListener(documentSnapshot -> {
-            doctorNameTextView.setText(documentSnapshot.getString("firstName"));
-        });
+    public void activePrescription(String doctorId, View view) {
+        numberOfPrescriptions = view.findViewById(R.id.numberOfPrescriptions);
+        textBesideNumberOfPrescriptions = view.findViewById(R.id.textBesideNumberOfPrescriptions);
 
-        db.collection("prescriptions").whereEqualTo("doctorId", doctorId).get().addOnSuccessListener(documentSnapshots -> {
+
+        db.collection("prescriptions").whereEqualTo("doctorId", doctorId).whereEqualTo("status", "active").get().addOnSuccessListener(documentSnapshots -> {
             int counter = documentSnapshots.size();
 
             numberOfPrescriptions.setText(String.valueOf(counter));
             textBesideNumberOfPrescriptions.setText(String.format("you have %d Active\nprescriptions", counter));
         });
+    }
 
+    public void doctorName(String doctorId, View view) {
+        doctorNameTextView = view.findViewById(R.id.doctorNameTextView);
+
+        db.collection("users").document(doctorId).get().addOnSuccessListener(documentSnapshot -> {
+            doctorNameTextView.setText(documentSnapshot.getString("firstName"));
+        });
+    }
+
+    public void addPrescription() {
+        Fragment fragment = new DoctorAddPrescriptionPageFragment();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, fragment).addToBackStack(null).commit();
+    }
+
+    public void addPatient() {
+        Fragment nextFragment = new DoctorAddPatientPageFragment();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
     }
 
 
