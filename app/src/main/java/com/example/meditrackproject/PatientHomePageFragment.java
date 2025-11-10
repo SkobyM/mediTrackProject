@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -21,7 +23,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class PatientHomePageFragment extends Fragment {
@@ -34,6 +38,9 @@ public class PatientHomePageFragment extends Fragment {
     Button acceptButton, rejectButton;
     String doctorEmail, doctorIdToSaveIt;
     boolean isHaveMed = false;
+    RecyclerView medRecyclerView;
+    card_patient_prescriptions adapter;
+    List<Map<String, Object>> medList;
     ArrayList<HashMap<String, Object>> prescriptionsList = new ArrayList<>();
 
     public PatientHomePageFragment() {
@@ -65,6 +72,13 @@ public class PatientHomePageFragment extends Fragment {
         upcomingMedicineNameTextView = view.findViewById(R.id.upcomingMedicineNameTextView);
         noUpcomingMed = view.findViewById(R.id.noUpcomingMed);
         dayTimeTextView = view.findViewById(R.id.dayTimeTextView);
+
+        medRecyclerView = view.findViewById(R.id.medRecyclerView);
+        medRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        medList = new ArrayList<>();
+        adapter = new card_patient_prescriptions(medList);
+        medRecyclerView.setAdapter(adapter);
 
         String uid = mAuth.getCurrentUser().getUid();
 
@@ -138,6 +152,7 @@ public class PatientHomePageFragment extends Fragment {
 
         db.collection("prescriptions").whereEqualTo("patientEmail", patientEmail).whereEqualTo("status", "active").get().addOnSuccessListener(querySnapshot -> {
             prescriptionsList.clear();
+            medList.clear();
             if (!querySnapshot.isEmpty()) {
                 isHaveMed = true;
                 for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
@@ -151,7 +166,9 @@ public class PatientHomePageFragment extends Fragment {
                     presc.put("additionalNotes", doc.getString("additionalNotes"));
 
                     prescriptionsList.add(presc);
+                    medList.add(presc);
                 }
+
 
             }
             HashMap<String, Object> nextMed = getUpcomingMed(prescriptionsList);
@@ -165,6 +182,24 @@ public class PatientHomePageFragment extends Fragment {
                 noUpcomingMed.setVisibility(View.VISIBLE);
             }
 
+            if (!medList.isEmpty()){
+
+                String today = Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
+
+                ArrayList<Map<String, Object>> todayList = new ArrayList<>();
+
+                for (Map<String, Object> med : prescriptionsList) {
+                    List<String> days = (List<String>) med.get("days");
+                    if (days != null && days.contains(today)) {
+                        todayList.add(med);
+                    }
+                }
+
+                medList.clear();
+                medList.addAll(todayList);
+                adapter.notifyDataSetChanged();
+
+            }
         });
     }
 

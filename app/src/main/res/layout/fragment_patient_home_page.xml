@@ -265,5 +265,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/upcomingMedCard" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/medRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/todayScheduleTextView" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
