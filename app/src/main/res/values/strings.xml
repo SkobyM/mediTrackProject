@@ -111,5 +111,6 @@
     <string name="medications">Medications</string>
     <string name="next_refill">Next Refill</string>
     <string name="view"><![CDATA[View >]]></string>
+    <string name="no_medicine_scheduled">No medicine scheduled</string>
 
 </resources>
