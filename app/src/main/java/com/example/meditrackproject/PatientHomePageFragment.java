@@ -80,9 +80,18 @@ public class PatientHomePageFragment extends Fragment {
         adapter = new card_patient_prescriptions(medList);
         medRecyclerView.setAdapter(adapter);
 
+//        patient invitation accept or reject and patient name
+        checkInvites();
+//        patient invitation accept
+        acceptButton.setOnClickListener(v -> acceptInvitation());
+//        patient invitation reject
+        rejectButton.setOnClickListener(v -> rejectInvitation());
+
+    }
+
+    public void checkInvites() {
         String uid = mAuth.getCurrentUser().getUid();
 
-//        patient invitation accept or reject and patient name
         db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
             patientNameTextView.setText(documentSnapshot.getString("firstName"));
             patientEmail = documentSnapshot.getString("email");
@@ -104,47 +113,39 @@ public class PatientHomePageFragment extends Fragment {
                 }
             });
         });
+    }
 
-//        patient invitation accept
-        acceptButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                acceptButton.setEnabled(false);
+    public void acceptInvitation() {
+        acceptButton.setEnabled(false);
 
-                db.collection("invitations").whereEqualTo("patientEmail", patientEmail).whereEqualTo("status", "pending").get().addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (!queryDocumentSnapshots.isEmpty()) {
-                        DocumentSnapshot acceptInvitation = queryDocumentSnapshots.getDocuments().get(0);
-                        acceptInvitation.getReference().update("status", "approved").addOnSuccessListener(aVoid -> {
-                            Toast.makeText(getContext(), "Invitation accepted ✅", Toast.LENGTH_SHORT).show();
-                            patientDecision.setVisibility(View.GONE);
-                            db.collection("users").whereEqualTo("email", patientEmail).get().addOnSuccessListener(userSnapshots -> {
-                                if (!userSnapshots.isEmpty()) {
-                                    DocumentSnapshot patientDoc = userSnapshots.getDocuments().get(0);
-                                    patientDoc.getReference().update("doctorEmail", doctorEmail, "doctorId", doctorIdToSaveIt);
-                                }
-                            });
-                        });
-                    }
+        db.collection("invitations").whereEqualTo("patientEmail", patientEmail).whereEqualTo("status", "pending").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            if (!queryDocumentSnapshots.isEmpty()) {
+                DocumentSnapshot acceptInvitation = queryDocumentSnapshots.getDocuments().get(0);
+                acceptInvitation.getReference().update("status", "approved").addOnSuccessListener(aVoid -> {
+                    Toast.makeText(getContext(), "Invitation accepted ✅", Toast.LENGTH_SHORT).show();
+                    patientDecision.setVisibility(View.GONE);
+                    db.collection("users").whereEqualTo("email", patientEmail).get().addOnSuccessListener(userSnapshots -> {
+                        if (!userSnapshots.isEmpty()) {
+                            DocumentSnapshot patientDoc = userSnapshots.getDocuments().get(0);
+                            patientDoc.getReference().update("doctorEmail", doctorEmail, "doctorId", doctorIdToSaveIt);
+                        }
+                    });
                 });
             }
         });
-//        patient invitation reject
-        rejectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rejectButton.setEnabled(false);
-                db.collection("invitations").whereEqualTo("patientEmail", patientEmail).whereEqualTo("status", "pending").get().addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (!queryDocumentSnapshots.isEmpty()) {
-                        DocumentSnapshot acceptInvitation = queryDocumentSnapshots.getDocuments().get(0);
-                        acceptInvitation.getReference().update("status", "rejected").addOnSuccessListener(aVoid -> {
-                            patientDecision.setVisibility(View.GONE);
-                            Toast.makeText(getContext(), "Invitation rejected", Toast.LENGTH_SHORT).show();
-                        });
-                    }
+    }
+
+    public void rejectInvitation() {
+        rejectButton.setEnabled(false);
+        db.collection("invitations").whereEqualTo("patientEmail", patientEmail).whereEqualTo("status", "pending").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            if (!queryDocumentSnapshots.isEmpty()) {
+                DocumentSnapshot acceptInvitation = queryDocumentSnapshots.getDocuments().get(0);
+                acceptInvitation.getReference().update("status", "rejected").addOnSuccessListener(aVoid -> {
+                    patientDecision.setVisibility(View.GONE);
+                    Toast.makeText(getContext(), "Invitation rejected", Toast.LENGTH_SHORT).show();
                 });
             }
         });
-
     }
 
     public void getMeds(String patientEmail) {
@@ -182,7 +183,7 @@ public class PatientHomePageFragment extends Fragment {
                 noUpcomingMed.setVisibility(View.VISIBLE);
             }
 
-            if (!medList.isEmpty()){
+            if (!medList.isEmpty()) {
 
                 String today = Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
 
@@ -199,6 +200,11 @@ public class PatientHomePageFragment extends Fragment {
                 medList.addAll(todayList);
                 adapter.notifyDataSetChanged();
 
+            }
+            if (medList.isEmpty()) {
+                medRecyclerView.setVisibility(View.GONE);
+            } else {
+                medRecyclerView.setVisibility(View.VISIBLE);
             }
         });
     }

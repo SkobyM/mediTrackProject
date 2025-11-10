@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,7 +16,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class PatientProfilePageFragment extends Fragment {
-
+    FirebaseAuth mAuth;
+    FirebaseFirestore db;
 
     public PatientProfilePageFragment() {
         // Required empty public constructor
@@ -25,14 +28,34 @@ public class PatientProfilePageFragment extends Fragment {
         // Inflate the layout for this fragment
         View views = inflater.inflate(R.layout.fragment_patient_profile_page, container, false);
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
-        TextView patientNameTextView = views.findViewById(R.id.patientFullName);
-        TextView patientPhoneNumberTextView = views.findViewById(R.id.patientPhoneNumber);
-        TextView logoutTextView = views.findViewById(R.id.logoutTextView);
+        return views;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
 
+        TextView logoutTextView = view.findViewById(R.id.logoutTextView);
+
+
+        setProfileInfo(view);
+        logoutTextView.setOnClickListener(v -> logOutButton());
+
+    }
+
+    public void setProfileInfo(View view) {
+
+        if (mAuth.getCurrentUser() == null) {
+            startActivity(new Intent(getActivity(), Patient_Activity_LogInPage.class));
+            getActivity().finish();
+        }
+
+        TextView patientNameTextView = view.findViewById(R.id.patientFullName);
+        TextView patientPhoneNumberTextView = view.findViewById(R.id.patientPhoneNumber);
         if (mAuth.getCurrentUser() != null) {
             String uid = mAuth.getCurrentUser().getUid();
             db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
@@ -43,20 +66,14 @@ public class PatientProfilePageFragment extends Fragment {
 
             });
         }
+    }
 
-        logoutTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().getSharedPreferences("loginPrefs", android.content.Context.MODE_PRIVATE).edit().clear().apply();
-                mAuth.signOut();
+    public void logOutButton() {
+        requireActivity().getSharedPreferences("loginPrefs", android.content.Context.MODE_PRIVATE).edit().clear().apply();
+        mAuth.signOut();
 
-                Intent intent = new Intent(getActivity(), Patient_Activity_LogInPage.class);
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
-
-
-        return views;
+        Intent intent = new Intent(getActivity(), Patient_Activity_LogInPage.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

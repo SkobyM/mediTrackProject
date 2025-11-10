@@ -32,8 +32,10 @@ public class Patient_Activity_LogInPage extends AppCompatActivity {
     Button loginButton;
     ProgressBar progressBar;
     FirebaseFirestore db;
-    TextView invalidEmailPasswordTextView;
+    TextView invalidEmailPasswordTextView, patientToDoctorTextView, forgetPasswordTextView, signUpTextView;
     CheckBox remeberCheckBox;
+    SharedPreferences prefs;
+    boolean remember;
     private FirebaseAuth mAuth;
 
     @Override
@@ -43,130 +45,15 @@ public class Patient_Activity_LogInPage extends AppCompatActivity {
         setContentView(R.layout.activity_patient_login_page);
 
         mAuth = FirebaseAuth.getInstance();
-        SharedPreferences prefs = getSharedPreferences("loginPrefs", MODE_PRIVATE);
-        boolean remember = prefs.getBoolean("remember", false);
+        db = FirebaseFirestore.getInstance();
+        prefs = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        remember = prefs.getBoolean("remember", false);
 
         if (remember && mAuth.getCurrentUser() != null) {
-            // إذا كان مفعل "تذكرني" والمستخدم لا زال مسجل دخوله
             Intent intent = new Intent(Patient_Activity_LogInPage.this, Patient_Activity_HomePage.class);
             startActivity(intent);
             finish();
         }
-
-        TextView patientToDoctorTextView = findViewById(R.id.doctorLoginPatientView);
-        patientToDoctorTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Patient_Activity_LogInPage.this, Doctor_Activity_LogInPage.class);
-                startActivity(intent);
-            }
-        });
-
-        TextView forgetPasswordTextView = findViewById(R.id.forgotPasswordTextView);
-        forgetPasswordTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Patient_Activity_LogInPage.this, Patient_Activity_ForgetPasswordPage.class);
-                startActivity(intent);
-            }
-        });
-
-        TextView signUpTextView = findViewById(R.id.SignUpTextView);
-        signUpTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Patient_Activity_LogInPage.this, Patient_Activity_SignUp_Page.class);
-                startActivity(intent);
-            }
-        });
-
-//        Start of fireBase
-
-
-        emailEditText = findViewById(R.id.emailEditText);
-        passwordEditText = findViewById(R.id.passwordEditText);
-        loginButton = findViewById(R.id.loginButton);
-        progressBar = findViewById(R.id.progressBar);
-        invalidEmailPasswordTextView = findViewById(R.id.invalidEmailPasswordTextView);
-        remeberCheckBox = findViewById(R.id.rememberCheckBox);
-        mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
-
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = emailEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
-                boolean isChecked = remeberCheckBox.isChecked();
-
-                invalidEmailPasswordTextView.setVisibility(View.GONE);
-
-                if (TextUtils.isEmpty(email)) {
-                    emailEditText.setError("Email is required");
-                    emailEditText.requestFocus();
-                    return;
-                }
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    emailEditText.setError("Please provide valid email");
-                    emailEditText.requestFocus();
-                    return;
-                }
-                if (TextUtils.isEmpty(password)) {
-                    passwordEditText.setError("Password is required");
-                    passwordEditText.requestFocus();
-                    return;
-                }
-                if (password.length() < 6) {
-                    passwordEditText.setError("Minimum length of password should be 6");
-                    passwordEditText.requestFocus();
-                    return;
-                }
-                progressBar.setVisibility(View.VISIBLE);
-                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        if (task.isSuccessful()) {
-                            String uid = mAuth.getCurrentUser().getUid();
-                            db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
-                                if (documentSnapshot.exists()) {
-
-                                    String userType = documentSnapshot.getString("userType");
-
-                                    if (isChecked) {
-                                        getSharedPreferences("loginPrefs", MODE_PRIVATE).edit().putBoolean("remember", true).apply();
-                                    }
-
-
-                                    if ("doctor".equals(userType)) {
-                                        Intent intent = new Intent(Patient_Activity_LogInPage.this, Doctor_Activity_LogInPage.class);
-                                        startActivity(intent);
-                                        finish();
-                                    } else if ("patient".equals(userType)) {
-                                        Intent intent = new Intent(Patient_Activity_LogInPage.this, Patient_Activity_HomePage.class);
-                                        startActivity(intent);
-                                        finish();
-                                        Toast.makeText(Patient_Activity_LogInPage.this, "Sign in Successfully", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                                progressBar.setVisibility(View.GONE);
-                            });
-                            // Sign in success, update UI with the signed-in user's information
-
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            progressBar.setVisibility(View.GONE);
-                            invalidEmailPasswordTextView.setVisibility(View.VISIBLE);
-
-                        }
-
-                    }
-                });
-
-            }
-        });
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.patientLoginPage), (v, insets) -> {
@@ -175,4 +62,116 @@ public class Patient_Activity_LogInPage extends AppCompatActivity {
             return insets;
         });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        patientToDoctorTextView = findViewById(R.id.doctorLoginPatientView);
+        forgetPasswordTextView = findViewById(R.id.forgotPasswordTextView);
+        signUpTextView = findViewById(R.id.SignUpTextView);
+        emailEditText = findViewById(R.id.emailEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+        loginButton = findViewById(R.id.loginButton);
+        progressBar = findViewById(R.id.progressBar);
+        invalidEmailPasswordTextView = findViewById(R.id.invalidEmailPasswordTextView);
+        remeberCheckBox = findViewById(R.id.rememberCheckBox);
+
+
+        patientToDoctorTextView.setOnClickListener(v -> patientToDoctor());
+
+        forgetPasswordTextView.setOnClickListener(v -> forgetPasswordTextView());
+
+        signUpTextView.setOnClickListener(v -> signUp());
+
+
+        loginButton.setOnClickListener(v -> loginClicked());
+
+    }
+
+    public void loginClicked() {
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+        boolean isChecked = remeberCheckBox.isChecked();
+
+        invalidEmailPasswordTextView.setVisibility(View.GONE);
+
+        if (TextUtils.isEmpty(email)) {
+            emailEditText.setError("Email is required");
+            emailEditText.requestFocus();
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailEditText.setError("Please provide valid email");
+            emailEditText.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            passwordEditText.setError("Password is required");
+            passwordEditText.requestFocus();
+            return;
+        }
+        if (password.length() < 6) {
+            passwordEditText.setError("Minimum length of password should be 6");
+            passwordEditText.requestFocus();
+            return;
+        }
+        progressBar.setVisibility(View.VISIBLE);
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if (task.isSuccessful()) {
+                    String uid = mAuth.getCurrentUser().getUid();
+                    db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+
+                            String userType = documentSnapshot.getString("userType");
+
+                            if (isChecked) {
+                                getSharedPreferences("loginPrefs", MODE_PRIVATE).edit().putBoolean("remember", true).apply();
+                            }
+
+
+                            if ("doctor".equals(userType)) {
+                                Intent intent = new Intent(Patient_Activity_LogInPage.this, Doctor_Activity_LogInPage.class);
+                                startActivity(intent);
+                                finish();
+                            } else if ("patient".equals(userType)) {
+                                Intent intent = new Intent(Patient_Activity_LogInPage.this, Patient_Activity_HomePage.class);
+                                startActivity(intent);
+                                finish();
+                                Toast.makeText(Patient_Activity_LogInPage.this, "Sign in Successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        progressBar.setVisibility(View.GONE);
+                    });
+                    // Sign in success, update UI with the signed-in user's information
+
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    progressBar.setVisibility(View.GONE);
+                    invalidEmailPasswordTextView.setVisibility(View.VISIBLE);
+
+                }
+
+            }
+        });
+    }
+
+    public void signUp() {
+        Intent intent = new Intent(Patient_Activity_LogInPage.this, Patient_Activity_SignUp_Page.class);
+        startActivity(intent);
+    }
+
+    public void forgetPasswordTextView() {
+        Intent intent = new Intent(Patient_Activity_LogInPage.this, Patient_Activity_ForgetPasswordPage.class);
+        startActivity(intent);
+    }
+
+    public void patientToDoctor() {
+        Intent intent = new Intent(Patient_Activity_LogInPage.this, Doctor_Activity_LogInPage.class);
+        startActivity(intent);
+    }
+
 }
