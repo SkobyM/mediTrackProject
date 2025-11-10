@@ -1,6 +1,6 @@
 "# MediTrack" 
 Mohammed saifain -
 abdulelah al zahrani - 
-Albarra Alharbi - 2342673
+Albarra Alharbi -
 abdulaziz al malki - 
 reda alamoudi
