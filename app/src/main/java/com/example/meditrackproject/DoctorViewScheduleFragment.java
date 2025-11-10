@@ -33,8 +33,7 @@ public class DoctorViewScheduleFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_doctor_view_schedule, container, false);
     }
@@ -54,33 +53,28 @@ public class DoctorViewScheduleFragment extends Fragment {
         arrowBack = view.findViewById(R.id.arrowBackForCurrentPage);
         patientEmailTextView = view.findViewById(R.id.patientEmailTextView);
         patientNameTextView = view.findViewById(R.id.patientNameTextView);
-        viewPrescriptionsTextView = view.findViewById(R.id.viewPrescriptionsTextView);
-        numberOfPrescriptions = view.findViewById(R.id.numberOfPrescriptions);
         addPrescriptionLinearLayout = view.findViewById(R.id.addPrescriptionLinearLayout);
 
-        arrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().popBackStack();
-            }
-        });
 
         String patientName = getArguments().getString("patientFullName");
         String patientEmail = getArguments().getString("patientEmail");
-
         patientNameTextView.setText(patientName);
         patientEmailTextView.setText(patientEmail);
 
-        addPrescriptionLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment nextFragment = new DoctorAddPrescriptionPageFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("patientEmail", patientEmail);
-                nextFragment.setArguments(bundle);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
-            }
-        });
+
+        arrowBack.setOnClickListener(v -> arrowBack());
+        addPrescriptionLinearLayout.setOnClickListener(v -> addPrescription(patientEmail));
+
+
+        numberOfPrescription(patientEmail, patientName, view);
+
+
+    }
+
+
+    public void numberOfPrescription(String patientEmail, String patientName, View view) {
+        numberOfPrescriptions = view.findViewById(R.id.numberOfPrescriptions);
+        viewPrescriptionsTextView = view.findViewById(R.id.viewPrescriptionsTextView);
 
         String doctorId = mAuth.getCurrentUser().getUid();
 
@@ -89,7 +83,7 @@ public class DoctorViewScheduleFragment extends Fragment {
             numberOfPrescriptions.setText(String.valueOf(counter));
 
             ArrayList<HashMap<String, Object>> prescriptionsList = new ArrayList<>();
-            for (QueryDocumentSnapshot doc : documentSnapshots){
+            for (QueryDocumentSnapshot doc : documentSnapshots) {
                 HashMap<String, Object> prescription = new HashMap<>();
 
                 prescription.put("startDate", doc.get("startDate"));
@@ -103,18 +97,26 @@ public class DoctorViewScheduleFragment extends Fragment {
                 prescriptionsList.add(prescription);
             }
 
-            viewPrescriptionsTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Fragment nextFragment = new DoctorViewPrescriptionsPage();
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("prescriptionsList", prescriptionsList);
-                    nextFragment.setArguments(bundle);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
-                }
-            });
+            viewPrescriptionsTextView.setOnClickListener(v -> viewPrescriptions(prescriptionsList));
         });
+    }
 
+    public void viewPrescriptions(ArrayList<HashMap<String, Object>> prescriptionsList){
+        Fragment nextFragment = new DoctorViewPrescriptionsPage();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("prescriptionsList", prescriptionsList);
+        nextFragment.setArguments(bundle);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
+    }
+    public void addPrescription(String patientEmail) {
+        Fragment nextFragment = new DoctorAddPrescriptionPageFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("patientEmail", patientEmail);
+        nextFragment.setArguments(bundle);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.doctor_fragment_container, nextFragment).addToBackStack(null).commit();
+    }
 
+    public void arrowBack() {
+        requireActivity().getSupportFragmentManager().popBackStack();
     }
 }
