@@ -78,14 +78,12 @@ public class DoctorAddPrescriptionPageFragment extends Fragment {
 
         addPrescriptionButton.setOnClickListener(v -> addPrescription(view));
 
+        arrowBackImageView.setOnClickListener(v -> arrowBack());
 
-        arrowBackImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().popBackStack();
-            }
-        });
+    }
 
+    private void arrowBack() {
+        requireActivity().getSupportFragmentManager().popBackStack();
     }
 
     private void addPrescription(View view) {
