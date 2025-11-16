@@ -265,12 +265,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/upcomingMedCard" />
 
+        <TextView
+            android:id="@+id/noMedToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
+            android:gravity="center"
+            android:text="@string/no_medicine_scheduled"
+            android:textColor="@color/red"
+            android:textSize="26sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/todayScheduleTextView" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/medRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/todayScheduleTextView" />
+            app:layout_constraintTop_toBottomOf="@id/noMedToday" />
 
         <LinearLayout
             android:id="@+id/dailyTips"
@@ -316,8 +329,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
             android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
             android:background="@drawable/card_bg_call_ambulance"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"

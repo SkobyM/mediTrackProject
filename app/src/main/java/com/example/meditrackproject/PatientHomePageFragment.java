@@ -34,7 +34,7 @@ public class PatientHomePageFragment extends Fragment {
     FirebaseFirestore db;
     String patientEmail;
     LinearLayout patientDecision;
-    TextView patientNameTextView, patientDecisionTextView, upcomingTimeTextView, upcomingMedicineNameTextView, noUpcomingMed, dayTimeTextView;
+    TextView noMedToday, patientNameTextView, patientDecisionTextView, upcomingTimeTextView, upcomingMedicineNameTextView, noUpcomingMed, dayTimeTextView;
     Button acceptButton, rejectButton;
     String doctorEmail, doctorIdToSaveIt;
     boolean isHaveMed = false;
@@ -63,15 +63,7 @@ public class PatientHomePageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        patientNameTextView = view.findViewById(R.id.patientNameTextView);
-        patientDecision = view.findViewById(R.id.patientDecision);
-        patientDecisionTextView = view.findViewById(R.id.patientDecisionTextView);
-        acceptButton = view.findViewById(R.id.patientAcceptButton);
-        rejectButton = view.findViewById(R.id.patientRejectButton);
-        upcomingTimeTextView = view.findViewById(R.id.upcomingTimeTextView);
-        upcomingMedicineNameTextView = view.findViewById(R.id.upcomingMedicineNameTextView);
-        noUpcomingMed = view.findViewById(R.id.noUpcomingMed);
-        dayTimeTextView = view.findViewById(R.id.dayTimeTextView);
+
 
         medRecyclerView = view.findViewById(R.id.medRecyclerView);
         medRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -80,8 +72,11 @@ public class PatientHomePageFragment extends Fragment {
         adapter = new card_patient_prescriptions(medList);
         medRecyclerView.setAdapter(adapter);
 
+        acceptButton = view.findViewById(R.id.patientAcceptButton);
+        rejectButton = view.findViewById(R.id.patientRejectButton);
+
 //        patient invitation accept or reject and patient name
-        checkInvites();
+        checkInvites(view);
 //        patient invitation accept
         acceptButton.setOnClickListener(v -> acceptInvitation());
 //        patient invitation reject
@@ -89,14 +84,19 @@ public class PatientHomePageFragment extends Fragment {
 
     }
 
-    public void checkInvites() {
+    public void checkInvites(View view) {
+
+        patientNameTextView = view.findViewById(R.id.patientNameTextView);
+        patientDecision = view.findViewById(R.id.patientDecision);
+        patientDecisionTextView = view.findViewById(R.id.patientDecisionTextView);
+
         String uid = mAuth.getCurrentUser().getUid();
 
         db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
             patientNameTextView.setText(documentSnapshot.getString("firstName"));
             patientEmail = documentSnapshot.getString("email");
 
-            getMeds(patientEmail);
+            getMeds(patientEmail, view);
 
             db.collection("invitations").whereEqualTo("patientEmail", patientEmail).whereEqualTo("status", "pending").get().addOnSuccessListener(queryDocumentSnapshots -> {
                 if (!queryDocumentSnapshots.isEmpty()) {
@@ -148,8 +148,13 @@ public class PatientHomePageFragment extends Fragment {
         });
     }
 
-    public void getMeds(String patientEmail) {
+    public void getMeds(String patientEmail, View view) {
 
+        upcomingTimeTextView = view.findViewById(R.id.upcomingTimeTextView);
+        upcomingMedicineNameTextView = view.findViewById(R.id.upcomingMedicineNameTextView);
+        noUpcomingMed = view.findViewById(R.id.noUpcomingMed);
+        dayTimeTextView = view.findViewById(R.id.dayTimeTextView);
+        noMedToday = view.findViewById(R.id.noMedToday);
 
         db.collection("prescriptions").whereEqualTo("patientEmail", patientEmail).whereEqualTo("status", "active").get().addOnSuccessListener(querySnapshot -> {
             prescriptionsList.clear();
@@ -181,6 +186,7 @@ public class PatientHomePageFragment extends Fragment {
                 upcomingMedicineNameTextView.setText(nextMed.get("medicineName").toString());
             } else {
                 noUpcomingMed.setVisibility(View.VISIBLE);
+                noMedToday.setVisibility(View.VISIBLE);
             }
 
             if (!medList.isEmpty()) {
