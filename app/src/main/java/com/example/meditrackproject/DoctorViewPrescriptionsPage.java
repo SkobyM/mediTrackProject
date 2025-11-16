@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +21,7 @@ import java.util.Map;
 public class DoctorViewPrescriptionsPage extends Fragment {
 
     ImageView arrowBack;
+    RecyclerView prescriptionsRecyclerView;
     private card_doctor_item_prescriptions_adapter adapter;
     private List<Map<String, Object>> prescriptionsList;
 
@@ -41,8 +41,8 @@ public class DoctorViewPrescriptionsPage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         arrowBack = view.findViewById(R.id.arrowBackForCurrentPage);
+        prescriptionsRecyclerView = view.findViewById(R.id.prescriptionsRecyclerView);
 
-        RecyclerView prescriptionsRecyclerView = view.findViewById(R.id.prescriptionsRecyclerView);
         prescriptionsRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         prescriptionsList = new ArrayList<>();
         adapter = new card_doctor_item_prescriptions_adapter(prescriptionsList);
@@ -50,13 +50,13 @@ public class DoctorViewPrescriptionsPage extends Fragment {
 
         loadPrescriptions();
 
-        arrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().popBackStack();
-            }
-        });
+        arrowBack.setOnClickListener(v -> arrowBack());
 
+
+    }
+
+    public void arrowBack() {
+        requireActivity().getSupportFragmentManager().popBackStack();
 
     }
 
