@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +25,10 @@ public class DoctorAddPatientPageFragment extends Fragment {
 
     FirebaseAuth mAuth;
     FirebaseFirestore db;
+    EditText patientEmailEditText;
+    Button sendInviteToPatientButton;
+    ImageView arrowBackImageView;
+    ProgressBar progressBar;
 
 
     public DoctorAddPatientPageFragment() {
@@ -43,79 +48,72 @@ public class DoctorAddPatientPageFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_doctor_add_patient_page, container, false);
     }
 
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        EditText patientEmailEditText = view.findViewById(R.id.patientEmailEditText);
-        Button sendInviteToPatientButton = view.findViewById(R.id.sendInviteToPatientButton);
-        ImageView arrowBackImageView = view.findViewById(R.id.arrowBackForPatientPage);
+        sendInviteToPatientButton = view.findViewById(R.id.sendInviteToPatientButton);
+        arrowBackImageView = view.findViewById(R.id.arrowBackForPatientPage);
 
-        arrowBackImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().popBackStack();
-            }
-        });
+        arrowBackImageView.setOnClickListener(v -> arrowBack());
 
-        sendInviteToPatientButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        sendInviteToPatientButton.setOnClickListener(v -> sendInviteToPatient(view));
 
-                ProgressBar progressBar = view.findViewById(R.id.progressBar);
-                String patientEmail = patientEmailEditText.getText().toString().trim();
-                progressBar.setVisibility(View.VISIBLE);
 
-                String doctorId = mAuth.getCurrentUser().getUid();
+    }
 
-                if (patientEmail.isEmpty()) {
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(requireContext(), "Please enter patient's email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (!Patterns.EMAIL_ADDRESS.matcher(patientEmail).matches()) {
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(requireContext(), "Please enter valid patient's email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+    private void arrowBack() {
+        requireActivity().getSupportFragmentManager().popBackStack();
+    }
 
-                db.collection("invitations").whereEqualTo("patientEmail", patientEmail).whereEqualTo("doctorId", doctorId).get().addOnSuccessListener(queryDocumentSnapshots0 -> {
-                    if (!queryDocumentSnapshots0.isEmpty()){
-                        Toast.makeText(requireContext(), "You have already sent an invitation to this user", Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
-                    }
-                    else {
-                        db.collection("users").whereEqualTo("email", patientEmail).get().addOnSuccessListener(queryDocumentSnapshots -> {
-                            if (!queryDocumentSnapshots.isEmpty()) {
+    private void sendInviteToPatient(View view) {
+        patientEmailEditText = view.findViewById(R.id.patientEmailEditText);
+        progressBar = view.findViewById(R.id.progressBar);
 
-                                Map<String, Object> invitation = new HashMap<>();
-                                invitation.put("doctorId", doctorId);
-                                invitation.put("patientEmail", patientEmail);
-                                invitation.put("status", "pending");
-                                invitation.put("timestamp", System.currentTimeMillis());
+        String patientEmail = patientEmailEditText.getText().toString().trim();
+        String doctorId = mAuth.getCurrentUser().getUid();
 
-                                db.collection("invitations").add(invitation).addOnSuccessListener(documentReference -> {
-                                    progressBar.setVisibility(View.GONE);
-                                    patientEmailEditText.setText("");
-                                    Toast.makeText(requireContext(), "Invitation sent successfully", Toast.LENGTH_SHORT).show();
-                                }).addOnFailureListener(e -> {
-                                    progressBar.setVisibility(View.GONE);
-                                    Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                });
-                            } else {
-                                progressBar.setVisibility(View.GONE);
-                                Toast.makeText(requireContext(), "Patient not found", Toast.LENGTH_SHORT).show();
-                            }
+        if (patientEmail.isEmpty()) {
+            Toast.makeText(requireContext(), "Please enter patient's email", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(patientEmail).matches()) {
+            Toast.makeText(requireContext(), "Please enter valid patient's email", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+        db.collection("invitations").whereEqualTo("patientEmail", patientEmail).whereEqualTo("doctorId", doctorId).get().addOnSuccessListener(queryDocumentSnapshots0 -> {
+            if (!queryDocumentSnapshots0.isEmpty()) {
+                Toast.makeText(requireContext(), "You have already sent an invitation to this user", Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.GONE);
+            } else {
+                db.collection("users").whereEqualTo("email", patientEmail).get().addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+
+                        Map<String, Object> invitation = new HashMap<>();
+                        invitation.put("doctorId", doctorId);
+                        invitation.put("patientEmail", patientEmail);
+                        invitation.put("status", "pending");
+                        invitation.put("timestamp", System.currentTimeMillis());
+
+                        db.collection("invitations").add(invitation).addOnSuccessListener(documentReference -> {
+                            progressBar.setVisibility(View.GONE);
+                            patientEmailEditText.setText("");
+                            Toast.makeText(requireContext(), "Invitation sent successfully", Toast.LENGTH_SHORT).show();
                         }).addOnFailureListener(e -> {
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(requireContext(), "Error checking patient: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         });
+                    } else {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(requireContext(), "Patient not found", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }).addOnFailureListener(e -> {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(requireContext(), "Error checking patient: " + e.getMessage(), Toast.LENGTH_SHORT).show();
 
+                });
             }
         });
     }
-
-
 }
