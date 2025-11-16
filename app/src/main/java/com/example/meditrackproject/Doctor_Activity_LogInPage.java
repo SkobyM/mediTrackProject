@@ -7,6 +7,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -28,7 +29,8 @@ public class Doctor_Activity_LogInPage extends AppCompatActivity {
     Button loginButton;
     FirebaseAuth mAuth;
     FirebaseFirestore db;
-    TextView invalidEmailPasswordTextView, approvedTextView;
+    TextView invalidEmailPasswordTextView, approvedTextView, doctorToPatientTextView, requestSignUpTextView;
+    ProgressBar progressBar;
 
 
     @Override
@@ -37,105 +39,103 @@ public class Doctor_Activity_LogInPage extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_doctor_log_in_page);
 
-
-        TextView doctorToPatientTextView = findViewById(R.id.patientLoginTextView);
-        doctorToPatientTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Doctor_Activity_LogInPage.this, Patient_Activity_LogInPage.class);
-                startActivity(intent);
-            }
-        });
-
-        TextView requestSignUpTextView = findViewById(R.id.RequestTextView);
-        requestSignUpTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Doctor_Activity_LogInPage.this, Doctor_Activity_SignUp_Page.class);
-                startActivity(intent);
-            }
-        });
-
-//        Firebase starting
-
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        emailEditText = findViewById(R.id.emailEditText);
-        passwordEditText = findViewById(R.id.passwordEditText);
-        loginButton = findViewById(R.id.loginButton);
-        approvedTextView = findViewById(R.id.approvedTextView);
-        invalidEmailPasswordTextView = findViewById(R.id.invalidEmailPasswordTextView);
-
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = emailEditText.getText().toString().trim();
-                String password = passwordEditText.getText().toString().trim();
-                Boolean validateLogin;
-
-                invalidEmailPasswordTextView.setVisibility(View.GONE);
-                approvedTextView.setVisibility(View.GONE);
-
-                if (TextUtils.isEmpty(email)) {
-                    emailEditText.setError("Email is required");
-                    emailEditText.requestFocus();
-                    return;
-                }
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    emailEditText.setError("Please provide valid email");
-                    emailEditText.requestFocus();
-                    return;
-                }
-                if (TextUtils.isEmpty(password)) {
-                    passwordEditText.setError("Password is required");
-                    passwordEditText.requestFocus();
-                    return;
-                }
-                if (password.length() < 6) {
-                    passwordEditText.setError("Minimum length of password should be 6");
-                    passwordEditText.requestFocus();
-                    return;
-                }
-
-
-                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-
-                        if (task.isSuccessful()) {
-                            String uid = mAuth.getCurrentUser().getUid();
-                            db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
-                                if (documentSnapshot.exists()) {
-
-                                    Boolean isValid = documentSnapshot.getBoolean("approved");
-                                    if (isValid) {
-                                        Intent intent = new Intent(Doctor_Activity_LogInPage.this, Doctor_Activity_HomePage.class);
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        approvedTextView.setVisibility(View.VISIBLE);
-                                    }
-                                }
-                            });
-                        } else {
-                            // If sign in fails, display a message to the user.
-
-                            invalidEmailPasswordTextView.setVisibility(View.VISIBLE);
-
-
-                        }
-                    }
-                });
-            }
-        });
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.doctorLogInPage), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left + 28, systemBars.top + 28, systemBars.right + 28, systemBars.bottom + 28);
             return insets;
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        doctorToPatientTextView = findViewById(R.id.patientLoginTextView);
+        doctorToPatientTextView.setOnClickListener(v -> changePage());
+
+        requestSignUpTextView = findViewById(R.id.RequestTextView);
+        requestSignUpTextView.setOnClickListener(v -> requestSignUp());
+
+        loginButton = findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(v -> loginButton());
+    }
+
+    public void loginButton() {
+
+        progressBar = findViewById(R.id.progressBar);
+        emailEditText = findViewById(R.id.emailEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+        approvedTextView = findViewById(R.id.approvedTextView);
+        invalidEmailPasswordTextView = findViewById(R.id.invalidEmailPasswordTextView);
+
+
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+
+        invalidEmailPasswordTextView.setVisibility(View.GONE);
+        approvedTextView.setVisibility(View.GONE);
+
+        if (TextUtils.isEmpty(email)) {
+            emailEditText.setError("Email is required");
+            emailEditText.requestFocus();
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailEditText.setError("Please provide valid email");
+            emailEditText.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            passwordEditText.setError("Password is required");
+            passwordEditText.requestFocus();
+            return;
+        }
+        if (password.length() < 6) {
+            passwordEditText.setError("Minimum length of password should be 6");
+            passwordEditText.requestFocus();
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+
+                if (task.isSuccessful()) {
+                    String uid = mAuth.getCurrentUser().getUid();
+                    db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+
+                            Boolean isValid = documentSnapshot.getBoolean("approved");
+                            if (isValid) {
+                                Intent intent = new Intent(Doctor_Activity_LogInPage.this, Doctor_Activity_HomePage.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                approvedTextView.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        progressBar.setVisibility(View.GONE);
+                    });
+                } else {
+                    // If sign in fails, display a message to the user.
+                    invalidEmailPasswordTextView.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    public void changePage() {
+        Intent intent = new Intent(Doctor_Activity_LogInPage.this, Patient_Activity_LogInPage.class);
+        startActivity(intent);
+    }
+
+    public void requestSignUp() {
+        Intent intent = new Intent(Doctor_Activity_LogInPage.this, Doctor_Activity_SignUp_Page.class);
+        startActivity(intent);
     }
 }
