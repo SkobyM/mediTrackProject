@@ -36,7 +36,6 @@ public class Doctor_Activity_SignUp_Page extends AppCompatActivity {
     // Firebase instances
     FirebaseAuth mAuth;          // Firebase Authentication instance
     FirebaseFirestore db;        // Firebase Firestore instance
-    ImageView arrowBackForBackPageInSignUp;
     ProgressBar progressBar;
 
     private String capitalizeWord(String input) {
@@ -52,155 +51,9 @@ public class Doctor_Activity_SignUp_Page extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_doctor_sign_up_page);
 
-        // Initialize UI elements
-        firstNameEditText = findViewById(R.id.firstNameEditText);
-        lastNameEditText = findViewById(R.id.lastNameEditText);
-        emailEditText = findViewById(R.id.emailEditText);
-        licenseEditText = findViewById(R.id.licenseEditText);
-        requestAccountButton = findViewById(R.id.requestAccountButton);
-        phoneNumberEditText = findViewById(R.id.phoneNumberEditText);
-        passwordEditText = findViewById(R.id.passwordEditText);
-        rePasswordEditText = findViewById(R.id.rePasswordEditText);
-        progressBar = findViewById(R.id.progressBar);
-        arrowBackForBackPageInSignUp = findViewById(R.id.arrowBackForBackPageInSignUp);
-
         // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-
-        // Handle "Request Account" button click
-        requestAccountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Get input values from fields
-                String inputFirstName = firstNameEditText.getText().toString();
-                String inputLastName = lastNameEditText.getText().toString();
-                String email = emailEditText.getText().toString();
-                String licenseNumber = licenseEditText.getText().toString();
-                String phoneNumber = phoneNumberEditText.getText().toString();
-                String password = passwordEditText.getText().toString().trim();
-                String rePassword = rePasswordEditText.getText().toString().trim();
-
-                // Validate inputs
-                if (TextUtils.isEmpty(inputFirstName)) {
-                    firstNameEditText.setError("Enter first name");
-                    firstNameEditText.requestFocus();
-                    return;
-                }
-                if (TextUtils.isEmpty(inputLastName)) {
-                    lastNameEditText.setError("Enter last name");
-                    lastNameEditText.requestFocus();
-                    return;
-                }
-                if (TextUtils.isEmpty(email)) {
-                    emailEditText.setError("Email is required");
-                    emailEditText.requestFocus();
-                    return;
-                }
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    emailEditText.setError("Please provide valid email");
-                    emailEditText.requestFocus();
-                    return;
-                }
-                if (TextUtils.isEmpty(licenseNumber)) {
-                    licenseEditText.setError("Enter license number");
-                    licenseEditText.requestFocus();
-                    return;
-                }
-                if (TextUtils.isEmpty(phoneNumber)) {
-                    phoneNumberEditText.setError("Enter phone number");
-                    phoneNumberEditText.requestFocus();
-                    return;
-                }
-                if (phoneNumber.length() < 6) {
-                    phoneNumberEditText.setError("Please enter valid phone number");
-                    phoneNumberEditText.requestFocus();
-                    return;
-                }
-                if (TextUtils.isEmpty(password)) {
-                    passwordEditText.setError("Password is required");
-                    passwordEditText.requestFocus();
-                    return;
-                }
-                if (password.length() < 6) {
-                    passwordEditText.setError("Minimum length of password should be 6");
-                    passwordEditText.requestFocus();
-                    return;
-                }
-                if (TextUtils.isEmpty(rePassword)) {
-                    passwordEditText.setError("Confirm password is required");
-                    passwordEditText.requestFocus();
-                    return;
-                }
-                if (rePassword.length() < 6) {
-                    passwordEditText.setError("Minimum length of password should be 6");
-                    passwordEditText.requestFocus();
-                    return;
-                }
-                if (!password.equals(rePassword)) {
-                    passwordEditText.setError("Passwords do not match");
-                    passwordEditText.requestFocus();
-                    rePasswordEditText.setError("Passwords do not match");
-                    rePasswordEditText.requestFocus();
-                    return;
-                }
-
-                String firstName = capitalizeWord(inputFirstName);
-                String lastName = capitalizeWord(inputLastName);
-
-                progressBar.setVisibility(View.VISIBLE);
-                // Create doctor account with Firebase Authentication
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        // Create a map of doctor details to save in Firestore
-                        Map<String, Object> user = new HashMap<>();
-                        user.put("firstName", firstName);
-                        user.put("lastName", lastName);
-                        user.put("email", email);
-                        user.put("licenseNumber", licenseNumber);
-                        user.put("userType", "doctor"); // differentiate between patient and doctor
-                        user.put("phoneNumber", phoneNumber);
-                        user.put("approved", false);    // default: doctor account not approved
-
-                        if (task.isSuccessful()) {
-                            // Get UID of the created doctor
-                            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                            // Save doctor request details to Firestore
-                            db.collection("users").document(uid).set(user).addOnSuccessListener(aVoid -> {
-                                Toast.makeText(Doctor_Activity_SignUp_Page.this, "Requesting Account Successful", Toast.LENGTH_SHORT).show();
-                            }).addOnFailureListener(e -> {
-                                Toast.makeText(Doctor_Activity_SignUp_Page.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
-
-                            progressBar.setVisibility(View.GONE);
-                            // Navigate to Doctor log in page after successful request
-                            Intent intent = new Intent(Doctor_Activity_SignUp_Page.this, Doctor_Activity_LogInPage.class);
-                            startActivity(intent);
-                            finish();
-
-                        } else {
-                            progressBar.setVisibility(View.GONE);
-                            String errorMessage = task.getException() != null ? task.getException().getMessage() : "Unknown error";
-                            Toast.makeText(Doctor_Activity_SignUp_Page.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-            }
-        });
-
-        // Handle back arrow click
-        arrowBackForBackPageInSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Doctor_Activity_SignUp_Page.this, Doctor_Activity_LogInPage.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         // Handle system window insets (for edge-to-edge layout)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -208,5 +61,139 @@ public class Doctor_Activity_SignUp_Page extends AppCompatActivity {
             v.setPadding(systemBars.left + 28, systemBars.top + 28, systemBars.right + 28, systemBars.bottom + 28);
             return insets;
         });
+    }
+
+    public void requestClicked(View view) {
+        firstNameEditText = findViewById(R.id.firstNameEditText);
+        lastNameEditText = findViewById(R.id.lastNameEditText);
+        emailEditText = findViewById(R.id.emailEditText);
+        licenseEditText = findViewById(R.id.licenseEditText);
+        phoneNumberEditText = findViewById(R.id.phoneNumberEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+        rePasswordEditText = findViewById(R.id.rePasswordEditText);
+        progressBar = findViewById(R.id.progressBar);
+
+        // Get input values from fields
+        String inputFirstName = firstNameEditText.getText().toString();
+        String inputLastName = lastNameEditText.getText().toString();
+        String email = emailEditText.getText().toString();
+        String licenseNumber = licenseEditText.getText().toString();
+        String phoneNumber = phoneNumberEditText.getText().toString();
+        String password = passwordEditText.getText().toString().trim();
+        String rePassword = rePasswordEditText.getText().toString().trim();
+
+        // Validate inputs
+        if (TextUtils.isEmpty(inputFirstName)) {
+            firstNameEditText.setError("Enter first name");
+            firstNameEditText.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(inputLastName)) {
+            lastNameEditText.setError("Enter last name");
+            lastNameEditText.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(email)) {
+            emailEditText.setError("Email is required");
+            emailEditText.requestFocus();
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailEditText.setError("Please provide valid email");
+            emailEditText.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(licenseNumber)) {
+            licenseEditText.setError("Enter license number");
+            licenseEditText.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(phoneNumber)) {
+            phoneNumberEditText.setError("Enter phone number");
+            phoneNumberEditText.requestFocus();
+            return;
+        }
+        if (phoneNumber.length() < 6) {
+            phoneNumberEditText.setError("Please enter valid phone number");
+            phoneNumberEditText.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            passwordEditText.setError("Password is required");
+            passwordEditText.requestFocus();
+            return;
+        }
+        if (password.length() < 6) {
+            passwordEditText.setError("Minimum length of password should be 6");
+            passwordEditText.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(rePassword)) {
+            passwordEditText.setError("Confirm password is required");
+            passwordEditText.requestFocus();
+            return;
+        }
+        if (rePassword.length() < 6) {
+            passwordEditText.setError("Minimum length of password should be 6");
+            passwordEditText.requestFocus();
+            return;
+        }
+        if (!password.equals(rePassword)) {
+            passwordEditText.setError("Passwords do not match");
+            passwordEditText.requestFocus();
+            rePasswordEditText.setError("Passwords do not match");
+            rePasswordEditText.requestFocus();
+            return;
+        }
+
+        String firstName = capitalizeWord(inputFirstName);
+        String lastName = capitalizeWord(inputLastName);
+
+        progressBar.setVisibility(View.VISIBLE);
+        // Create doctor account with Firebase Authentication
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                // Create a map of doctor details to save in Firestore
+                Map<String, Object> user = new HashMap<>();
+                user.put("firstName", firstName);
+                user.put("lastName", lastName);
+                user.put("email", email);
+                user.put("licenseNumber", licenseNumber);
+                user.put("userType", "doctor"); // differentiate between patient and doctor
+                user.put("phoneNumber", phoneNumber);
+                user.put("approved", false);    // default: doctor account not approved
+
+                if (task.isSuccessful()) {
+                    // Get UID of the created doctor
+                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    // Save doctor request details to Firestore
+                    db.collection("users").document(uid).set(user).addOnSuccessListener(aVoid -> {
+                        Toast.makeText(Doctor_Activity_SignUp_Page.this, "Requesting Account Successful", Toast.LENGTH_SHORT).show();
+                    }).addOnFailureListener(e -> {
+                        Toast.makeText(Doctor_Activity_SignUp_Page.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+
+                    progressBar.setVisibility(View.GONE);
+                    // Navigate to Doctor log in page after successful request
+                    Intent intent = new Intent(Doctor_Activity_SignUp_Page.this, Doctor_Activity_LogInPage.class);
+                    startActivity(intent);
+                    finish();
+
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    String errorMessage = task.getException() != null ? task.getException().getMessage() : "Unknown error";
+                    Toast.makeText(Doctor_Activity_SignUp_Page.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    public void arrowBackClicked(View view) {
+        Intent intent = new Intent(Doctor_Activity_SignUp_Page.this, Doctor_Activity_LogInPage.class);
+        startActivity(intent);
+        finish();
     }
 }

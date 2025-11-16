@@ -18,6 +18,7 @@
         android:clickable="true"
         android:contentDescription="@string/arrowback"
         android:focusable="true"
+        android:onClick="arrowBackClicked"
         app:srcCompat="@drawable/ic_arrow_back_24" />
 
     <ImageView
@@ -260,6 +261,7 @@
         android:backgroundTint="@color/darkBlue"
         android:text="@string/request_create_account"
         android:textSize="20sp"
+        android:onClick="requestClicked"
         android:textStyle="bold" />
 
 
