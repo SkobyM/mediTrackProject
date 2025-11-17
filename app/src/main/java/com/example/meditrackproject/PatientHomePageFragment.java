@@ -186,7 +186,6 @@ public class PatientHomePageFragment extends Fragment {
                 upcomingMedicineNameTextView.setText(nextMed.get("medicineName").toString());
             } else {
                 noUpcomingMed.setVisibility(View.VISIBLE);
-                noMedToday.setVisibility(View.VISIBLE);
             }
 
             if (!medList.isEmpty()) {
@@ -209,6 +208,7 @@ public class PatientHomePageFragment extends Fragment {
             }
             if (medList.isEmpty()) {
                 medRecyclerView.setVisibility(View.GONE);
+                noMedToday.setVisibility(View.VISIBLE);
             } else {
                 medRecyclerView.setVisibility(View.VISIBLE);
             }
@@ -236,7 +236,6 @@ public class PatientHomePageFragment extends Fragment {
             try {
                 medTime.setTime(sdf.parse(time));
 
-                // ✅ نضبط التاريخ ليصير اليوم
                 medTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
                 medTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
                 medTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
