@@ -1,18 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_soft_gradient_patient"
     android:paddingStart="28dp"
-    android:paddingEnd="28dp"
     android:paddingTop="40dp"
+    android:paddingEnd="28dp"
     android:paddingBottom="40dp"
     tools:context=".PatientCalenderPageFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/patientCalenderPage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="calender" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <!--    support image view (Headset) -->
+        <ImageView
+            android:id="@+id/supportImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/support_button"
+            android:src="@drawable/ic_headset_mic_24_patient"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/notificationImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/notfication_button"
+            android:src="@drawable/ic_notifications_24_patient"
+            app:layout_constraintStart_toEndOf="@+id/supportImageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/daysRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notificationImageView"
+            tools:listitem="@layout/card_patient_item_day_calender" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
