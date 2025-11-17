@@ -111,7 +111,8 @@
     <string name="medications">Medications</string>
     <string name="next_refill">Next Refill</string>
     <string name="view"><![CDATA[View >]]></string>
-    <string name="no_medicine_scheduled">No medicine scheduled Today</string>
+    <string name="no_medicine_scheduled">No medicine Upcoming Today</string>
+    <string name="no_medicine_today">No medicine Today</string>
     <string name="daily_tips">Daily Tips</string>
     <string name="call_an_ambulance_997">Call an Ambulance (997)</string>
 
