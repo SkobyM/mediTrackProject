@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,17 +40,28 @@ public class PatientCalenderPageFragment extends Fragment {
         daysRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
 
 
-        ArrayList<DayModel> days = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
 
-        for (int i = 0; i < 7; i++) {
+        int LastDayInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        ArrayList<DayModel> days = new ArrayList<>();
+
+        Calendar today = Calendar.getInstance();
+        int todayNumber = today.get(Calendar.DAY_OF_MONTH);
+
+        for (int i = 1; i <= LastDayInMonth; i++) {
+
             String dayName = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.ENGLISH);
             int dayNumber = calendar.get(Calendar.DAY_OF_MONTH);
 
-            days.add(new DayModel(dayName.toUpperCase(), dayNumber, i == 0));
+            boolean isSelected = (dayNumber == todayNumber);
+
+            days.add(new DayModel(dayName.toUpperCase(), dayNumber, isSelected));
 
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
+
 
         adapter = new DaysAdapter(days, position -> {
             for (int i = 0; i < days.size(); i++)
@@ -59,9 +71,17 @@ public class PatientCalenderPageFragment extends Fragment {
 
             // هنا تحدث الادوية حسب اليوم:
 //            loadMedicinesForDay(days.get(position));
+            Toast.makeText(getContext(), "" + days.get(position), Toast.LENGTH_SHORT).show();
         });
 
         daysRecyclerView.setAdapter(adapter);
-
+        daysRecyclerView.post(() -> {
+            for (int i = 0; i < days.size(); i++) {
+                if (days.get(i).dayNumber == todayNumber) {
+                    daysRecyclerView.scrollToPosition(i);
+                    break;
+                }
+            }
+        });
     }
 }

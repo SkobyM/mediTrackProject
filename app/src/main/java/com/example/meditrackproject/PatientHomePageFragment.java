@@ -64,7 +64,6 @@ public class PatientHomePageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
         medRecyclerView = view.findViewById(R.id.medRecyclerView);
         medRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
