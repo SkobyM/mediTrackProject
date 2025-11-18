@@ -115,5 +115,9 @@
     <string name="no_medicine_today">No medicine Today</string>
     <string name="daily_tips">Daily Tips</string>
     <string name="call_an_ambulance_997">Call an Ambulance (997)</string>
+    <string name="calender_icon">calender icon</string>
+    <string name="view_calendar">View Calendar</string>
+    <string name="next_month">next month</string>
+    <string name="previous_month">previous month</string>
 
 </resources>

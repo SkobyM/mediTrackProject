@@ -167,7 +167,7 @@ public class PatientHomePageFragment extends Fragment {
                     presc.put("startDate", doc.getString("startDate"));
                     presc.put("endDate", doc.getString("endDate"));
                     presc.put("time", doc.getString("time"));
-                    presc.put("days", doc.get("days")); // لأنها List<String>
+                    presc.put("days", doc.get("days"));
                     presc.put("additionalNotes", doc.getString("additionalNotes"));
 
                     prescriptionsList.add(presc);

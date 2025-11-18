@@ -43,6 +43,72 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo" />
 
+        <!-- Calendar Month -->
+
+        <ImageView
+            android:id="@+id/patient_nav_calender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:contentDescription="@string/calender_icon"
+            android:src="@drawable/ic_calendar_month_24_patient_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/supportImageView" />
+
+        <TextView
+            android:id="@+id/viewCalendarTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="50dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/view_calendar"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/patient_nav_calender"
+            app:layout_constraintTop_toBottomOf="@id/supportImageView" />
+
+
+        <ImageView
+            android:id="@+id/month_select_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:clickable="true"
+            android:contentDescription="@string/previous_month"
+            android:focusable="true"
+            android:src="@drawable/calender_left_arrow"
+            app:layout_constraintStart_toEndOf="@id/viewCalendarTextView"
+            app:layout_constraintTop_toBottomOf="@id/supportImageView" />
+
+
+        <TextView
+            android:id="@+id/yearMonthTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/month_select_left"
+            app:layout_constraintTop_toBottomOf="@id/supportImageView" />
+
+        <ImageView
+            android:id="@+id/month_select_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:clickable="true"
+            android:contentDescription="@string/next_month"
+            android:focusable="true"
+            android:src="@drawable/calender_right_arrow"
+            app:layout_constraintStart_toEndOf="@id/yearMonthTextView"
+            app:layout_constraintTop_toBottomOf="@id/supportImageView" />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/daysRecyclerView"
             android:layout_width="match_parent"
@@ -52,7 +118,7 @@
             android:padding="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/notificationImageView"
+            app:layout_constraintTop_toBottomOf="@id/month_select_right"
             tools:listitem="@layout/card_patient_item_day_calender" />
 
 

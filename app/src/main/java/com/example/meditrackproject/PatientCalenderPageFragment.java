@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,8 @@ public class PatientCalenderPageFragment extends Fragment {
 
     RecyclerView daysRecyclerView;
     DaysAdapter adapter;
+    TextView yearMonthTextView;
+    ImageView month_select_right, month_select_left;
 
 
     public PatientCalenderPageFragment() {
@@ -36,32 +39,62 @@ public class PatientCalenderPageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+        initializeMonthsToSelect(view);
+    }
+
+    private void initializeMonthsToSelect(View view) {
+        yearMonthTextView = view.findViewById(R.id.yearMonthTextView);
+        month_select_right = view.findViewById(R.id.month_select_right);
+        month_select_left = view.findViewById(R.id.month_select_left);
+
+        Calendar monthCalender = Calendar.getInstance();
+
+        String monthName = monthCalender.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH) + " " + monthCalender.get(Calendar.YEAR);
+        yearMonthTextView.setText(monthName);
+
+        initializeDaysToSelect(monthCalender, view);
+        month_select_right.setOnClickListener(v -> {
+            monthCalender.add(Calendar.MONTH, 1);
+            String text = monthCalender.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH) + " " + monthCalender.get(Calendar.YEAR);
+            yearMonthTextView.setText(text);
+            initializeDaysToSelect(monthCalender, view);
+        });
+        month_select_left.setOnClickListener(v -> {
+            monthCalender.add(Calendar.MONTH, -1);
+            String text = monthCalender.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH) + " " + monthCalender.get(Calendar.YEAR);
+            yearMonthTextView.setText(text);
+            initializeDaysToSelect(monthCalender, view);
+        });
+
+    }
+
+    public void initializeDaysToSelect(Calendar targetMonthCalendar, View view) {
+
         daysRecyclerView = view.findViewById(R.id.daysRecyclerView);
         daysRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
 
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
-
-        int LastDayInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        Calendar dayCalendar = (Calendar) targetMonthCalendar.clone();
+        dayCalendar.set(Calendar.DAY_OF_MONTH, 1); // make today is 1
 
         ArrayList<DayModel> days = new ArrayList<>();
 
         Calendar today = Calendar.getInstance();
         int todayNumber = today.get(Calendar.DAY_OF_MONTH);
+        int LastDayInMonth = dayCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        boolean sameMonth = Calendar.getInstance().get(Calendar.MONTH) == targetMonthCalendar.get(Calendar.MONTH) && Calendar.getInstance().get(Calendar.YEAR) == targetMonthCalendar.get(Calendar.YEAR);
 
         for (int i = 1; i <= LastDayInMonth; i++) {
 
-            String dayName = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.ENGLISH);
-            int dayNumber = calendar.get(Calendar.DAY_OF_MONTH);
+            String dayName = dayCalendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.ENGLISH);
+            int dayNumbers = dayCalendar.get(Calendar.DAY_OF_MONTH);
 
-            boolean isSelected = (dayNumber == todayNumber);
+            boolean isSelected = sameMonth && (dayNumbers == todayNumber);
 
-            days.add(new DayModel(dayName.toUpperCase(), dayNumber, isSelected));
+            days.add(new DayModel(dayName.toUpperCase(), dayNumbers, isSelected));
 
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            dayCalendar.add(Calendar.DAY_OF_MONTH, 1);
         }
-
 
         adapter = new DaysAdapter(days, position -> {
             for (int i = 0; i < days.size(); i++)
@@ -71,17 +104,19 @@ public class PatientCalenderPageFragment extends Fragment {
 
             // هنا تحدث الادوية حسب اليوم:
 //            loadMedicinesForDay(days.get(position));
-            Toast.makeText(getContext(), "" + days.get(position), Toast.LENGTH_SHORT).show();
         });
-
         daysRecyclerView.setAdapter(adapter);
         daysRecyclerView.post(() -> {
-            for (int i = 0; i < days.size(); i++) {
-                if (days.get(i).dayNumber == todayNumber) {
-                    daysRecyclerView.scrollToPosition(i);
-                    break;
+            if (sameMonth) {
+                for (int i = 0; i < days.size(); i++) {
+                    if (days.get(i).dayNumber == todayNumber) {
+                        LinearLayoutManager lm = (LinearLayoutManager) daysRecyclerView.getLayoutManager();
+                        lm.scrollToPositionWithOffset(i, daysRecyclerView.getWidth() / 2);
+                        break;
+                    }
                 }
             }
         });
+
     }
 }
