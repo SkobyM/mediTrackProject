@@ -28,7 +28,7 @@ import java.util.HashMap;
 
 public class DoctorAddPrescriptionPageFragment extends Fragment {
 
-    EditText startDateEditText, endDateEditText, timeEditText, medicineCodeEditText, medicineNameEditText, notesEditText, patientEmailEditText;
+    EditText startDateEditText, endDateEditText, timeEditText, medicineDoseEditText, medicineNameEditText, notesEditText, patientEmailEditText;
     ImageView arrowBackImageView;
     Button addPrescriptionButton;
     FirebaseAuth mAuth;
@@ -88,7 +88,7 @@ public class DoctorAddPrescriptionPageFragment extends Fragment {
 
     private void addPrescription(View view) {
         medicineNameEditText = view.findViewById(R.id.medicineNameEditText);
-        medicineCodeEditText = view.findViewById(R.id.medicineCodeEditText);
+        medicineDoseEditText = view.findViewById(R.id.medicineDoseEditText);
         notesEditText = view.findViewById(R.id.notesEditText);
         startDateEditText = view.findViewById(R.id.startDateEditText);
         endDateEditText = view.findViewById(R.id.endDateEditText);
@@ -114,7 +114,7 @@ public class DoctorAddPrescriptionPageFragment extends Fragment {
 
 
         String medicineName = medicineNameEditText.getText().toString().trim();
-        String medicineCode = medicineCodeEditText.getText().toString().trim();
+        String medicineDose = medicineDoseEditText.getText().toString().trim();
         String startDate = startDateEditText.getText().toString().trim();
         String endDate = endDateEditText.getText().toString().trim();
         String time = timeEditText.getText().toString().trim();
@@ -136,9 +136,9 @@ public class DoctorAddPrescriptionPageFragment extends Fragment {
             medicineNameEditText.requestFocus();
             return;
         }
-        if (TextUtils.isEmpty(medicineCode)) {
-            medicineCodeEditText.setError("Medicine code is required");
-            medicineCodeEditText.requestFocus();
+        if (TextUtils.isEmpty(medicineDose)) {
+            medicineDoseEditText.setError("Medicine dose is required");
+            medicineDoseEditText.requestFocus();
             return;
         }
         if (TextUtils.isEmpty(startDate)) {
@@ -177,7 +177,7 @@ public class DoctorAddPrescriptionPageFragment extends Fragment {
                 addInfo.put("doctorId", doctorId);
                 addInfo.put("doctorEmail", doctorEmail);
                 addInfo.put("medicineName", medicineName);
-                addInfo.put("medicineCode", medicineCode);
+                addInfo.put("medicineDose", medicineDose);
                 addInfo.put("startDate", startDate);
                 addInfo.put("endDate", endDate);
                 addInfo.put("time", time);
@@ -190,7 +190,7 @@ public class DoctorAddPrescriptionPageFragment extends Fragment {
                 db.collection("prescriptions").add(addInfo).addOnSuccessListener(documentReference -> {
                     Toast.makeText(requireContext(), "added successfully", Toast.LENGTH_SHORT).show();
                     medicineNameEditText.setText("");
-                    medicineCodeEditText.setText("");
+                    medicineDoseEditText.setText("");
                     startDateEditText.setText("");
                     endDateEditText.setText("");
                     timeEditText.setText("");

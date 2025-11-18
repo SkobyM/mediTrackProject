@@ -117,19 +117,19 @@
             app:layout_constraintTop_toBottomOf="@id/medicineNameTextView" />
 
         <TextView
-            android:id="@+id/medicineCodeTextView"
+            android:id="@+id/medicineDoseTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/inter_bold"
-            android:text="@string/medicine_code"
+            android:text="@string/medicine_dose"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/medicineNameEditText" />
 
         <EditText
-            android:id="@+id/medicineCodeEditText"
+            android:id="@+id/medicineDoseEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -140,7 +140,7 @@
             android:padding="4dp"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/medicineCodeTextView" />
+            app:layout_constraintTop_toBottomOf="@id/medicineDoseTextView" />
 
 
         <LinearLayout
@@ -151,7 +151,7 @@
             android:baselineAligned="false"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/medicineCodeEditText">
+            app:layout_constraintTop_toBottomOf="@id/medicineDoseEditText">
 
             <LinearLayout
                 android:layout_width="wrap_content"
