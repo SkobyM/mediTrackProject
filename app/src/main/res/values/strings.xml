@@ -119,5 +119,6 @@
     <string name="view_calendar">View Calendar</string>
     <string name="next_month">next month</string>
     <string name="previous_month">previous month</string>
+    <string name="the_scheduled_medicines">The Scheduled Medicines</string>
 
 </resources>

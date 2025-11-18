@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +22,7 @@ public class PatientCalenderPageFragment extends Fragment {
 
     RecyclerView daysRecyclerView;
     DaysAdapter adapter;
-    TextView yearMonthTextView;
+    TextView yearMonthTextView, dayNumberTextView, dayNameTextView;
     ImageView month_select_right, month_select_left;
 
 
@@ -71,6 +72,8 @@ public class PatientCalenderPageFragment extends Fragment {
 
     public void initializeDaysToSelect(Calendar targetMonthCalendar, View view) {
 
+        dayNumberTextView = view.findViewById(R.id.dayNumberTextView);
+        dayNameTextView = view.findViewById(R.id.dayNameTextView);
         daysRecyclerView = view.findViewById(R.id.daysRecyclerView);
         daysRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
 
@@ -83,15 +86,16 @@ public class PatientCalenderPageFragment extends Fragment {
         int todayNumber = today.get(Calendar.DAY_OF_MONTH);
         int LastDayInMonth = dayCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         boolean sameMonth = Calendar.getInstance().get(Calendar.MONTH) == targetMonthCalendar.get(Calendar.MONTH) && Calendar.getInstance().get(Calendar.YEAR) == targetMonthCalendar.get(Calendar.YEAR);
-
+        dayNumberTextView.setText(String.valueOf(todayNumber));
+        dayNameTextView.setText(dayCalendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH));
         for (int i = 1; i <= LastDayInMonth; i++) {
 
             String dayName = dayCalendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.ENGLISH);
+            String dayNameFull = dayCalendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
             int dayNumbers = dayCalendar.get(Calendar.DAY_OF_MONTH);
-
             boolean isSelected = sameMonth && (dayNumbers == todayNumber);
 
-            days.add(new DayModel(dayName.toUpperCase(), dayNumbers, isSelected));
+            days.add(new DayModel(dayName.toUpperCase(),dayNameFull, dayNumbers, isSelected));
 
             dayCalendar.add(Calendar.DAY_OF_MONTH, 1);
         }
@@ -99,8 +103,12 @@ public class PatientCalenderPageFragment extends Fragment {
         adapter = new DaysAdapter(days, position -> {
             for (int i = 0; i < days.size(); i++)
                 days.get(i).isSelected = i == position;
-
             adapter.notifyDataSetChanged();
+
+            int selectedDayNumber = days.get(position).dayNumber;
+            String selectedDayName = days.get(position).fullDayName;
+            dayNumberTextView.setText(String.valueOf(selectedDayNumber));
+            dayNameTextView.setText(selectedDayName);
 
             // هنا تحدث الادوية حسب اليوم:
 //            loadMedicinesForDay(days.get(position));
