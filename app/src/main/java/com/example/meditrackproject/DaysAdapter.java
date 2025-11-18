@@ -40,7 +40,6 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.DayViewHolder>
             holder.itemView.setBackgroundResource(R.drawable.bd_day_unselected);
         }
 
-        Bundle bundle = new Bundle();
         holder.itemView.setOnClickListener(v -> {
             listener.onDayClick(position);
         });
