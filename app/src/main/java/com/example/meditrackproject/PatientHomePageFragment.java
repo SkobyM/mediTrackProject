@@ -34,7 +34,7 @@ public class PatientHomePageFragment extends Fragment {
     FirebaseFirestore db;
     String patientEmail;
     LinearLayout patientDecision;
-    TextView noMedToday, patientNameTextView, patientDecisionTextView, upcomingTimeTextView, upcomingMedicineNameTextView, noUpcomingMed, dayTimeTextView;
+    TextView noMedToday, patientNameTextView, patientDecisionTextView, upcomingTimeTextView, upcomingMedicineNameTextView, noUpcomingMed, dayTimeTextView, doseMedTextView;
     Button acceptButton, rejectButton;
     String doctorEmail, doctorIdToSaveIt;
     boolean isHaveMed = false;
@@ -151,6 +151,7 @@ public class PatientHomePageFragment extends Fragment {
 
         upcomingTimeTextView = view.findViewById(R.id.upcomingTimeTextView);
         upcomingMedicineNameTextView = view.findViewById(R.id.upcomingMedicineNameTextView);
+        doseMedTextView = view.findViewById(R.id.doseMedTextView);
         noUpcomingMed = view.findViewById(R.id.noUpcomingMed);
         dayTimeTextView = view.findViewById(R.id.dayTimeTextView);
         noMedToday = view.findViewById(R.id.noMedToday);
@@ -163,7 +164,7 @@ public class PatientHomePageFragment extends Fragment {
                 for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
                     HashMap<String, Object> presc = new HashMap<>();
                     presc.put("medicineName", doc.getString("medicineName"));
-                    presc.put("medicineCode", doc.getString("medicineCode"));
+                    presc.put("medicineDose", doc.getString("medicineDose"));
                     presc.put("startDate", doc.getString("startDate"));
                     presc.put("endDate", doc.getString("endDate"));
                     presc.put("time", doc.getString("time"));
@@ -183,6 +184,7 @@ public class PatientHomePageFragment extends Fragment {
                 upcomingTimeTextView.setText(parts[0]);
                 dayTimeTextView.setText(parts[1]);
                 upcomingMedicineNameTextView.setText(nextMed.get("medicineName").toString());
+                doseMedTextView.setText(nextMed.get("medicineDose").toString());
             } else {
                 noUpcomingMed.setVisibility(View.VISIBLE);
             }
