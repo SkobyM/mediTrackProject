@@ -18,8 +18,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -80,17 +83,47 @@ public class PatientCalenderPageFragment extends Fragment {
                 medList.clear();
                 if (!querySnapshot.isEmpty()) {
                     for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+
+                        String startDateStr = doc.getString("startDate");
+                        String endDateStr = doc.getString("endDate");
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                        Date startDate, endDate,todayDate;
+                        try {
+                            startDate = sdf.parse(startDateStr);
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+                        try {
+                             endDate = sdf.parse(endDateStr);
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+                        try {
+                            todayDate = sdf.parse(
+                                   new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
+                                           .format(Calendar.getInstance().getTime())
+                           );
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        if (todayDate.before(startDate) || todayDate.after(endDate)) {
+                            continue;
+                        }
+
                         HashMap<String, Object> presc = new HashMap<>();
                         presc.put("medicineName", doc.getString("medicineName"));
                         presc.put("medicineDose", doc.getString("medicineDose"));
-                        presc.put("startDate", doc.getString("startDate"));
-                        presc.put("endDate", doc.getString("endDate"));
+                        presc.put("startDate", startDateStr);
+                        presc.put("endDate", endDateStr);
                         presc.put("time", doc.getString("time"));
                         presc.put("days", doc.get("days"));
                         presc.put("additionalNotes", doc.getString("additionalNotes"));
 
                         medList.add(presc);
                     }
+
 
                     if (!medList.isEmpty()) {
 
