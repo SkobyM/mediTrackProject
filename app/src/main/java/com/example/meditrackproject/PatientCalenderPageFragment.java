@@ -1,12 +1,13 @@
 package com.example.meditrackproject;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,6 +39,7 @@ public class PatientCalenderPageFragment extends Fragment {
     List<Map<String, Object>> medList;
     FirebaseAuth mAuth;
     FirebaseFirestore db;
+    ProgressBar progressBar;
 
 
     public PatientCalenderPageFragment() {
@@ -61,56 +63,58 @@ public class PatientCalenderPageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        progressBar = view.findViewById(R.id.progressBar);
         medRecyclerViewCalendar = view.findViewById(R.id.medRecyclerViewCalendar);
         medRecyclerViewCalendar.setLayoutManager(new LinearLayoutManager(requireContext()));
         medList = new ArrayList<>();
         adapterMed = new card_patient_prescriptions(medList);
         medRecyclerViewCalendar.setAdapter(adapterMed);
 
-        getMeds(null);
+        Calendar today = Calendar.getInstance();
+        int dayNum = today.get(Calendar.DAY_OF_MONTH);
+        int monthNum = today.get(Calendar.MONTH) + 1;
+        int yearNum = today.get(Calendar.YEAR);
+        String date = dayNum + "/" + monthNum + "/" + yearNum;
+
+        getMeds(null, date);
         initializeMonthsToSelect(view);
     }
 
-    private void getMeds(String selectedDay) {
-
+    //get medicine for selected day
+    private void getMeds(String selectedDay, String fullSelectedDate) {
         String patientId = mAuth.getCurrentUser().getUid();
+        progressBar.setVisibility(View.VISIBLE);
+        medList.clear();
+        adapterMed.notifyDataSetChanged();
 
         db.collection("users").document(patientId).get().addOnSuccessListener(documentSnapshot -> {
             String patientEmail = documentSnapshot.getString("email");
 
             db.collection("prescriptions").whereEqualTo("patientEmail", patientEmail).whereEqualTo("status", "active").get().addOnSuccessListener(querySnapshot -> {
-                medList.clear();
                 if (!querySnapshot.isEmpty()) {
                     for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
 
                         String startDateStr = doc.getString("startDate");
                         String endDateStr = doc.getString("endDate");
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-                        Date startDate, endDate,todayDate;
-                        try {
-                            startDate = sdf.parse(startDateStr);
-                        } catch (ParseException e) {
-                            throw new RuntimeException(e);
-                        }
-                        try {
-                             endDate = sdf.parse(endDateStr);
-                        } catch (ParseException e) {
-                            throw new RuntimeException(e);
-                        }
-                        try {
-                            todayDate = sdf.parse(
-                                   new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
-                                           .format(Calendar.getInstance().getTime())
-                           );
-                        } catch (ParseException e) {
-                            throw new RuntimeException(e);
+
+                        Date selectedDate, medStartDate, medEndDate;
+                        if (fullSelectedDate != null) {
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d/MM/yyyy", Locale.ENGLISH);
+                            try {
+                                selectedDate = simpleDateFormat.parse(fullSelectedDate);
+                                medStartDate = simpleDateFormat.parse(startDateStr);
+                                medEndDate = simpleDateFormat.parse(endDateStr);
+
+                            } catch (ParseException e) {
+                                throw new RuntimeException(e);
+                            }
+                            if (selectedDate.before(medStartDate) || selectedDate.after(medEndDate)) {
+                                continue;
+                            }
+
                         }
 
-                        if (todayDate.before(startDate) || todayDate.after(endDate)) {
-                            continue;
-                        }
 
                         HashMap<String, Object> presc = new HashMap<>();
                         presc.put("medicineName", doc.getString("medicineName"));
@@ -129,8 +133,8 @@ public class PatientCalenderPageFragment extends Fragment {
 
 
                         ArrayList<Map<String, Object>> todayList = new ArrayList<>();
+// get medicine for selected day
                         if (selectedDay != null) {
-
                             for (Map<String, Object> med : medList) {
                                 List<String> days = (List<String>) med.get("days");
                                 if (days != null && days.contains(selectedDay)) {
@@ -138,7 +142,9 @@ public class PatientCalenderPageFragment extends Fragment {
                                 }
                             }
 
-                        } else {
+                        }
+                        // get medicine for real today
+                        else {
                             String today = Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
 
                             for (Map<String, Object> med : medList) {
@@ -152,9 +158,19 @@ public class PatientCalenderPageFragment extends Fragment {
 
                         medList.clear();
                         medList.addAll(todayList);
-                        adapterMed.notifyDataSetChanged();
 
+                        new android.os.Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapterMed.notifyDataSetChanged();
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        }, 1000);
+
+                    } else {
+                        progressBar.setVisibility(View.GONE);
                     }
+
 //                    if (medList.isEmpty()) {
 //                        medRecyclerView.setVisibility(View.GONE);
 //                        noMedToday.setVisibility(View.VISIBLE);
@@ -219,9 +235,12 @@ public class PatientCalenderPageFragment extends Fragment {
             String dayName = dayCalendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.ENGLISH);
             String dayNameFull = dayCalendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
             int dayNumbers = dayCalendar.get(Calendar.DAY_OF_MONTH);
+            int monthNumber = dayCalendar.get(Calendar.MONTH) + 1;
+            int yearNumber = dayCalendar.get(Calendar.YEAR);
+            String fullDate = dayNumbers + "/" + monthNumber + "/" + yearNumber;
             boolean isSelected = sameMonth && (dayNumbers == todayNumber);
 
-            days.add(new DayModel(dayName.toUpperCase(), dayNameFull, dayNumbers, isSelected));
+            days.add(new DayModel(dayName.toUpperCase(), dayNameFull, fullDate, dayNumbers, isSelected));
 
             dayCalendar.add(Calendar.DAY_OF_MONTH, 1);
         }
@@ -233,9 +252,10 @@ public class PatientCalenderPageFragment extends Fragment {
 
             int selectedDayNumber = days.get(position).dayNumber;
             String selectedDayName = days.get(position).fullDayName;
+            String fullSelectedDate = days.get(position).fullDate;
             dayNumberTextView.setText(String.valueOf(selectedDayNumber));
             dayNameTextView.setText(selectedDayName);
-            getMeds(selectedDayName);
+            getMeds(selectedDayName, fullSelectedDate);
 
         });
         daysRecyclerView.setAdapter(adapter);

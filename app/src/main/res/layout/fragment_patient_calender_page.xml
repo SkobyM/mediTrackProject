@@ -160,6 +160,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/daysLinearLayout" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/theScheduledMedTextView" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/medRecyclerViewCalendar"
             android:layout_width="match_parent"
