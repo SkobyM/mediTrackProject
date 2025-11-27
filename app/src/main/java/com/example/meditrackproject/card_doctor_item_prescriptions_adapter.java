@@ -34,7 +34,7 @@ public class card_doctor_item_prescriptions_adapter extends RecyclerView.Adapter
     public void onBindViewHolder(@NonNull card_doctor_item_prescriptions_adapter.ViewHolder holder, int position) {
         Map<String, Object> prescriptions = medicineList.get(position);
         holder.medicineName.setText((String) prescriptions.get("medicineName"));
-        holder.medicineCode.setText("("+ prescriptions.get("medicineCode")+")");
+        holder.medicineCode.setText("("+ prescriptions.get("medicineDose")+")");
         holder.startDate.setText((String) prescriptions.get("startDate"));
         holder.endDate.setText((String) prescriptions.get("endDate"));
 

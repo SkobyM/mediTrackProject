@@ -90,7 +90,7 @@
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
     <string name="medicine_name">Medicine Name</string>
-    <string name="medicine_code">Medicine Code</string>
+    <string name="medicine_dose">Medicine Dose</string>
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
     <string name="days">Days</string>
@@ -115,5 +115,10 @@
     <string name="no_medicine_today">No medicine Today</string>
     <string name="daily_tips">Daily Tips</string>
     <string name="call_an_ambulance_997">Call an Ambulance (997)</string>
+    <string name="calender_icon">calender icon</string>
+    <string name="view_calendar">View Calendar</string>
+    <string name="next_month">next month</string>
+    <string name="previous_month">previous month</string>
+    <string name="the_scheduled_medicines">The Scheduled Medicines</string>
 
 </resources>

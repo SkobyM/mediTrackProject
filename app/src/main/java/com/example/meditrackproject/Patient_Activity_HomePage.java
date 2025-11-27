@@ -19,8 +19,7 @@ public class Patient_Activity_HomePage extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.patient_bottomNavigationView);
 
         Fragment homePage = new PatientHomePageFragment();
-        Fragment calenderPage = new PatientCalenderPageFragment();
-        Fragment profilePage = new PatientProfilePageFragment();
+
         setCurrentFragment(homePage);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -28,11 +27,11 @@ public class Patient_Activity_HomePage extends AppCompatActivity {
             int id = item.getItemId();
 
             if (id == R.id.patient_nav_home) {
-                setCurrentFragment(homePage);
+                setCurrentFragment(new PatientHomePageFragment());
             } else if (id == R.id.patient_nav_calender) {
-                setCurrentFragment(calenderPage);
+                setCurrentFragment(new PatientCalenderPageFragment());
             } else if (id == R.id.patient_nav_profile) {
-                setCurrentFragment(profilePage);
+                setCurrentFragment(new PatientProfilePageFragment());
             }
             return true;
         });

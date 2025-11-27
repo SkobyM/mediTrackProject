@@ -88,7 +88,7 @@ public class DoctorViewScheduleFragment extends Fragment {
 
                 prescription.put("startDate", doc.get("startDate"));
                 prescription.put("endDate", doc.get("endDate"));
-                prescription.put("medicineCode", doc.get("medicineCode"));
+                prescription.put("medicineDose", doc.get("medicineDose"));
                 prescription.put("medicineName", doc.get("medicineName"));
                 prescription.put("days", doc.get("days"));
                 prescription.put("patientName", patientName);
