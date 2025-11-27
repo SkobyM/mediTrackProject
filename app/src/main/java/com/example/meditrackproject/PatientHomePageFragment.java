@@ -19,9 +19,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -63,8 +65,17 @@ public class PatientHomePageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        upcomingTimeTextView = view.findViewById(R.id.upcomingTimeTextView);
+        upcomingMedicineNameTextView = view.findViewById(R.id.upcomingMedicineNameTextView);
+        doseMedTextView = view.findViewById(R.id.doseMedTextView);
+        noUpcomingMed = view.findViewById(R.id.noUpcomingMed);
+        dayTimeTextView = view.findViewById(R.id.dayTimeTextView);
+        noMedToday = view.findViewById(R.id.noMedToday);
+        patientNameTextView = view.findViewById(R.id.patientNameTextView);
+        patientDecision = view.findViewById(R.id.patientDecision);
+        patientDecisionTextView = view.findViewById(R.id.patientDecisionTextView);
         medRecyclerView = view.findViewById(R.id.medRecyclerView);
+
         medRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         medList = new ArrayList<>();
@@ -75,7 +86,7 @@ public class PatientHomePageFragment extends Fragment {
         rejectButton = view.findViewById(R.id.patientRejectButton);
 
 //        patient invitation accept or reject and patient name
-        checkInvites(view);
+        checkInvites();
 //        patient invitation accept
         acceptButton.setOnClickListener(v -> acceptInvitation());
 //        patient invitation reject
@@ -83,11 +94,8 @@ public class PatientHomePageFragment extends Fragment {
 
     }
 
-    public void checkInvites(View view) {
+    public void checkInvites() {
 
-        patientNameTextView = view.findViewById(R.id.patientNameTextView);
-        patientDecision = view.findViewById(R.id.patientDecision);
-        patientDecisionTextView = view.findViewById(R.id.patientDecisionTextView);
 
         String uid = mAuth.getCurrentUser().getUid();
 
@@ -95,7 +103,7 @@ public class PatientHomePageFragment extends Fragment {
             patientNameTextView.setText(documentSnapshot.getString("firstName"));
             patientEmail = documentSnapshot.getString("email");
 
-            getMeds(patientEmail, view);
+            getMeds(patientEmail);
 
             db.collection("invitations").whereEqualTo("patientEmail", patientEmail).whereEqualTo("status", "pending").get().addOnSuccessListener(queryDocumentSnapshots -> {
                 if (!queryDocumentSnapshots.isEmpty()) {
@@ -147,14 +155,8 @@ public class PatientHomePageFragment extends Fragment {
         });
     }
 
-    public void getMeds(String patientEmail, View view) {
+    public void getMeds(String patientEmail) {
 
-        upcomingTimeTextView = view.findViewById(R.id.upcomingTimeTextView);
-        upcomingMedicineNameTextView = view.findViewById(R.id.upcomingMedicineNameTextView);
-        doseMedTextView = view.findViewById(R.id.doseMedTextView);
-        noUpcomingMed = view.findViewById(R.id.noUpcomingMed);
-        dayTimeTextView = view.findViewById(R.id.dayTimeTextView);
-        noMedToday = view.findViewById(R.id.noMedToday);
 
         db.collection("prescriptions").whereEqualTo("patientEmail", patientEmail).whereEqualTo("status", "active").get().addOnSuccessListener(querySnapshot -> {
             prescriptionsList.clear();
@@ -162,11 +164,36 @@ public class PatientHomePageFragment extends Fragment {
             if (!querySnapshot.isEmpty()) {
                 isHaveMed = true;
                 for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+
+                    String startDateStr = doc.getString("startDate");
+                    String endDateStr = doc.getString("endDate");
+
+
+                    Calendar today = Calendar.getInstance();
+                    int dayNum = today.get(Calendar.DAY_OF_MONTH);
+                    int monthNum = today.get(Calendar.MONTH) + 1;
+                    int yearNum = today.get(Calendar.YEAR);
+                    String date = dayNum + "/" + monthNum + "/" + yearNum;
+                    Date selectedDate, medStartDate, medEndDate;
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d/MM/yyyy", Locale.ENGLISH);
+                    try {
+                        selectedDate = simpleDateFormat.parse(date);
+                        medStartDate = simpleDateFormat.parse(startDateStr);
+                        medEndDate = simpleDateFormat.parse(endDateStr);
+
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (selectedDate.before(medStartDate) || selectedDate.after(medEndDate)) {
+                        continue;
+                    }
+
+
                     HashMap<String, Object> presc = new HashMap<>();
                     presc.put("medicineName", doc.getString("medicineName"));
                     presc.put("medicineDose", doc.getString("medicineDose"));
-                    presc.put("startDate", doc.getString("startDate"));
-                    presc.put("endDate", doc.getString("endDate"));
+                    presc.put("startDate", startDateStr);
+                    presc.put("endDate", endDateStr);
                     presc.put("time", doc.getString("time"));
                     presc.put("days", doc.get("days"));
                     presc.put("additionalNotes", doc.getString("additionalNotes"));
