@@ -1,6 +1,7 @@
 package com.example.meditrackproject;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -29,6 +31,7 @@ public class DoctorAddPatientPageFragment extends Fragment {
     Button sendInviteToPatientButton;
     ImageView arrowBackImageView;
     ProgressBar progressBar;
+    String doctorFullName;
 
 
     public DoctorAddPatientPageFragment() {
@@ -71,6 +74,7 @@ public class DoctorAddPatientPageFragment extends Fragment {
 
         String patientEmail = patientEmailEditText.getText().toString().trim();
         String doctorId = mAuth.getCurrentUser().getUid();
+        String doctorEmail = mAuth.getCurrentUser().getEmail();
 
         if (patientEmail.isEmpty()) {
             Toast.makeText(requireContext(), "Please enter patient's email", Toast.LENGTH_SHORT).show();
@@ -81,6 +85,14 @@ public class DoctorAddPatientPageFragment extends Fragment {
             return;
         }
 
+        db.collection("users").whereEqualTo("email", doctorEmail).get().addOnSuccessListener(queryDocumentSnapshots3 -> {
+            DocumentSnapshot documentSnapshot = queryDocumentSnapshots3.getDocuments().get(0);
+
+            doctorFullName = documentSnapshot.getString("firstName") + " " + documentSnapshot.getString("lastName");
+        });
+
+//        Log.e("test", doctorFullName);
+
         progressBar.setVisibility(View.VISIBLE);
         db.collection("invitations").whereEqualTo("patientEmail", patientEmail).whereEqualTo("doctorId", doctorId).get().addOnSuccessListener(queryDocumentSnapshots0 -> {
             if (!queryDocumentSnapshots0.isEmpty()) {
@@ -90,9 +102,15 @@ public class DoctorAddPatientPageFragment extends Fragment {
                 db.collection("users").whereEqualTo("email", patientEmail).get().addOnSuccessListener(queryDocumentSnapshots -> {
                     if (!queryDocumentSnapshots.isEmpty()) {
 
+                        DocumentSnapshot patientDoc = queryDocumentSnapshots.getDocuments().get(0);
+                        String patientId = patientDoc.getId();
+
                         Map<String, Object> invitation = new HashMap<>();
                         invitation.put("doctorId", doctorId);
+                        invitation.put("doctorEmail", doctorEmail);
+                        invitation.put("doctorFullName", doctorFullName);
                         invitation.put("patientEmail", patientEmail);
+                        invitation.put("patientId", patientId);
                         invitation.put("status", "pending");
                         invitation.put("timestamp", System.currentTimeMillis());
 
@@ -100,6 +118,23 @@ public class DoctorAddPatientPageFragment extends Fragment {
                             progressBar.setVisibility(View.GONE);
                             patientEmailEditText.setText("");
                             Toast.makeText(requireContext(), "Invitation sent successfully", Toast.LENGTH_SHORT).show();
+
+                            if (doctorFullName != null) {
+                                String notificationMessage = "Doctor " + doctorFullName+ " Has sent you an invite. You can accept it from Home Page";
+                                HashMap<String, Object> notificationInfo = new HashMap<>();
+                                notificationInfo.put("doctorId", doctorId);
+                                notificationInfo.put("doctorEmail", doctorEmail);
+                                notificationInfo.put("patientId", patientId);
+                                notificationInfo.put("patientEmail", patientEmail);
+                                notificationInfo.put("message", notificationMessage);
+                                notificationInfo.put("timeStamp", System.currentTimeMillis());
+
+                                db.collection("notifications").add(notificationInfo).addOnSuccessListener(documentReference0 -> {
+                                    Toast.makeText(requireContext(), "added successfully", Toast.LENGTH_SHORT).show();
+                                }).addOnFailureListener(e -> Log.e("test", e.getMessage()));
+                            }
+
+
                         }).addOnFailureListener(e -> {
                             progressBar.setVisibility(View.GONE);
                             Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
