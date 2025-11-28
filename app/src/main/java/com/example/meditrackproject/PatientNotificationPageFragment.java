@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -90,18 +91,20 @@ public class PatientNotificationPageFragment extends Fragment {
                     HashMap<String, Object> notificationInfo = new HashMap<>();
                     notificationInfo.put("message", doc.getString("message"));
                     notificationInfo.put("timeStamp", dateFormatted);
-
                     notificationList.add(notificationInfo);
                 }
             }
 
-            new android.os.Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    progressBar.setVisibility(View.GONE);
-                    adapter.notifyDataSetChanged();
-                }
-            }, 1000);
+            if (!notificationList.isEmpty()){
+                new android.os.Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setVisibility(View.GONE);
+                        adapter.notifyDataSetChanged();
+                    }
+                }, 1000);
+            }
+
 
         });
     }

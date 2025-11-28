@@ -30,7 +30,7 @@ public class card_patient_notification_adapter extends RecyclerView.Adapter<card
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Map<String, Object> patient = notificationList.get(position);
         holder.notification_Time.setText((String) patient.get("timeStamp"));
-        holder.notification_Text.setText(String.valueOf(patient.get("message")));
+        holder.notification_Text.setText((String) patient.get("message"));
     }
 
     @Override
