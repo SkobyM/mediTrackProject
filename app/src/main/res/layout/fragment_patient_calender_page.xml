@@ -31,7 +31,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:clickable="true"
             android:contentDescription="@string/notfication_button"
+            android:focusable="true"
             android:src="@drawable/ic_notifications_24_patient"
             app:layout_constraintStart_toEndOf="@+id/supportImageView"
             app:layout_constraintTop_toTopOf="parent" />

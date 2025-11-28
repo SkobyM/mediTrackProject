@@ -31,7 +31,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:clickable="true"
             android:contentDescription="@string/notfication_button"
+            android:focusable="true"
             android:src="@drawable/ic_notifications_24_patient"
             app:layout_constraintStart_toEndOf="@+id/supportImageView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -314,44 +316,44 @@
 
         </LinearLayout>
 
-<!--        <TextView-->
-<!--            android:id="@+id/emergencyTextView"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="15dp"-->
-<!--            android:fontFamily="@font/inter_bold"-->
-<!--            android:text="Emergency"-->
-<!--            android:textSize="24sp"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/dailyTips" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/emergencyTextView"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            android:fontFamily="@font/inter_bold"-->
+        <!--            android:text="Emergency"-->
+        <!--            android:textSize="24sp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/dailyTips" />-->
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="30dp"-->
-<!--            android:layout_marginTop="15dp"-->
-<!--            android:layout_marginEnd="30dp"-->
-<!--            android:background="@drawable/card_bg_call_ambulance"-->
-<!--            android:orientation="horizontal"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/emergencyTextView">-->
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="30dp"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            android:layout_marginEnd="30dp"-->
+        <!--            android:background="@drawable/card_bg_call_ambulance"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/emergencyTextView">-->
 
-<!--            <ImageView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:contentDescription="@null"-->
-<!--                android:src="@drawable/ic_ambulance_24" />-->
+        <!--            <ImageView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:contentDescription="@null"-->
+        <!--                android:src="@drawable/ic_ambulance_24" />-->
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:fontFamily="@font/inter_bold"-->
-<!--                android:text="@string/call_an_ambulance_997"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="16sp" />-->
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="16dp"-->
+        <!--                android:fontFamily="@font/inter_bold"-->
+        <!--                android:text="@string/call_an_ambulance_997"-->
+        <!--                android:textColor="@color/white"-->
+        <!--                android:textSize="16sp" />-->
 
-<!--        </LinearLayout>-->
+        <!--        </LinearLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
