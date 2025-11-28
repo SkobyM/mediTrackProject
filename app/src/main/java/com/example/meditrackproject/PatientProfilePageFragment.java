@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class PatientProfilePageFragment extends Fragment {
     FirebaseAuth mAuth;
     FirebaseFirestore db;
+    ImageView notificationImageView;
+    TextView logoutTextView;
 
     public PatientProfilePageFragment() {
         // Required empty public constructor
@@ -39,11 +42,13 @@ public class PatientProfilePageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        TextView logoutTextView = view.findViewById(R.id.logoutTextView);
+        logoutTextView = view.findViewById(R.id.logoutTextView);
+        notificationImageView = view.findViewById(R.id.notificationImageView);
 
 
         setProfileInfo(view);
         logoutTextView.setOnClickListener(v -> logOutButton());
+        notificationImageView.setOnClickListener(v -> notificationPageClicked());
 
     }
 
@@ -75,5 +80,10 @@ public class PatientProfilePageFragment extends Fragment {
         Intent intent = new Intent(getActivity(), Patient_Activity_LogInPage.class);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    public void notificationPageClicked() {
+        Fragment fragment = new PatientNotificationPageFragment();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_fragment_container, fragment).addToBackStack(null).commit();
     }
 }
