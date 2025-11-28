@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -203,6 +204,20 @@ public class DoctorAddPrescriptionPageFragment extends Fragment {
                     friCheckBox.setChecked(false);
                     satCheckBox.setChecked(false);
                 }).addOnFailureListener(e -> Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+
+                String notificationMessage = "Your doctor has added a new medication to your plan. Review your updated plan";
+                HashMap<String, Object> notificationInfo = new HashMap<>();
+                notificationInfo.put("doctorId", doctorId);
+                notificationInfo.put("doctorEmail", doctorEmail);
+                notificationInfo.put("patientId", patientId);
+                notificationInfo.put("patientEmail", patientEmail);
+                notificationInfo.put("message", notificationMessage);
+                notificationInfo.put("timeStamp", System.currentTimeMillis());
+
+                db.collection("notifications").add(notificationInfo).addOnSuccessListener(documentReference -> {
+                    Toast.makeText(requireContext(), "added successfully", Toast.LENGTH_SHORT).show();
+                }).addOnFailureListener(e -> Log.e("test", e.getMessage()));
+
 
             } else {
                 Toast.makeText(requireContext(), "Patient not found", Toast.LENGTH_SHORT).show();
