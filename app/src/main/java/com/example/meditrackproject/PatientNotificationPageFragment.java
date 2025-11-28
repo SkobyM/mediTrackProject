@@ -1,11 +1,11 @@
 package com.example.meditrackproject;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +20,6 @@ import com.google.firebase.firestore.Query;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +34,7 @@ public class PatientNotificationPageFragment extends Fragment {
     List<Map<String, Object>> notificationList;
     FirebaseAuth mAuth;
     FirebaseFirestore db;
+    ProgressBar progressBar;
 
     public PatientNotificationPageFragment() {
         // Required empty public constructor
@@ -59,6 +59,7 @@ public class PatientNotificationPageFragment extends Fragment {
 
         arrowBackImageView = view.findViewById(R.id.arrowBackForPatientPage);
         notificationRecyclerView = view.findViewById(R.id.notificationRecyclerView);
+        progressBar = view.findViewById(R.id.progressBar);
 
         notificationRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         notificationList = new ArrayList<>();
@@ -67,7 +68,6 @@ public class PatientNotificationPageFragment extends Fragment {
 
         loadNotifications();
 
-
         arrowBackImageView.setOnClickListener(v -> arrowBackClicked());
     }
 
@@ -75,6 +75,7 @@ public class PatientNotificationPageFragment extends Fragment {
         notificationList.clear();
 
         String patientId = mAuth.getCurrentUser().getUid();
+        progressBar.setVisibility(View.VISIBLE);
 
         db.collection("notifications").whereEqualTo("patientId", patientId).orderBy("timeStamp", Query.Direction.DESCENDING).get().addOnSuccessListener(queryDocumentSnapshots -> {
 
@@ -94,7 +95,14 @@ public class PatientNotificationPageFragment extends Fragment {
                 }
             }
 
-            adapter.notifyDataSetChanged();
+            new android.os.Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setVisibility(View.GONE);
+                    adapter.notifyDataSetChanged();
+                }
+            }, 1000);
+
         });
     }
 
