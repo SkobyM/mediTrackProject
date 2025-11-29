@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,6 +41,7 @@ public class PatientCalenderPageFragment extends Fragment {
     FirebaseAuth mAuth;
     FirebaseFirestore db;
     ProgressBar progressBar;
+    ImageView notificationImageView;
 
 
     public PatientCalenderPageFragment() {
@@ -64,7 +66,9 @@ public class PatientCalenderPageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         progressBar = view.findViewById(R.id.progressBar);
+        notificationImageView = view.findViewById(R.id.notificationImageView);
         medRecyclerViewCalendar = view.findViewById(R.id.medRecyclerViewCalendar);
+
         medRecyclerViewCalendar.setLayoutManager(new LinearLayoutManager(requireContext()));
         medList = new ArrayList<>();
         adapterMed = new card_patient_prescriptions(medList);
@@ -78,6 +82,8 @@ public class PatientCalenderPageFragment extends Fragment {
 
         getMeds(null, date);
         initializeMonthsToSelect(view);
+
+        notificationImageView.setOnClickListener(v -> notificationPageClicked());
     }
 
     //get medicine for selected day
@@ -271,5 +277,10 @@ public class PatientCalenderPageFragment extends Fragment {
             }
         });
 
+    }
+
+    public void notificationPageClicked() {
+        Fragment fragment = new PatientNotificationPageFragment();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_fragment_container, fragment).addToBackStack(null).commit();
     }
 }

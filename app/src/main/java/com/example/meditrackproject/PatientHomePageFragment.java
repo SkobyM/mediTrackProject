@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ public class PatientHomePageFragment extends Fragment {
     card_patient_prescriptions adapter;
     List<Map<String, Object>> medList;
     ArrayList<HashMap<String, Object>> prescriptionsList = new ArrayList<>();
+    ImageView notificationImageView;
 
     public PatientHomePageFragment() {
         // Required empty public constructor
@@ -75,6 +77,7 @@ public class PatientHomePageFragment extends Fragment {
         patientDecision = view.findViewById(R.id.patientDecision);
         patientDecisionTextView = view.findViewById(R.id.patientDecisionTextView);
         medRecyclerView = view.findViewById(R.id.medRecyclerView);
+        notificationImageView = view.findViewById(R.id.notificationImageView);
 
         medRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -91,6 +94,7 @@ public class PatientHomePageFragment extends Fragment {
         acceptButton.setOnClickListener(v -> acceptInvitation());
 //        patient invitation reject
         rejectButton.setOnClickListener(v -> rejectInvitation());
+        notificationImageView.setOnClickListener(v -> notificationPageClicked());
 
     }
 
@@ -284,4 +288,8 @@ public class PatientHomePageFragment extends Fragment {
     }
 
 
+    public void notificationPageClicked() {
+        Fragment fragment = new PatientNotificationPageFragment();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_fragment_container, fragment).addToBackStack(null).commit();
+    }
 }

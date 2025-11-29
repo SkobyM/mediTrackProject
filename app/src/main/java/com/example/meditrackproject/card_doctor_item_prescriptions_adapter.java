@@ -1,6 +1,5 @@
 package com.example.meditrackproject;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -25,8 +22,7 @@ public class card_doctor_item_prescriptions_adapter extends RecyclerView.Adapter
     @NonNull
     @Override
     public card_doctor_item_prescriptions_adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_doctor_item_prescriptions, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_doctor_item_prescriptions, parent, false);
         return new card_doctor_item_prescriptions_adapter.ViewHolder(view);
     }
 
@@ -34,7 +30,7 @@ public class card_doctor_item_prescriptions_adapter extends RecyclerView.Adapter
     public void onBindViewHolder(@NonNull card_doctor_item_prescriptions_adapter.ViewHolder holder, int position) {
         Map<String, Object> prescriptions = medicineList.get(position);
         holder.medicineName.setText((String) prescriptions.get("medicineName"));
-        holder.medicineCode.setText("("+ prescriptions.get("medicineDose")+")");
+        holder.medicineCode.setText("(" + prescriptions.get("medicineDose") + ")");
         holder.startDate.setText((String) prescriptions.get("startDate"));
         holder.endDate.setText((String) prescriptions.get("endDate"));
 
