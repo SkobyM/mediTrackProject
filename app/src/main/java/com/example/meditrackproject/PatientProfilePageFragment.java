@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +21,7 @@ public class PatientProfilePageFragment extends Fragment {
     FirebaseAuth mAuth;
     FirebaseFirestore db;
     ImageView notificationImageView;
-    TextView logoutTextView;
+    TextView logoutTextView, editProfileInformationTextView, medicalHistoryTextView,settingTextView,helpSupportTextView, seeYourDoctorTextView;
 
     public PatientProfilePageFragment() {
         // Required empty public constructor
@@ -44,12 +45,29 @@ public class PatientProfilePageFragment extends Fragment {
 
         logoutTextView = view.findViewById(R.id.logoutTextView);
         notificationImageView = view.findViewById(R.id.notificationImageView);
+        editProfileInformationTextView = view.findViewById(R.id.editProfileInformationTextView);
+        medicalHistoryTextView = view.findViewById(R.id.medicalHistoryTextView);
+        settingTextView = view.findViewById(R.id.settingTextView);
+        helpSupportTextView = view.findViewById(R.id.helpSupportTextView);
+        seeYourDoctorTextView = view.findViewById(R.id.seeYourDoctorTextView);
 
 
         setProfileInfo(view);
         logoutTextView.setOnClickListener(v -> logOutButton());
         notificationImageView.setOnClickListener(v -> notificationPageClicked());
+        editProfileInformationTextView.setOnClickListener(v -> editProfileInformationClicked());
+        medicalHistoryTextView.setOnClickListener(v -> editProfileInformationClicked());
+        settingTextView.setOnClickListener(v -> editProfileInformationClicked());
+        helpSupportTextView.setOnClickListener(v -> editProfileInformationClicked());
+        seeYourDoctorTextView.setOnClickListener(v -> seeYourDoctorTextViewClicked());
 
+    }
+
+    private void seeYourDoctorTextViewClicked() {
+    }
+
+    private void editProfileInformationClicked() {
+        Toast.makeText(getActivity(), "Coming Soon", Toast.LENGTH_SHORT).show();
     }
 
     public void setProfileInfo(View view) {

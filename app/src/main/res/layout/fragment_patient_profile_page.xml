@@ -107,6 +107,7 @@
                     android:src="@drawable/ic_text_ad_24_edit_profile_patient" />
 
                 <TextView
+                    android:id="@+id/editProfileInformationTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -219,6 +220,7 @@
                     android:src="@drawable/ic_medical_services_24_history_patient" />
 
                 <TextView
+                    android:id="@+id/medicalHistoryTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -292,6 +294,7 @@
                     android:src="@drawable/ic__settings_24_patient" />
 
                 <TextView
+                    android:id="@+id/settingTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -323,6 +326,7 @@
                     android:src="@drawable/ic_round_help_outline_24_patient" />
 
                 <TextView
+                    android:id="@+id/helpSupportTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
