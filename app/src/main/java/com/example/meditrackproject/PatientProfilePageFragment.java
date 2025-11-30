@@ -64,6 +64,8 @@ public class PatientProfilePageFragment extends Fragment {
     }
 
     private void seeYourDoctorTextViewClicked() {
+        Fragment fragment = new PatientSeeYourDoctorFragment();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_fragment_container, fragment).addToBackStack(null).commit();
     }
 
     private void editProfileInformationClicked() {
