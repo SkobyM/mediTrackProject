@@ -107,10 +107,13 @@
                     android:src="@drawable/ic_text_ad_24_edit_profile_patient" />
 
                 <TextView
+                    android:id="@+id/editProfileInformationTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:text="@string/edit_profile_information"
                     android:textColor="#000000"
                     android:textSize="16sp" />
@@ -217,10 +220,13 @@
                     android:src="@drawable/ic_medical_services_24_history_patient" />
 
                 <TextView
+                    android:id="@+id/medicalHistoryTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:text="@string/medical_history"
                     android:textColor="#000000"
                     android:textSize="16sp" />
@@ -246,10 +252,13 @@
                     android:src="@drawable/ic_shield_with_heart_24_doctors_patient" />
 
                 <TextView
+                    android:id="@+id/seeYourDoctorTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:text="@string/your_doctors"
                     android:textColor="#000000"
                     android:textSize="16sp" />
@@ -285,10 +294,13 @@
                     android:src="@drawable/ic__settings_24_patient" />
 
                 <TextView
+                    android:id="@+id/settingTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:text="@string/settings"
                     android:textColor="#000000"
                     android:textSize="16sp" />
@@ -314,10 +326,13 @@
                     android:src="@drawable/ic_round_help_outline_24_patient" />
 
                 <TextView
+                    android:id="@+id/helpSupportTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:text="@string/help_support"
                     android:textColor="#000000"
                     android:textSize="16sp" />
