@@ -40,7 +40,6 @@ public class PatientHomePageFragment extends Fragment {
     TextView noMedToday, patientNameTextView, patientDecisionTextView, upcomingTimeTextView, upcomingMedicineNameTextView, noUpcomingMed, dayTimeTextView, doseMedTextView;
     Button acceptButton, rejectButton;
     String doctorEmail, doctorIdToSaveIt;
-    boolean isHaveMed = false;
     RecyclerView medRecyclerView;
     card_patient_prescriptions adapter;
     List<Map<String, Object>> medList;
@@ -178,7 +177,6 @@ public class PatientHomePageFragment extends Fragment {
             prescriptionsList.clear();
             medList.clear();
             if (!querySnapshot.isEmpty()) {
-                isHaveMed = true;
                 for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
 
                     String startDateStr = doc.getString("startDate");
