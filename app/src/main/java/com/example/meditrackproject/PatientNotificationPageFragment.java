@@ -1,6 +1,7 @@
 package com.example.meditrackproject;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,7 @@ public class PatientNotificationPageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        markAllRead();
         arrowBackImageView = view.findViewById(R.id.arrowBackForPatientPage);
         notificationRecyclerView = view.findViewById(R.id.notificationRecyclerView);
         progressBar = view.findViewById(R.id.progressBar);
@@ -70,6 +71,16 @@ public class PatientNotificationPageFragment extends Fragment {
         loadNotifications();
 
         arrowBackImageView.setOnClickListener(v -> arrowBackClicked());
+    }
+
+    public void markAllRead() {
+        String patientId = mAuth.getCurrentUser().getUid();
+
+        db.collection("notifications").whereEqualTo("patientId", patientId).whereEqualTo("hasRead", false).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (DocumentSnapshot doc : queryDocumentSnapshots.getDocuments()) {
+                doc.getReference().update("hasRead", true);
+            }
+        });
     }
 
     private void loadNotifications() {
@@ -95,7 +106,7 @@ public class PatientNotificationPageFragment extends Fragment {
                 }
             }
 
-            if (!notificationList.isEmpty()){
+            if (!notificationList.isEmpty()) {
                 new android.os.Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {

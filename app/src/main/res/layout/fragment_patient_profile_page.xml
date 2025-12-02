@@ -26,17 +26,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/notificationImageView"
+        <FrameLayout
+            android:id="@+id/notificationFrameLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:clickable="true"
-            android:contentDescription="@string/notfication_button"
-            android:focusable="true"
-            android:src="@drawable/ic_notifications_24_patient"
             app:layout_constraintStart_toEndOf="@+id/supportImageView"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/notificationImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:clickable="true"
+                android:contentDescription="@string/notfication_button"
+                android:focusable="true"
+                android:src="@drawable/ic_notifications_24_patient" />
+
+            <View
+                android:id="@+id/unReadNotificationView"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="end"
+                android:background="@drawable/red_circle"
+                android:visibility="gone"/>
+
+        </FrameLayout>
 
         <ImageView
             android:layout_width="wrap_content"

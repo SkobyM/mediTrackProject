@@ -22,6 +22,7 @@ public class PatientProfilePageFragment extends Fragment {
     FirebaseFirestore db;
     ImageView notificationImageView;
     TextView logoutTextView, editProfileInformationTextView, medicalHistoryTextView,settingTextView,helpSupportTextView, seeYourDoctorTextView;
+    View unReadNotificationView;
 
     public PatientProfilePageFragment() {
         // Required empty public constructor
@@ -50,8 +51,10 @@ public class PatientProfilePageFragment extends Fragment {
         settingTextView = view.findViewById(R.id.settingTextView);
         helpSupportTextView = view.findViewById(R.id.helpSupportTextView);
         seeYourDoctorTextView = view.findViewById(R.id.seeYourDoctorTextView);
+        unReadNotificationView = view.findViewById(R.id.unReadNotificationView);
 
 
+        checkNotificationsRead();
         setProfileInfo(view);
         logoutTextView.setOnClickListener(v -> logOutButton());
         notificationImageView.setOnClickListener(v -> notificationPageClicked());
@@ -91,6 +94,17 @@ public class PatientProfilePageFragment extends Fragment {
 
             });
         }
+    }
+
+    public void checkNotificationsRead() {
+        String patientEmail = mAuth.getCurrentUser().getEmail();
+        db.collection("notifications").whereEqualTo("patientEmail", patientEmail).whereEqualTo("hasRead", false).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            if (queryDocumentSnapshots.isEmpty()) {
+                unReadNotificationView.setVisibility(View.GONE);
+            } else {
+                unReadNotificationView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     public void logOutButton() {

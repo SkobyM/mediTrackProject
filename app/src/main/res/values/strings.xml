@@ -120,5 +120,6 @@
     <string name="next_month">next month</string>
     <string name="previous_month">previous month</string>
     <string name="the_scheduled_medicines">The Scheduled Medicines</string>
+    <string name="you_got_invite_from_ndr">You got invite from\nDr.</string>
 
 </resources>

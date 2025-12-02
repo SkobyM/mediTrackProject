@@ -42,6 +42,7 @@ public class PatientCalenderPageFragment extends Fragment {
     FirebaseFirestore db;
     ProgressBar progressBar;
     ImageView notificationImageView;
+    View unReadNotificationView;
 
 
     public PatientCalenderPageFragment() {
@@ -68,6 +69,7 @@ public class PatientCalenderPageFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         notificationImageView = view.findViewById(R.id.notificationImageView);
         medRecyclerViewCalendar = view.findViewById(R.id.medRecyclerViewCalendar);
+        unReadNotificationView = view.findViewById(R.id.unReadNotificationView);
 
         medRecyclerViewCalendar.setLayoutManager(new LinearLayoutManager(requireContext()));
         medList = new ArrayList<>();
@@ -80,6 +82,7 @@ public class PatientCalenderPageFragment extends Fragment {
         int yearNum = today.get(Calendar.YEAR);
         String date = dayNum + "/" + monthNum + "/" + yearNum;
 
+        checkNotificationsRead();
         getMeds(null, date);
         initializeMonthsToSelect(view);
 
@@ -193,6 +196,17 @@ public class PatientCalenderPageFragment extends Fragment {
         });
 
 
+    }
+
+    public void checkNotificationsRead() {
+        String patientEmail = mAuth.getCurrentUser().getEmail();
+        db.collection("notifications").whereEqualTo("patientEmail", patientEmail).whereEqualTo("hasRead", false).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            if (queryDocumentSnapshots.isEmpty()) {
+                unReadNotificationView.setVisibility(View.GONE);
+            } else {
+                unReadNotificationView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void initializeMonthsToSelect(View view) {

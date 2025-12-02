@@ -1,7 +1,6 @@
 package com.example.meditrackproject;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +46,7 @@ public class PatientHomePageFragment extends Fragment {
     List<Map<String, Object>> medList;
     ArrayList<HashMap<String, Object>> prescriptionsList = new ArrayList<>();
     ImageView notificationImageView;
+    View unReadNotificationView;
 
     public PatientHomePageFragment() {
         // Required empty public constructor
@@ -79,6 +79,7 @@ public class PatientHomePageFragment extends Fragment {
         patientDecisionTextView = view.findViewById(R.id.patientDecisionTextView);
         medRecyclerView = view.findViewById(R.id.medRecyclerView);
         notificationImageView = view.findViewById(R.id.notificationImageView);
+        unReadNotificationView = view.findViewById(R.id.unReadNotificationView);
 
         medRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -109,6 +110,7 @@ public class PatientHomePageFragment extends Fragment {
             patientEmail = documentSnapshot.getString("email");
 
             getMeds(patientEmail);
+            checkNotificationsRead(patientEmail);
 
             db.collection("invitations").whereEqualTo("patientEmail", patientEmail).whereEqualTo("status", "pending").get().addOnSuccessListener(queryDocumentSnapshots -> {
                 if (!queryDocumentSnapshots.isEmpty()) {
@@ -159,6 +161,15 @@ public class PatientHomePageFragment extends Fragment {
             }
         });
     }
+    public void checkNotificationsRead(String patientEmail) {
+        db.collection("notifications").whereEqualTo("patientEmail", patientEmail).whereEqualTo("hasRead", false).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            if (queryDocumentSnapshots.isEmpty()) {
+                unReadNotificationView.setVisibility(View.GONE);
+            } else {
+                unReadNotificationView.setVisibility(View.VISIBLE);
+            }
+        });
+    }
 
     public void getMeds(String patientEmail) {
 
@@ -190,7 +201,7 @@ public class PatientHomePageFragment extends Fragment {
                         throw new RuntimeException(e);
                     }
                     if (selectedDate.before(medStartDate) || selectedDate.after(medEndDate)) {
-                        if (selectedDate.after(medEndDate)){
+                        if (selectedDate.after(medEndDate)) {
                             doc.getReference().update("status", "expired");
                         }
                         continue;
