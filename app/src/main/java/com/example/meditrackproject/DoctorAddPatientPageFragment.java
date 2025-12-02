@@ -126,6 +126,7 @@ public class DoctorAddPatientPageFragment extends Fragment {
                                 notificationInfo.put("doctorEmail", doctorEmail);
                                 notificationInfo.put("patientId", patientId);
                                 notificationInfo.put("patientEmail", patientEmail);
+                                notificationInfo.put("hasRead", false);
                                 notificationInfo.put("message", notificationMessage);
                                 notificationInfo.put("timeStamp", System.currentTimeMillis());
 

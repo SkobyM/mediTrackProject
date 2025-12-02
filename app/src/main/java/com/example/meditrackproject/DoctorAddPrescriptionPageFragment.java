@@ -72,7 +72,7 @@ public class DoctorAddPrescriptionPageFragment extends Fragment {
         timeEditText.setOnClickListener(v -> showTimePicker());
 
         Bundle args = getArguments();
-        if (args != null){
+        if (args != null) {
             String patientEmail = args.getString("patientEmail");
             patientEmailEditText.setText(patientEmail);
         }
@@ -157,7 +157,7 @@ public class DoctorAddPrescriptionPageFragment extends Fragment {
             timeEditText.requestFocus();
             return;
         }
-        if (selectedDays.isEmpty()){
+        if (selectedDays.isEmpty()) {
             sunCheckBox.setError("Days checked is required");
             sunCheckBox.requestFocus();
             return;
@@ -210,6 +210,7 @@ public class DoctorAddPrescriptionPageFragment extends Fragment {
                 notificationInfo.put("doctorId", doctorId);
                 notificationInfo.put("doctorEmail", doctorEmail);
                 notificationInfo.put("patientId", patientId);
+                notificationInfo.put("hasRead", false);
                 notificationInfo.put("patientEmail", patientEmail);
                 notificationInfo.put("message", notificationMessage);
                 notificationInfo.put("timeStamp", System.currentTimeMillis());
