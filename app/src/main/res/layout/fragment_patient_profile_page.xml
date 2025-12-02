@@ -68,7 +68,7 @@
             android:contentDescription="@string/profile_picture"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/notificationImageView"
+            app:layout_constraintTop_toBottomOf="@+id/notificationFrameLayout"
             app:srcCompat="@drawable/ic_profile_picture_patient" />
 
         <TextView
