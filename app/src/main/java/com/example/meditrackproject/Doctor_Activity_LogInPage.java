@@ -1,14 +1,17 @@
 package com.example.meditrackproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -31,6 +34,9 @@ public class Doctor_Activity_LogInPage extends AppCompatActivity {
     FirebaseFirestore db;
     TextView invalidEmailPasswordTextView, approvedTextView, doctorToPatientTextView, requestSignUpTextView;
     ProgressBar progressBar;
+    SharedPreferences prefs;
+    boolean remember;
+    CheckBox remeberCheckBox;
 
 
     @Override
@@ -41,6 +47,21 @@ public class Doctor_Activity_LogInPage extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        prefs = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        remember = prefs.getBoolean("remember", false);
+
+        if (remember && mAuth.getCurrentUser() != null) {
+
+            String userType = prefs.getString("userType", "");
+
+            if (userType.equals("doctor")) {
+                startActivity(new Intent(this, Doctor_Activity_HomePage.class));
+            } else if (userType.equals("patient")) {
+                startActivity(new Intent(this, Patient_Activity_HomePage.class));
+            }
+
+            finish();
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.doctorLogInPage), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -52,6 +73,7 @@ public class Doctor_Activity_LogInPage extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        remeberCheckBox = findViewById(R.id.rememberCheckBoxDoctor);
         doctorToPatientTextView = findViewById(R.id.patientLoginTextView);
         doctorToPatientTextView.setOnClickListener(v -> changePage());
 
@@ -70,7 +92,7 @@ public class Doctor_Activity_LogInPage extends AppCompatActivity {
         approvedTextView = findViewById(R.id.approvedTextView);
         invalidEmailPasswordTextView = findViewById(R.id.invalidEmailPasswordTextView);
 
-
+        boolean isChecked = remeberCheckBox.isChecked();
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
@@ -110,12 +132,29 @@ public class Doctor_Activity_LogInPage extends AppCompatActivity {
                         if (documentSnapshot.exists()) {
 
                             Boolean isValid = documentSnapshot.getBoolean("approved");
-                            if (isValid) {
-                                Intent intent = new Intent(Doctor_Activity_LogInPage.this, Doctor_Activity_HomePage.class);
+                            String userType = documentSnapshot.getString("userType");
+
+                            if (isChecked) {
+                                SharedPreferences.Editor editor = getSharedPreferences("loginPrefs", MODE_PRIVATE).edit();
+                                editor.putBoolean("remember", true);
+                                editor.putString("userType", "doctor"); // << أضف هذا
+                                editor.apply();
+                            }
+
+                            if ("doctor".equals(userType)) {
+                                if (isValid) {
+                                    Intent intent = new Intent(Doctor_Activity_LogInPage.this, Doctor_Activity_HomePage.class);
+                                    startActivity(intent);
+                                    finish();
+                                    Toast.makeText(Doctor_Activity_LogInPage.this, "Sign in Successfully", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    approvedTextView.setVisibility(View.VISIBLE);
+                                }
+
+                            } else if ("patient".equals(userType)) {
+                                Intent intent = new Intent(Doctor_Activity_LogInPage.this, Patient_Activity_LogInPage.class);
                                 startActivity(intent);
                                 finish();
-                            } else {
-                                approvedTextView.setVisibility(View.VISIBLE);
                             }
                         }
                         progressBar.setVisibility(View.GONE);
