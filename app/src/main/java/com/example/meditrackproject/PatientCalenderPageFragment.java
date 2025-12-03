@@ -119,9 +119,6 @@ public class PatientCalenderPageFragment extends Fragment {
                                 throw new RuntimeException(e);
                             }
                             if (selectedDate.before(medStartDate) || selectedDate.after(medEndDate)) {
-                                if (selectedDate.after(medEndDate)){
-                                    doc.getReference().update("status", "expired");
-                                }
                                 continue;
                             }
 
