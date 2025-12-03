@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/doctorLogInPage"
@@ -9,21 +10,23 @@
     android:orientation="vertical"
     tools:context=".Doctor_Activity_LogInPage">
 
+    <!-- Logo -->
     <ImageView
         android:id="@+id/ourLogoInLogInPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:contentDescription="@string/contentDescription"
         android:scaleType="centerCrop"
+        android:contentDescription="@string/contentDescription"
         app:srcCompat="@drawable/_a3c3d57b44b7902bc7eb7149393130cb5b742ad" />
 
+    <!-- Top login switch (Patient / Doctor) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
         android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:id="@+id/patientLoginTextView"
@@ -31,82 +34,77 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="3dp"
-            android:background="?attr/selectableItemBackground"
+            android:text="@string/patientLogin"
+            android:textStyle="bold"
             android:clickable="true"
             android:focusable="true"
-            android:text="@string/patientLogin"
-            android:textStyle="bold" />
+            android:background="?attr/selectableItemBackground" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <TextView
                 android:id="@+id/doctorLoginPatientView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
                 android:text="@string/doctorLogin"
                 android:textStyle="bold"
-
-                />
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground" />
 
             <View
                 android:id="@+id/divider2"
                 android:layout_width="49dp"
                 android:layout_height="2.5dp"
                 android:background="@drawable/divider_gradient" />
-
-
         </LinearLayout>
-
-
     </LinearLayout>
 
-    <!--Login text-->
+    <!-- Login Title -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:text="@string/loginTextMiddle"
-        android:textColor="#333333"
         android:textSize="30sp"
+        android:textColor="#333333"
+        android:gravity="center"
         android:textStyle="bold" />
-    <!--Welcome back text-->
+
+    <!-- Subtitle -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:alpha="0.6"
-        android:gravity="center"
         android:text="@string/wlcTextUnderLogin"
+        android:gravity="center"
+        android:alpha="0.6"
         android:textStyle="bold" />
 
+    <!-- Error messages -->
     <TextView
         android:id="@+id/invalidEmailPasswordTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:text="@string/invalid_email_password"
-        android:textColor="@color/red"
         android:textStyle="bold"
+        android:textColor="@color/red"
+        android:gravity="center_horizontal"
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/approvedTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:text="@string/your_account_is_not_approved"
-        android:textColor="@color/red"
         android:textStyle="bold"
+        android:textColor="@color/red"
+        android:gravity="center_horizontal"
         android:visibility="gone" />
 
-    <!--Email text view-->
+    <!-- Email Label -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -115,6 +113,7 @@
         android:text="@string/email"
         android:textStyle="bold" />
 
+    <!-- Email Input -->
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
@@ -127,19 +126,20 @@
         android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
         android:paddingStart="7dp"
-        android:paddingTop="5dp"
         android:paddingEnd="7dp"
+        android:paddingTop="5dp"
         android:paddingBottom="5dp" />
 
-    <!--Password-->
+    <!-- Password Label -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/passwordString"
         android:layout_marginStart="20dp"
         android:layout_marginBottom="3dp"
-        android:text="@string/passwordString"
         android:textStyle="bold" />
 
+    <!-- Password Input -->
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
@@ -152,18 +152,18 @@
         android:hint="@string/passwordHint"
         android:inputType="textPassword"
         android:paddingStart="7dp"
-        android:paddingTop="5dp"
         android:paddingEnd="7dp"
+        android:paddingTop="5dp"
         android:paddingBottom="5dp" />
-    <!--Forgot password text-->
 
+    <!-- Remember Me + Forgot Password -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
+        android:layout_marginBottom="20dp">
 
         <CheckBox
             android:id="@+id/rememberCheckBoxDoctor"
@@ -176,47 +176,48 @@
             android:id="@+id/forgotPasswordTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:focusable="true"
             android:gravity="end"
+            android:layout_weight="1"
             android:text="@string/forgot_password"
             android:textColor="@color/red"
-            android:textStyle="bold" />
-
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true" />
     </LinearLayout>
 
+    <!-- Loading -->
     <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/progressBar"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal" />
 
+    <!-- Login Button -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
         android:layout_marginBottom="15dp"
-        android:backgroundTint="@color/darkBlue"
         android:text="@string/loginButtonText"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:backgroundTint="@color/darkBlue" />
 
+    <!-- Request Account Row -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/request_for_creating_account"
-            android:textStyle="bold"
             android:textSize="12sp"
+            android:textStyle="bold"
             android:layout_weight="1"
             android:layout_marginStart="30dp"/>
 
@@ -225,15 +226,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/request"
-            android:layout_weight="1.5"
             android:textStyle="bold"
+            android:layout_weight="1.5"
             android:clickable="true"
-            android:focusable="true"
-            />
-
-
-
+            android:focusable="true" />
     </LinearLayout>
-
 
 </LinearLayout>

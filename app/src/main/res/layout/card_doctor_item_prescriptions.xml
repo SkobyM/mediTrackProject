@@ -8,11 +8,13 @@
     android:paddingEnd="18dp"
     android:paddingBottom="6dp">
 
+    <!-- Row containing vertical line and patient info -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <!-- هذا الخط العمودي -->
+
+        <!-- Vertical line indicating pending status -->
         <View
             android:layout_width="5dp"
             android:layout_height="match_parent"
@@ -20,115 +22,39 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/bg_for_line_in_pending_doctor" />
 
-        <!-- المحتوى الكامل -->
+        <!-- Patient details -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Patient Name -->
+            <TextView
+                android:id="@+id/patientName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:fontFamily="@font/inter_bold"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/medicineNameTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="Vitamin D"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/medicineCodeTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="(C10AA05)"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Patient Email -->
+            <TextView
+                android:id="@+id/patientEmail"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="@string/start_date"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/startDateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:textColor="@color/orange"
-                    android:layout_marginStart="4dp"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:layout_marginStart="4dp"
-                    android:text="@string/end_date"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/endDateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:layout_marginStart="4dp"
-                    android:textColor="@color/orange"
-                    android:textSize="14sp" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="@string/days"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/daysCheckBoxTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/orange"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
+                android:textColor="#CACACA"
+                android:textSize="11sp" />
 
         </LinearLayout>
 
     </LinearLayout>
 
+    <!-- Divider at bottom -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
         android:background="@color/white" />
+
 </LinearLayout>

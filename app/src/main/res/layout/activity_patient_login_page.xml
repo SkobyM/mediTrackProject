@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/patientLoginPage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_soft_gradient_patient"
     android:orientation="vertical"
+    android:background="@drawable/bg_soft_gradient_patient"
     tools:context=".Patient_Activity_LogInPage">
 
+    <!-- Logo at top -->
     <ImageView
         android:id="@+id/ourLogoInLogInPage"
         android:layout_width="match_parent"
@@ -18,18 +20,18 @@
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/_a3c3d57b44b7902bc7eb7149393130cb5b742ad" />
 
+    <!-- Switch between patient and doctor login -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
 
             <TextView
                 android:id="@+id/patientLoginTextView"
@@ -48,10 +50,7 @@
                 android:layout_width="49dp"
                 android:layout_height="2.5dp"
                 android:background="@drawable/divider_gradient" />
-
-
         </LinearLayout>
-
 
         <TextView
             android:id="@+id/doctorLoginPatientView"
@@ -61,13 +60,10 @@
             android:clickable="true"
             android:focusable="true"
             android:text="@string/doctorLogin"
-            android:textStyle="bold"
-
-            />
-
-
+            android:textStyle="bold" />
     </LinearLayout>
-    <!--Login text-->
+
+    <!-- Login title -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,7 +72,8 @@
         android:textColor="#333333"
         android:textSize="30sp"
         android:textStyle="bold" />
-    <!--Welcome back text-->
+
+    <!-- Subtitle -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,6 +83,7 @@
         android:text="@string/wlcTextUnderLogin"
         android:textStyle="bold" />
 
+    <!-- Invalid credentials message -->
     <TextView
         android:id="@+id/invalidEmailPasswordTextView"
         android:layout_width="match_parent"
@@ -96,7 +94,7 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
-    <!--Email text view-->
+    <!-- Email field -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -121,7 +119,7 @@
         android:paddingEnd="7dp"
         android:paddingBottom="5dp" />
 
-    <!--Password-->
+    <!-- Password field -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -145,7 +143,8 @@
         android:paddingTop="5dp"
         android:paddingEnd="7dp"
         android:paddingBottom="5dp" />
-    <!--Forgot password text-->
+
+    <!-- Remember me & forgot password -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -172,16 +171,16 @@
             android:text="@string/forgot_password"
             android:textColor="@color/red"
             android:textStyle="bold" />
-
     </LinearLayout>
 
+    <!-- Progress indicator -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
-
+    <!-- Login button -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
@@ -194,12 +193,11 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-
+    <!-- Sign up prompt -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
 
         <TextView
             android:layout_width="match_parent"
@@ -219,9 +217,6 @@
             android:focusable="true"
             android:text="@string/sign_up"
             android:textStyle="bold" />
-
-
     </LinearLayout>
-
 
 </LinearLayout>

@@ -9,27 +9,26 @@
     android:orientation="vertical"
     tools:context=".Doctor_Activity_SignUp_Page">
 
-
     <ImageView
         android:id="@+id/arrowBackForBackPageInSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:clickable="true"
-        android:contentDescription="@string/arrowback"
         android:focusable="true"
         android:onClick="arrowBackClicked"
+        android:contentDescription="@string/arrowback"
         app:srcCompat="@drawable/ic_arrow_back_24" />
 
     <ImageView
         android:id="@+id/ourLogoInSignUpPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/contentDescription"
         android:scaleType="centerCrop"
+        android:contentDescription="@string/contentDescription"
         app:srcCompat="@drawable/_a3c3d57b44b7902bc7eb7149393130cb5b742ad" />
 
-    <!--Register text-->
+    <!-- Register title -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,22 +37,22 @@
         android:textColor="#333333"
         android:textSize="40sp"
         android:textStyle="bold" />
-    <!--Nice to have you text-->
+
+    <!-- Welcome text -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:alpha="0.8"
         android:gravity="center"
+        android:alpha="0.8"
         android:text="@string/welcome_nice_to_have_you"
         android:textStyle="bold" />
 
-
+    <!-- First & Last Name labels -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
 
         <TextView
             android:layout_width="match_parent"
@@ -73,9 +72,9 @@
             android:text="@string/last_name"
             android:textStyle="bold" />
 
-
     </LinearLayout>
 
+    <!-- First & Last Name input -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -117,7 +116,7 @@
 
     </LinearLayout>
 
-    <!--Email text view-->
+    <!-- Email label -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -126,6 +125,7 @@
         android:text="@string/email"
         android:textStyle="bold" />
 
+    <!-- Email input -->
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
@@ -142,7 +142,7 @@
         android:paddingEnd="7dp"
         android:paddingBottom="5dp" />
 
-    <!--    licenseNumber -->
+    <!-- License Number label -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -151,6 +151,7 @@
         android:text="@string/licenseNumber"
         android:textStyle="bold" />
 
+    <!-- License Number input -->
     <EditText
         android:id="@+id/licenseEditText"
         android:layout_width="match_parent"
@@ -167,6 +168,7 @@
         android:paddingEnd="7dp"
         android:paddingBottom="5dp" />
 
+    <!-- Phone Number label -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -175,6 +177,7 @@
         android:text="@string/phone_number"
         android:textStyle="bold" />
 
+    <!-- Phone Number input -->
     <EditText
         android:id="@+id/phoneNumberEditText"
         android:layout_width="match_parent"
@@ -191,8 +194,7 @@
         android:paddingEnd="7dp"
         android:paddingBottom="5dp" />
 
-
-    <!--Password-->
+    <!-- Password label -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -201,6 +203,7 @@
         android:text="@string/passwordString"
         android:textStyle="bold" />
 
+    <!-- Password input -->
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
@@ -217,6 +220,7 @@
         android:paddingEnd="7dp"
         android:paddingBottom="5dp" />
 
+    <!-- Confirm Password label -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -225,6 +229,7 @@
         android:text="@string/confirm_password"
         android:textStyle="bold" />
 
+    <!-- Confirm Password input -->
     <EditText
         android:id="@+id/rePasswordEditText"
         android:layout_width="match_parent"
@@ -241,16 +246,15 @@
         android:paddingEnd="7dp"
         android:paddingBottom="5dp" />
 
+    <!-- Loading indicator -->
     <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
         android:layout_gravity="center_horizontal"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
-
-    <!--    create account button -->
-
+    <!-- Request Account button -->
     <Button
         android:id="@+id/requestAccountButton"
         android:layout_width="match_parent"
@@ -258,11 +262,10 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="15dp"
+        android:onClick="requestClicked"
         android:backgroundTint="@color/darkBlue"
         android:text="@string/request_create_account"
         android:textSize="20sp"
-        android:onClick="requestClicked"
         android:textStyle="bold" />
-
 
 </LinearLayout>
