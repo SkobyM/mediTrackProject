@@ -19,7 +19,7 @@
     <string name="arrowback">arrowBack</string>
     <string name="forget">Forget</string>
     <string name="password">Password</string>
-    <string name="enter_your_informations_and_we_will_send_you_the_a_link_to_reset_your_password">Enter your Informations and we will send you the a link to reset your password</string>
+    <string name="enter_your_informations_and_we_will_send_you_the_a_link_to_reset_your_password">Enter your Information and we will send you the a link to reset your password</string>
     <string name="phone_number">Phone Number</string>
     <string name="_555555555">555555555</string>
     <string name="Continue">Continue</string>
@@ -53,7 +53,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="support_button">Support Button</string>
-    <string name="notfication_button">Notfication button</string>
+    <string name="notfication_button">Notification button</string>
     <string name="welcome">Welcome,</string>
     <string name="patient">Patient</string>
     <string name="profile_picture">Profile picture</string>
@@ -72,8 +72,8 @@
     <string name="alarm_clock">alarm clock</string>
     <string name="today_s_schedule">Today\'s Schedule</string>
     <string name="patients">Patients</string>
-    <string name="patients_medical_histor">Patients Medical Histor</string>
-    <string name="report_and_analytics">Reporst and Analytics</string>
+    <string name="patients_medical_histor">Patients Medical History</string>
+    <string name="report_and_analytics">Report and Analytics</string>
     <string name="welcome_dr">Welcome, Dr.</string>
     <string name="meditrack">mediTrack</string>
     <string name="prescriptions">Prescriptions</string>

@@ -134,11 +134,13 @@ public class Patient_Activity_LogInPage extends AppCompatActivity {
 
                             String userType = documentSnapshot.getString("userType");
 
+                            SharedPreferences.Editor editor = getSharedPreferences("loginPrefs", MODE_PRIVATE).edit();
                             if (isChecked) {
-                                SharedPreferences.Editor editor = getSharedPreferences("loginPrefs", MODE_PRIVATE).edit();
                                 editor.putBoolean("remember", true);
                                 editor.putString("userType", "patient"); // << أضف هذا
                                 editor.apply();
+                            }else {
+                                editor.putBoolean("remember", false);
                             }
 
 
