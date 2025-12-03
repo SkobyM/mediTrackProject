@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/doctor_bg"
@@ -8,11 +9,13 @@
     android:paddingEnd="18dp"
     android:paddingBottom="6dp">
 
+    <!-- Row containing side line and main content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <!-- هذا الخط العمودي -->
+
+        <!-- Vertical line for pending doctor -->
         <View
             android:layout_width="5dp"
             android:layout_height="match_parent"
@@ -20,13 +23,14 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/bg_for_line_in_pending_doctor" />
 
-        <!-- المحتوى الكامل -->
+        <!-- Patient info content -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:orientation="vertical">
 
+            <!-- Patient Name -->
             <TextView
                 android:id="@+id/patientName"
                 android:layout_width="wrap_content"
@@ -35,6 +39,7 @@
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
+            <!-- Patient Email -->
             <TextView
                 android:id="@+id/patientEmail"
                 android:layout_width="wrap_content"
@@ -42,14 +47,15 @@
                 android:textColor="#CACACA"
                 android:textSize="11sp" />
 
-
         </LinearLayout>
 
     </LinearLayout>
 
+    <!-- Bottom divider -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
         android:background="@color/white" />
+
 </LinearLayout>
