@@ -50,8 +50,15 @@ public class Patient_Activity_LogInPage extends AppCompatActivity {
         remember = prefs.getBoolean("remember", false);
 
         if (remember && mAuth.getCurrentUser() != null) {
-            Intent intent = new Intent(Patient_Activity_LogInPage.this, Patient_Activity_HomePage.class);
-            startActivity(intent);
+
+            String userType = prefs.getString("userType", "");
+
+            if (userType.equals("doctor")) {
+                startActivity(new Intent(this, Doctor_Activity_HomePage.class));
+            } else if (userType.equals("patient")) {
+                startActivity(new Intent(this, Patient_Activity_HomePage.class));
+            }
+
             finish();
         }
 
@@ -128,7 +135,10 @@ public class Patient_Activity_LogInPage extends AppCompatActivity {
                             String userType = documentSnapshot.getString("userType");
 
                             if (isChecked) {
-                                getSharedPreferences("loginPrefs", MODE_PRIVATE).edit().putBoolean("remember", true).apply();
+                                SharedPreferences.Editor editor = getSharedPreferences("loginPrefs", MODE_PRIVATE).edit();
+                                editor.putBoolean("remember", true);
+                                editor.putString("userType", "patient"); // << أضف هذا
+                                editor.apply();
                             }
 
 
