@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/doctorHomePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/doctor_bg"
     android:orientation="vertical"
+    android:background="@color/doctor_bg"
     tools:context=".Doctor_Activity_HomePage">
 
+    <!-- Area for displaying fragments -->
     <FrameLayout
         android:id="@+id/doctor_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+    <!-- Bottom navigation bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/doctor_bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-15dp"
         android:background="@drawable/bg_nav_menu_doctor"
         android:backgroundTint="@null"
-        app:itemActiveIndicatorStyle="@null"
+        android:layout_marginBottom="-15dp"
         app:itemBackground="@drawable/bg_nav_item_selector_doctor"
+        app:itemActiveIndicatorStyle="@null"
         app:itemIconTint="@color/white"
-        app:itemTextAppearanceActive="@style/ActiveTextForMenu"
         app:itemTextColor="@color/white"
+        app:itemTextAppearanceActive="@style/ActiveTextForMenu"
         app:menu="@menu/doctor_bottom_nav_menu" />
 
 </LinearLayout>
